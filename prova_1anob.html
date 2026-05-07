@@ -7,17 +7,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --green-escola: #1a5c2a;
-    --blue-light: #e8f5e9;
+    --blue: #1a73e8;
+    --blue-light: #e8f0fe;
     --green: #34a853;
     --green-light: #e6f4ea;
     --red: #ea4335;
     --red-light: #fce8e6;
     --yellow: #fbbc04;
     --yellow-light: #fef9e3;
-    --green-medio: #2e7d32;
+    --purple: #7c3aed;
     --purple-light: #ede9fe;
-    --bg: #f1f8f2;
+    --bg: #f0f4ff;
     --card: #ffffff;
     --text: #1e293b;
     --muted: #64748b;
@@ -38,7 +38,7 @@
 
   /* ---- HEADER ---- */
   header {
-    background: linear-gradient(135deg, #1a5c2a 0%, #2e7d32 100%);
+    background: linear-gradient(135deg, #1a73e8 0%, #7c3aed 100%);
     color: #fff;
     padding: 32px 20px 40px;
     text-align: center;
@@ -110,12 +110,12 @@
   }
   .progress-bar {
     height: 100%;
-    background: linear-gradient(90deg, #1a5c2a, #2e7d32);
+    background: linear-gradient(90deg, #1a73e8, #7c3aed);
     border-radius: 10px;
     transition: width 0.4s ease;
     width: 0%;
   }
-  .progress-count { font-size: 13px; font-weight: 800; color: #1a5c2a; white-space: nowrap; }
+  .progress-count { font-size: 13px; font-weight: 800; color: var(--blue); white-space: nowrap; }
 
   /* ---- MAIN ---- */
   main {
@@ -138,7 +138,7 @@
   .student-card h2 {
     font-family: 'Baloo 2', cursive;
     font-size: 18px;
-    color: #1a5c2a;
+    color: var(--blue);
     margin-bottom: 16px;
     display: flex; align-items: center; gap: 8px;
   }
@@ -157,7 +157,7 @@
     outline: none;
     transition: border-color 0.2s;
   }
-  .field-group input:focus { border-color: #1a5c2a; }
+  .field-group input:focus { border-color: var(--blue); }
 
   /* ---- QUESTION CARD ---- */
   .q-card {
@@ -182,7 +182,7 @@
     margin-bottom: 16px;
   }
   .q-num {
-    background: linear-gradient(135deg, #1a5c2a, #2e7d32);
+    background: linear-gradient(135deg, #1a73e8, #7c3aed);
     color: #fff;
     font-family: 'Baloo 2', cursive;
     font-size: 16px;
@@ -233,7 +233,7 @@
     user-select: none;
   }
   .match-item:hover { transform: scale(1.02); }
-  .match-item.selected { background: var(--blue); color: #fff; border-color: #1a5c2a; }
+  .match-item.selected { background: var(--blue); color: #fff; border-color: var(--blue); }
   .match-item.matched  { background: #f1f5f9; border-color: #94a3b8; color: #475569; cursor: default; }
   .match-item.matched-right { background: #f1f5f9; border-color: #94a3b8; color: #475569; cursor: default; }
   .match-item.used { background: #f1f5f9; border-color: #94a3b8; color: #475569; cursor: default; }
@@ -256,7 +256,7 @@
     text-align: left;
     transition: background 0.18s, border-color 0.18s, transform 0.12s;
   }
-  .option-btn:hover:not(:disabled) { background: var(--blue-light); border-color: #1a5c2a; transform: translateX(4px); }
+  .option-btn:hover:not(:disabled) { background: var(--blue-light); border-color: var(--blue); transform: translateX(4px); }
   .option-btn.selected-answer { background: #f1f5f9; border-color: #94a3b8; color: #475569; }
   .option-btn:disabled { cursor: default; }
   .opt-circle {
@@ -294,7 +294,7 @@
     cursor: pointer;
     transition: all 0.18s;
   }
-  .tf-btn:hover:not(:disabled) { border-color: #1a5c2a; background: var(--blue-light); color: #1a5c2a; }
+  .tf-btn:hover:not(:disabled) { border-color: var(--blue); background: var(--blue-light); color: var(--blue); }
   .tf-btn.selected-answer { background: #f1f5f9; border-color: #94a3b8; color: #475569; font-weight: 900; }
   .tf-btn:disabled { cursor: default; }
 
@@ -313,7 +313,7 @@
     outline: none;
     transition: border-color 0.2s;
   }
-  .text-answer:focus { border-color: #1a5c2a; }
+  .text-answer:focus { border-color: var(--blue); }
 
   /* ---- FEEDBACK ---- */
   .feedback {
@@ -335,7 +335,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    background: linear-gradient(135deg, #1a5c2a, #2e7d32);
+    background: linear-gradient(135deg, #1a73e8, #7c3aed);
     color: #fff;
     border: none;
     border-radius: 12px;
@@ -399,7 +399,7 @@
     padding: 30px 0 10px;
   }
   .submit-btn {
-    background: linear-gradient(135deg, #1a5c2a, #2e7d32);
+    background: linear-gradient(135deg, #34a853, #1a73e8);
     color: #fff;
     border: none;
     border-radius: 18px;
@@ -474,7 +474,7 @@
     font-family: 'Baloo 2', cursive;
     font-size: 56px;
     font-weight: 800;
-    background: linear-gradient(135deg, #1a5c2a, #2e7d32);
+    background: linear-gradient(135deg, #1a73e8, #7c3aed);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -492,7 +492,7 @@
   .result-bar {
     height: 100%;
     border-radius: 18px;
-    background: linear-gradient(90deg, #34a853, #1a5c2a);
+    background: linear-gradient(90deg, #34a853, #1a73e8);
     transition: width 1s ease;
   }
   .result-msg {
@@ -513,7 +513,7 @@
   }
   .detail-green { background: var(--green-light); color: var(--green); }
   .detail-red   { background: var(--red-light);   color: var(--red); }
-  .detail-blue  { background: var(--blue-light);  color: #1a5c2a; }
+  .detail-blue  { background: var(--blue-light);  color: var(--blue); }
   .retry-btn {
     background: var(--blue);
     color: #fff;
@@ -532,7 +532,7 @@
   /* ---- MATCH LINES indicator ---- */
   .match-lines { margin-top: 10px; font-size: 13px; color: var(--muted); font-style: italic; }
   .match-pair { display: flex; align-items: center; gap: 6px; margin-top: 4px; font-weight: 700; }
-  .match-pair-arrow { color: #1a5c2a; }
+  .match-pair-arrow { color: var(--blue); }
 
   @media (max-width: 500px) {
     .q-card { padding: 18px 14px 16px; }
@@ -544,7 +544,7 @@
 <body>
 
 <header>
-  <div class="escola-tag">m escola mundaí</div>
+  <div class="escola-tag">🏫 Escola Mundaí</div>
   <h1>💻 Prova de Informática</h1>
   <p style="font-size:15px;font-weight:700;opacity:.85;margin-top:4px;">Avaliação Teórica – I Trimestre</p>
   <div class="header-meta">
@@ -608,7 +608,7 @@
     <div class="q-header">
       <div class="q-num">2</div>
       <span class="q-text" style="margin:0">Escreva o nome de cada peça do computador mostrada abaixo</span>
-      <span class="q-points">0,8 pts</span>
+      <span class="q-points">1,2 pts</span>
     </div>
     <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px;">
 
@@ -720,13 +720,13 @@
     </div>
     <div class="options-list">
       <button class="option-btn" onclick="checkMC('q5',this,'wrong')">
-        <div class="opt-circle">A</div> <span style="background:#e8f5e9;border-radius:6px;padding:1px 8px;font-weight:800;color:#1a5c2a;margin-right:6px;">Botão Esquerdo</span> Clique normal para selecionar e abrir
+        <div class="opt-circle">A</div> <span style="background:#e8f0fe;border-radius:6px;padding:1px 8px;font-weight:800;color:#1a73e8;margin-right:6px;">Botão Esquerdo</span> Clique normal para selecionar e abrir
       </button>
       <button class="option-btn" onclick="checkMC('q5',this,'correct')">
         <div class="opt-circle">B</div> <span style="background:#fce8e6;border-radius:6px;padding:1px 8px;font-weight:800;color:#dc2626;margin-right:6px;">Botão Direito</span> Abre um menu com opções (incluindo "Nova pasta")
       </button>
       <button class="option-btn" onclick="checkMC('q5',this,'wrong')">
-        <div class="opt-circle">C</div> <span style="background:#ede9fe;border-radius:6px;padding:1px 8px;font-weight:800;color:#2e7d32;margin-right:6px;">Scroll</span> Serve para rolar a página para cima e para baixo
+        <div class="opt-circle">C</div> <span style="background:#ede9fe;border-radius:6px;padding:1px 8px;font-weight:800;color:#7c3aed;margin-right:6px;">Scroll</span> Serve para rolar a página para cima e para baixo
       </button>
     </div>
     <div class="feedback" id="q5-feedback"></div>
@@ -1002,7 +1002,7 @@ function checkQ2() {
       wrong.push(item.label);
     }
   });
-  const pts = parseFloat((correct * 0.2).toFixed(1));
+  const pts = parseFloat((correct * 0.3).toFixed(1));
   markAnswered('q2', pts);
   document.getElementById('q2').classList.add('answered');
   showFeedback('q2-feedback');
@@ -1400,7 +1400,7 @@ async function submitProva() {
     q12_shift:   _mcPending['q12'] ? _mcPending['q12'].result : (scores['q12'] > 0 ? 'correct' : 'wrong'),
   };
 
-  const totalPts = parseFloat(Math.min(Object.values(scores).reduce((a,b) => a+b, 0), 10).toFixed(1));
+  const totalPts = parseFloat(Object.values(scores).reduce((a,b) => a+b, 0).toFixed(1));
   const maxPts = 10.0;
   const pct = Math.round((totalPts / maxPts) * 100);
   const answeredCount = Object.keys(answered).length;
@@ -1454,7 +1454,7 @@ async function submitProva() {
     <div class="detail-pill detail-red">❌ ${answeredCount - correctCount} erradas</div>
     <div class="detail-pill detail-blue">📋 ${answeredCount} respondidas</div>
     <div style="margin-top:16px;width:100%">
-      <a href="home.html" style="display:inline-block;background:#1a5c2a;color:#fff;border-radius:12px;padding:12px 28px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;text-decoration:none;">← Voltar para início</a>
+      <a href="home.html" style="display:inline-block;background:#1a73e8;color:#fff;border-radius:12px;padding:12px 28px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;text-decoration:none;">← Voltar para início</a>
     </div>
   `;
 }
@@ -1463,6 +1463,5 @@ async function submitProva() {
 document.getElementById('studentDate').valueAsDate = new Date();
 updateProgress();
 </script>
-<footer style="text-align:center;padding:20px;font-family:Nunito,sans-serif;font-size:13px;color:#666;border-top:2px solid #e2e8f0;margin-top:20px;background:#fff;">m escola mundaí &nbsp;|&nbsp; 💻 Informática &nbsp;|&nbsp; 👨‍🏫 Prof. Thiago Costa</footer>
 </body>
 </html>

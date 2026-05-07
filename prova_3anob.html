@@ -7,13 +7,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --green-escola: #1a5c2a; --blue-light: #e8f5e9;
+    --blue: #1a73e8; --blue-light: #e8f0fe;
     --green: #34a853; --green-light: #e6f4ea;
     --red: #ea4335; --red-light: #fce8e6;
     --yellow: #fbbc04; --yellow-light: #fef9e3;
-    --green-medio: #2e7d32; --purple-light: #ede9fe;
+    --purple: #7c3aed; --purple-light: #ede9fe;
     --teal: #0d9488; --teal-light: #ccfbf1;
-    --bg: #f1f8f2; --card: #ffffff;
+    --bg: #f0f4ff; --card: #ffffff;
     --text: #1e293b; --muted: #64748b;
     --border: #e2e8f0; --radius: 18px;
     --shadow: 0 4px 24px rgba(13,148,136,0.10);
@@ -22,7 +22,7 @@
   body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding-bottom: 60px; }
 
   header {
-    background: linear-gradient(135deg, #0d9488 0%, #1a5c2a 100%);
+    background: linear-gradient(135deg, #0d9488 0%, #1a73e8 100%);
     color: #fff; padding: 32px 20px 40px; text-align: center; position: relative; overflow: hidden;
   }
   header::before {
@@ -38,7 +38,7 @@
   .progress-wrap { position: sticky; top: 0; z-index: 100; background: #fff; border-bottom: 2px solid var(--border); padding: 10px 20px; display: flex; align-items: center; gap: 14px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
   .progress-label { font-size: 13px; font-weight: 700; color: var(--muted); white-space: nowrap; }
   .progress-bar-bg { flex: 1; height: 10px; background: var(--border); border-radius: 10px; overflow: hidden; }
-  .progress-bar { height: 100%; background: linear-gradient(90deg, #0d9488, #1a5c2a); border-radius: 10px; transition: width 0.4s ease; width: 0%; }
+  .progress-bar { height: 100%; background: linear-gradient(90deg, #0d9488, #1a73e8); border-radius: 10px; transition: width 0.4s ease; width: 0%; }
   .progress-count { font-size: 13px; font-weight: 800; color: var(--teal); white-space: nowrap; }
 
   main { max-width: 780px; margin: 0 auto; padding: 30px 16px; display: flex; flex-direction: column; gap: 24px; }
@@ -55,7 +55,7 @@
   @keyframes slideIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
   .q-card.answered { border-color: #cbd5e1; background: #f8fafc; }
   .q-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
-  .q-num { background: linear-gradient(135deg, #0d9488, #1a5c2a); color: #fff; font-family: 'Baloo 2', cursive; font-size: 16px; font-weight: 800; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .q-num { background: linear-gradient(135deg, #0d9488, #1a73e8); color: #fff; font-family: 'Baloo 2', cursive; font-size: 16px; font-weight: 800; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
   .q-points { margin-left: auto; background: var(--yellow-light); color: #92600a; font-size: 12px; font-weight: 800; border-radius: 20px; padding: 3px 10px; white-space: nowrap; }
   .q-text { font-size: 16px; font-weight: 700; line-height: 1.5; margin-bottom: 18px; color: var(--text); }
   .q-hint { font-size: 13px; color: var(--muted); font-weight: 600; margin-bottom: 14px; font-style: italic; }
@@ -96,7 +96,7 @@
   .feedback.show { display: flex; }
   .feedback.answered { background: #f1f5f9; color: #475569; }
 
-  .check-btn { margin-top: 14px; display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #0d9488, #1a5c2a); color: #fff; border: none; border-radius: 12px; padding: 11px 22px; font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 800; cursor: pointer; transition: opacity 0.18s, transform 0.12s; box-shadow: 0 3px 12px rgba(13,148,136,0.3); }
+  .check-btn { margin-top: 14px; display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #0d9488, #1a73e8); color: #fff; border: none; border-radius: 12px; padding: 11px 22px; font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 800; cursor: pointer; transition: opacity 0.18s, transform 0.12s; box-shadow: 0 3px 12px rgba(13,148,136,0.3); }
   .check-btn:hover { opacity: 0.88; transform: translateY(-1px); }
   .confirm-btn { margin-top: 14px; display: inline-flex; align-items: center; gap: 8px; background: #16a34a; color: #fff; border: none; border-radius: 12px; padding: 11px 22px; font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 800; cursor: pointer; transition: opacity 0.18s, transform 0.12s; }
   .confirm-btn:hover { opacity: 0.88; }
@@ -119,16 +119,16 @@
   .result-emoji { font-size: 64px; margin-bottom: 12px; }
   .result-title { font-family: 'Baloo 2', cursive; font-size: 30px; font-weight: 800; margin-bottom: 6px; }
   .result-name  { font-size: 18px; font-weight: 700; color: var(--muted); margin-bottom: 20px; }
-  .result-score { display: inline-block; font-family: 'Baloo 2', cursive; font-size: 56px; font-weight: 800; background: linear-gradient(135deg, #0d9488, #1a5c2a); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 8px; }
+  .result-score { display: inline-block; font-family: 'Baloo 2', cursive; font-size: 56px; font-weight: 800; background: linear-gradient(135deg, #0d9488, #1a73e8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 8px; }
   .result-max { font-size: 16px; color: var(--muted); font-weight: 700; margin-bottom: 24px; }
   .result-bar-bg { width: 100%; height: 18px; background: var(--border); border-radius: 18px; overflow: hidden; margin-bottom: 24px; }
-  .result-bar { height: 100%; border-radius: 18px; background: linear-gradient(90deg, #0d9488, #1a5c2a); transition: width 1s ease; }
+  .result-bar { height: 100%; border-radius: 18px; background: linear-gradient(90deg, #0d9488, #1a73e8); transition: width 1s ease; }
   .result-msg { font-size: 17px; font-weight: 700; padding: 14px 20px; border-radius: 12px; margin-bottom: 20px; }
   .result-details { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 24px; }
   .detail-pill { border-radius: 20px; padding: 8px 18px; font-size: 14px; font-weight: 800; display: flex; align-items: center; gap: 6px; }
   .detail-green { background: var(--green-light); color: var(--green); }
   .detail-red   { background: var(--red-light);   color: var(--red); }
-  .detail-blue  { background: var(--blue-light);  color: #1a5c2a; }
+  .detail-blue  { background: var(--blue-light);  color: var(--blue); }
   .stars { font-size: 28px; letter-spacing: 4px; margin-bottom: 8px; }
 
   .fill-row { display: flex; flex-direction: column; gap: 10px; }
@@ -141,7 +141,7 @@
 <body>
 
 <header>
-  <div class="escola-tag">m escola mundaí</div>
+  <div class="escola-tag">🏫 Escola Mundaí</div>
   <h1>💾 Prova de Informática</h1>
   <p style="font-size:15px;font-weight:700;opacity:.85;margin-top:4px;">Avaliação Teórica – I Trimestre</p>
   <div class="header-meta">
@@ -666,6 +666,5 @@ async function submitProva() {
 document.getElementById('studentDate').valueAsDate = new Date();
 updateProgress();
 </script>
-<footer style="text-align:center;padding:20px;font-family:Nunito,sans-serif;font-size:13px;color:#666;border-top:2px solid #e2e8f0;margin-top:20px;background:#fff;">m escola mundaí &nbsp;|&nbsp; 💻 Informática &nbsp;|&nbsp; 👨‍🏫 Prof. Thiago Costa</footer>
 </body>
 </html>

@@ -7,16 +7,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --green-escola: #1a5c2a; --blue-light: #e8f5e9;
+    --blue: #1a73e8; --blue-light: #e8f0fe;
     --green: #34a853; --red: #ea4335;
-    --bg: #f1f8f2; --card: #fff;
+    --bg: #f0f4ff; --card: #fff;
     --text: #1e293b; --muted: #64748b;
     --border: #e2e8f0; --radius: 18px;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     font-family: 'Nunito', sans-serif;
-    background: linear-gradient(135deg, #1a5c2a 0%, #2e7d32 100%);
+    background: linear-gradient(135deg, #1a73e8 0%, #7c3aed 100%);
     min-height: 100vh;
     display: flex; align-items: center; justify-content: center;
     padding: 20px;
@@ -45,10 +45,10 @@
     font-size: 15px; font-weight: 600; color: var(--text); outline: none;
     transition: border-color 0.2s;
   }
-  .field input:focus { border-color: #1a5c2a; }
+  .field input:focus { border-color: var(--blue); }
 
   .btn-login {
-    width: 100%; background: linear-gradient(135deg, #1a5c2a, #2e7d32);
+    width: 100%; background: linear-gradient(135deg, #1a73e8, #7c3aed);
     color: #fff; border: none; border-radius: 14px;
     padding: 14px; font-family: 'Baloo 2', cursive;
     font-size: 18px; font-weight: 800; cursor: pointer;
@@ -68,17 +68,12 @@
     color: var(--muted); font-weight: 600;
     text-decoration: none; transition: color 0.2s;
   }
-  .admin-link:hover { color: #1a5c2a; }
+  .admin-link:hover { color: var(--blue); }
 </style>
 </head>
 <body>
 <div class="login-box">
-  <div style="margin-bottom:12px;">
-  <div style="display:inline-flex;align-items:center;gap:10px;background:#1a5c2a;border-radius:14px;padding:10px 20px;">
-    <div style="background:#fff;border-radius:8px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-family:Baloo 2,cursive;font-size:22px;font-weight:900;color:#1a5c2a;">m</div>
-    <span style="color:#fff;font-family:Baloo 2,cursive;font-size:22px;font-weight:800;">escola mundaí</span>
-  </div>
-</div>
+  <div class="escola-logo">🏫</div>
   <div class="escola-nome">Escola Mundaí</div>
   <div class="escola-sub">Sistema de Avaliações Online</div>
 
@@ -148,6 +143,5 @@
   // Se já logado, vai direto pra home
   if (localStorage.getItem('token')) window.location.href = 'home.html';
 </script>
-<footer style="text-align:center;padding:20px;font-family:Nunito,sans-serif;font-size:13px;color:#666;border-top:2px solid #e2e8f0;margin-top:20px;background:#fff;">m escola mundaí &nbsp;|&nbsp; 💻 Informática &nbsp;|&nbsp; 👨‍🏫 Prof. Thiago Costa</footer>
 </body>
 </html>

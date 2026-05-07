@@ -7,12 +7,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --green-escola: #1a5c2a; --blue-light: #e8f5e9;
+    --blue: #1a73e8; --blue-light: #e8f0fe;
     --green: #34a853; --green-light: #e6f4ea;
     --yellow: #fbbc04; --yellow-light: #fef9e3;
     --red: #ea4335; --red-light: #fce8e6;
-    --green-medio: #2e7d32;
-    --bg: #f1f8f2; --card: #fff;
+    --purple: #7c3aed;
+    --bg: #f0f4ff; --card: #fff;
     --text: #1e293b; --muted: #64748b;
     --border: #e2e8f0; --radius: 18px;
   }
@@ -20,7 +20,7 @@
   body { font-family: 'Nunito', sans-serif; background: var(--bg); min-height: 100vh; }
 
   header {
-    background: linear-gradient(135deg, #1a5c2a 0%, #2e7d32 100%);
+    background: linear-gradient(135deg, #1a73e8 0%, #7c3aed 100%);
     padding: 24px 24px 60px;
     color: #fff; position: relative; overflow: hidden;
   }
@@ -90,7 +90,7 @@
   .badge-bloq     { background: var(--border); color: var(--muted); }
 
   .btn-fazer {
-    background: linear-gradient(135deg, #1a5c2a, #2e7d32);
+    background: linear-gradient(135deg, #1a73e8, #7c3aed);
     color: #fff; border: none; border-radius: 12px;
     padding: 10px 20px; font-family: 'Nunito', sans-serif;
     font-size: 14px; font-weight: 800; cursor: pointer;
@@ -114,7 +114,7 @@
 
 <header>
   <div class="header-top">
-    <span class="escola-tag">m escola mundaí</span>
+    <span class="escola-tag">🏫 Escola Mundaí</span>
     <button class="btn-sair" onclick="sair()">Sair →</button>
   </div>
   <div class="welcome">
@@ -266,6 +266,5 @@
 
   carregarStatus();
 </script>
-<footer style="text-align:center;padding:20px;font-family:Nunito,sans-serif;font-size:13px;color:#666;border-top:2px solid #e2e8f0;margin-top:20px;background:#fff;">m escola mundaí &nbsp;|&nbsp; 💻 Informática &nbsp;|&nbsp; 👨‍🏫 Prof. Thiago Costa</footer>
 </body>
 </html>

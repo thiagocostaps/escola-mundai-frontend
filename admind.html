@@ -7,9 +7,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --blue:#1a5c2a;--blue-light:#e8f5e9;--green:#34a853;--green-light:#e6f4ea;
+    --blue:#1a73e8;--blue-light:#e8f0fe;--green:#34a853;--green-light:#e6f4ea;
     --red:#ea4335;--red-light:#fce8e6;--yellow:#fbbc04;--yellow-light:#fef9e3;
-    --purple:#2e7d32;--bg:#f0f4ff;--card:#fff;--text:#1e293b;--muted:#64748b;
+    --purple:#7c3aed;--bg:#f0f4ff;--card:#fff;--text:#1e293b;--muted:#64748b;
     --border:#e2e8f0;--radius:14px;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
@@ -18,7 +18,7 @@
   /* ── LOGIN ── */
   #loginScreen{
     display:flex;align-items:center;justify-content:center;min-height:100vh;
-    background:linear-gradient(135deg,#1a5c2a,#2e7d32);padding:20px;
+    background:linear-gradient(135deg,#1a73e8,#7c3aed);padding:20px;
   }
   .login-box{background:#fff;border-radius:20px;padding:36px;width:100%;max-width:380px;text-align:center;}
   .login-box h2{font-family:'Baloo 2',cursive;font-size:22px;margin-bottom:20px;color:var(--text);}
@@ -26,13 +26,13 @@
   .field label{display:block;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:5px;}
   .field input{width:100%;border:2px solid var(--border);border-radius:10px;padding:11px 14px;font-family:'Nunito',sans-serif;font-size:14px;outline:none;}
   .field input:focus{border-color:var(--blue);}
-  .btn-primary{width:100%;background:linear-gradient(135deg,#1a5c2a,#2e7d32);color:#fff;border:none;border-radius:12px;padding:13px;font-family:'Baloo 2',cursive;font-size:17px;font-weight:800;cursor:pointer;margin-top:6px;}
+  .btn-primary{width:100%;background:linear-gradient(135deg,#1a73e8,#7c3aed);color:#fff;border:none;border-radius:12px;padding:13px;font-family:'Baloo 2',cursive;font-size:17px;font-weight:800;cursor:pointer;margin-top:6px;}
   .btn-primary:hover{opacity:.9;}
   .erro-login{background:var(--red-light);color:#991b1b;border-radius:8px;padding:8px 12px;font-size:13px;font-weight:700;margin-top:12px;display:none;}
 
   /* ── LAYOUT ── */
   #adminApp{display:none;}
-  .topbar{background:linear-gradient(135deg,#1a5c2a,#2e7d32);color:#fff;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;}
+  .topbar{background:linear-gradient(135deg,#1a73e8,#7c3aed);color:#fff;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;}
   .topbar-title{font-family:'Baloo 2',cursive;font-size:20px;font-weight:800;}
   .btn-sair{background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.3);color:#fff;border-radius:8px;padding:6px 14px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;cursor:pointer;}
 
@@ -92,6 +92,20 @@
   .nota-alta{background:var(--green-light);color:var(--green);}
   .nota-media{background:var(--yellow-light);color:#92600a;}
   .nota-baixa{background:var(--red-light);color:var(--red);}
+
+  /* ── MODAL RESPOSTAS ── */
+  .modal-respostas{background:#fff;border-radius:18px;padding:28px;width:100%;max-width:600px;max-height:85vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.2);}
+  .modal-respostas h3{font-family:'Baloo 2',cursive;font-size:18px;margin-bottom:6px;}
+  .modal-respostas .sub{font-size:13px;color:var(--muted);font-weight:600;margin-bottom:16px;}
+  .resp-item{border:2px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:10px;}
+  .resp-item .q-label{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:4px;}
+  .resp-item .q-val{font-size:14px;font-weight:700;color:var(--text);}
+  .resp-item.ok{border-color:var(--green);background:var(--green-light);}
+  .resp-item.ok .q-val{color:#166534;}
+  .resp-item.wrong{border-color:var(--red);background:var(--red-light);}
+  .resp-item.wrong .q-val{color:#991b1b;}
+  .resp-item.parcial{border-color:var(--yellow);background:var(--yellow-light);}
+  .resp-item.parcial .q-val{color:#92600a;}
 </style>
 </head>
 <body>
@@ -192,6 +206,18 @@
           <tbody id="tbody-resultados"><tr><td colspan="6" style="text-align:center;color:var(--muted)">Selecione os filtros acima</td></tr></tbody>
         </table>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal ver respostas -->
+<div class="modal-overlay" id="modalRespostas">
+  <div class="modal-respostas">
+    <h3>📋 Respostas do Aluno</h3>
+    <div class="sub" id="modal-resp-sub"></div>
+    <div id="modal-resp-body"></div>
+    <div style="margin-top:16px;text-align:right;">
+      <button class="btn-sm btn-blue" onclick="document.getElementById('modalRespostas').classList.remove('open')">Fechar</button>
     </div>
   </div>
 </div>
@@ -445,9 +471,72 @@
         <td style="font-size:12px;">${r.prova}</td>
         <td><span class="nota-badge ${cls}">${String(n.toFixed(1)).replace('.',',')} / 10,0</span></td>
         <td style="font-size:12px;">${data}</td>
-        <td><button class="btn-sm btn-red" onclick="deletarResultado(${r.id},'${r.nome_completo.replace(/'/g,"\\'")}')">🗑️</button></td>
+        <td><button class="btn-sm btn-blue" onclick="verRespostas(${r.id})" style="margin-right:4px;">👁️</button><button class="btn-sm btn-red" onclick="deletarResultado(${r.id},'${r.nome_completo.replace(/'/g,"\\'")}')">🗑️</button></td>
       </tr>`;
     }).join('');
+  }
+
+  function verRespostas(id) {
+    const r = todosResultados.find(x => x.id === id);
+    if (!r) return;
+    document.getElementById('modal-resp-sub').innerHTML =
+      `<strong>${r.nome_completo}</strong> (${r.usuario}) — Turma: ${r.turma || '—'} — Prova: ${r.prova} — Nota: ${parseFloat(r.nota).toFixed(1).replace('.',',')}`;
+
+    const respostas = r.respostas_json || {};
+
+    // Ordem e labels para cada prova
+    const ordemLabels1ano = [
+      ['q1_match_computador', 'Q1 – Relacionar peças do computador'],
+      ['q2_pecas',            'Q2 – Nome das peças'],
+      ['q3_ligar_computador', 'Q3 – Ordem para ligar o computador'],
+      ['q4_principal_peca',   'Q4 – Principal peça do computador'],
+      ['q5_mouse',            'Q5 – Função do mouse'],
+      ['q6_vf',               'Q6 – Verdadeiro ou Falso'],
+      ['q7_teclado',          'Q7 – Função do teclado'],
+      ['q8_monitor',          'Q8 – Sobre o monitor'],
+      ['q9_mc',               'Q9 – Múltipla escolha'],
+      ['q10_mc',              'Q10 – Múltipla escolha'],
+      ['q11_match_funcoes',   'Q11 – Relacionar funções'],
+      ['q12_mc',              'Q12 – Múltipla escolha'],
+    ];
+    const ordemLabels2ano = [
+      ['q1_match_mouse',   'Q1 – Relacionar botões do mouse'],
+      ['q2_funcao_mouse',  'Q2 – Função do mouse'],
+      ['q3_teclas',        'Q3 – Funções das teclas'],
+      ['q4_area_trabalho', 'Q4 – Área de Trabalho'],
+      ['q5_match_area',    'Q5 – Elementos da Área de Trabalho'],
+      ['q6_vf',            'Q6 – Verdadeiro ou Falso'],
+      ['q7_maximizar',     'Q7 – Botão Maximizar'],
+      ['q8_janela',        'Q8 – Minimizar/Maximizar/Restaurar'],
+      ['q9_barra',         'Q9 – Barra de Tarefas'],
+      ['q10_vf_teclado',   'Q10 – V ou F sobre teclado'],
+      ['q11_botao_dir',    'Q11 – Botão direito do mouse'],
+    ];
+
+    const ordem = r.prova.includes('2ano') ? ordemLabels2ano : ordemLabels1ano;
+
+    // Monta HTML na ordem correta
+    const html = ordem.map(([key, label]) => {
+      const val = respostas[key];
+      if (val === undefined) return '';
+      let display = '';
+      if (typeof val === 'object' && val !== null) {
+        display = Object.entries(val).map(([k, v]) => `<em>${k}:</em> <strong>${v ?? '—'}</strong>`).join(' &nbsp;|&nbsp; ');
+      } else {
+        display = val === 'correct' ? '✅ Correta' : val === 'wrong' ? '❌ Errada' : String(val ?? '—');
+      }
+      // Cor: verde = correto, vermelho = errado, cinza = texto/match
+      let cls = '';
+      if (val === 'correct') cls = 'ok';
+      else if (val === 'wrong') cls = 'wrong';
+      return `<div class="resp-item ${cls}">
+        <div class="q-label">${label}</div>
+        <div class="q-val">${display}</div>
+      </div>`;
+    }).filter(Boolean).join('');
+
+    document.getElementById('modal-resp-body').innerHTML = html || '<p style="color:var(--muted)">Sem detalhes disponíveis.</p>';
+    document.getElementById('modalRespostas').classList.add('open');
   }
 
   async function deletarResultado(id, nome) {
@@ -480,6 +569,5 @@
     el.style.display = 'block';
   }
 </script>
-<footer style="text-align:center;padding:20px;font-family:Nunito,sans-serif;font-size:13px;color:#666;border-top:2px solid #e2e8f0;margin-top:20px;background:#fff;">🏫 Escola Mundaí &nbsp;|&nbsp; 💻 Informática &nbsp;|&nbsp; 👨‍🏫 Prof. Thiago Costa</footer>
 </body>
 </html>
