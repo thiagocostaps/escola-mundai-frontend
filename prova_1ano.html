@@ -608,7 +608,7 @@
     <div class="q-header">
       <div class="q-num">2</div>
       <span class="q-text" style="margin:0">Escreva o nome de cada peça do computador mostrada abaixo</span>
-      <span class="q-points">1,2 pts</span>
+      <span class="q-points">0,8 pts</span>
     </div>
     <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px;">
 
@@ -1002,7 +1002,7 @@ function checkQ2() {
       wrong.push(item.label);
     }
   });
-  const pts = parseFloat((correct * 0.3).toFixed(1));
+  const pts = parseFloat((correct * 0.2).toFixed(1));
   markAnswered('q2', pts);
   document.getElementById('q2').classList.add('answered');
   showFeedback('q2-feedback');
@@ -1400,7 +1400,7 @@ async function submitProva() {
     q12_shift:   _mcPending['q12'] ? _mcPending['q12'].result : (scores['q12'] > 0 ? 'correct' : 'wrong'),
   };
 
-  const totalPts = parseFloat(Object.values(scores).reduce((a,b) => a+b, 0).toFixed(1));
+  const totalPts = parseFloat(Math.min(Object.values(scores).reduce((a,b) => a+b, 0), 10).toFixed(1));
   const maxPts = 10.0;
   const pct = Math.round((totalPts / maxPts) * 100);
   const answeredCount = Object.keys(answered).length;
