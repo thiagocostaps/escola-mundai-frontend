@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Escola Mundaí – Minhas Provas</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #1a73e8; --blue-light: #e8f0fe;
+    --green: #34a853; --green-light: #e6f4ea;
+    --yellow: #fbbc04; --yellow-light: #fef9e3;
+    --red: #ea4335; --red-light: #fce8e6;
+    --purple: #7c3aed;
+    --bg: #f0f4ff; --card: #fff;
+    --text: #1e293b; --muted: #64748b;
+    --border: #e2e8f0; --radius: 18px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Nunito', sans-serif; background: var(--bg); min-height: 100vh; }
+
+  header {
+    background: linear-gradient(135deg, #1a73e8 0%, #7c3aed 100%);
+    padding: 24px 24px 60px;
+    color: #fff; position: relative; overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .header-top { display: flex; justify-content: space-between; align-items: center; }
+  .escola-tag {
+    background: rgba(255,255,255,0.18); border: 1.5px solid rgba(255,255,255,0.3);
+    border-radius: 20px; padding: 4px 14px; font-size: 13px; font-weight: 700;
+  }
+  .btn-sair {
+    background: rgba(255,255,255,0.15); border: 1.5px solid rgba(255,255,255,0.3);
+    color: #fff; border-radius: 10px; padding: 6px 14px; font-family: 'Nunito', sans-serif;
+    font-size: 13px; font-weight: 700; cursor: pointer; transition: background 0.2s;
+  }
+  .btn-sair:hover { background: rgba(255,255,255,0.25); }
+  .welcome { margin-top: 28px; }
+  .welcome-sub { font-size: 14px; opacity: .8; font-weight: 600; }
+  .welcome-nome { font-family: 'Baloo 2', cursive; font-size: 28px; font-weight: 800; margin-top: 2px; }
+  .welcome-turma { font-size: 14px; opacity: .75; font-weight: 600; margin-top: 2px; }
+
+  main {
+    max-width: 700px; margin: -36px auto 40px;
+    padding: 0 16px;
+  }
+
+  .section-title {
+    font-family: 'Baloo 2', cursive; font-size: 18px; font-weight: 800;
+    color: var(--text); margin: 24px 0 12px;
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  .prova-card {
+    background: var(--card); border-radius: var(--radius);
+    padding: 20px 22px; margin-bottom: 14px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+    border: 2px solid transparent;
+    display: flex; align-items: center; gap: 16px;
+    transition: box-shadow 0.2s, transform 0.15s;
+  }
+  .prova-card:hover { box-shadow: 0 6px 28px rgba(0,0,0,0.12); transform: translateY(-1px); }
+  .prova-card.feita { border-color: var(--green); background: #f6fff8; }
+  .prova-card.bloqueada { opacity: .55; pointer-events: none; }
+
+  .prova-icon {
+    width: 52px; height: 52px; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px; flex-shrink: 0;
+  }
+  .icon-blue   { background: var(--blue-light); }
+  .icon-green  { background: var(--green-light); }
+  .icon-yellow { background: var(--yellow-light); }
+
+  .prova-info { flex: 1; }
+  .prova-titulo { font-family: 'Baloo 2', cursive; font-size: 17px; font-weight: 800; color: var(--text); }
+  .prova-sub { font-size: 13px; color: var(--muted); font-weight: 600; margin-top: 2px; }
+  .prova-nota { font-size: 13px; font-weight: 800; color: var(--green); margin-top: 4px; }
+
+  .badge {
+    border-radius: 20px; padding: 4px 12px; font-size: 12px; font-weight: 800;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .badge-feita    { background: var(--green-light); color: var(--green); }
+  .badge-pendente { background: var(--yellow-light); color: #92600a; }
+  .badge-bloq     { background: var(--border); color: var(--muted); }
+
+  .btn-fazer {
+    background: linear-gradient(135deg, #1a73e8, #7c3aed);
+    color: #fff; border: none; border-radius: 12px;
+    padding: 10px 20px; font-family: 'Nunito', sans-serif;
+    font-size: 14px; font-weight: 800; cursor: pointer;
+    transition: opacity 0.2s; white-space: nowrap; flex-shrink: 0;
+  }
+  .btn-fazer:hover { opacity: 0.88; }
+
+  .loading { text-align: center; padding: 40px; color: var(--muted); font-weight: 700; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <span class="escola-tag">🏫 Escola Mundaí</span>
+    <button class="btn-sair" onclick="sair()">Sair →</button>
+  </div>
+  <div class="welcome">
+    <div class="welcome-sub">Olá, bem-vindo(a)! 👋</div>
+    <div class="welcome-nome" id="nomeAluno">Carregando…</div>
+    <div class="welcome-turma" id="turmaAluno"></div>
+  </div>
+</header>
+
+<main>
+  <div class="section-title">📋 Minhas Avaliações</div>
+  <div id="listaProvas" class="loading">Carregando avaliações…</div>
+</main>
+
+<script>
+  const API = localStorage.getItem('api_url') || 'https://SEU-PROJETO.up.railway.app';
+  const token = localStorage.getItem('token');
+  const nome  = localStorage.getItem('aluno_nome') || '';
+  const turma = localStorage.getItem('aluno_turma') || '';
+
+  if (!token) window.location.href = 'login.html';
+
+  document.getElementById('nomeAluno').textContent = nome;
+  document.getElementById('turmaAluno').textContent = turma ? `Turma: ${turma}` : '';
+
+  // Lista de provas disponíveis — adicione mais conforme criar
+  const provasDisponiveis = [
+    {
+      id: 'informatica-1ano-t1',
+      titulo: 'Avaliação Teórica – Informática',
+      subtitulo: 'I Trimestre • 1º Ano',
+      arquivo: 'prova_1ano.html',
+      icon: '💻',
+      iconClass: 'icon-blue',
+      turmas: ['1A', '1B', '1C', '1'] // turmas que têm acesso
+    }
+    // Adicione as próximas provas aqui:
+    // { id: 'informatica-2ano-t1', titulo: '...', arquivo: 'prova_2ano.html', turmas: ['2A','2B'] }
+  ];
+
+  function sair() {
+    localStorage.clear();
+    window.location.href = 'login.html';
+  }
+
+  async function carregarStatus() {
+    const lista = document.getElementById('listaProvas');
+    lista.innerHTML = '';
+
+    // Filtra provas da turma do aluno
+    const minhasProvas = provasDisponiveis.filter(p =>
+      !p.turmas || p.turmas.length === 0 ||
+      p.turmas.some(t => t.toLowerCase() === turma.toLowerCase())
+    );
+
+    if (minhasProvas.length === 0) {
+      lista.innerHTML = '<div class="loading">Nenhuma avaliação disponível no momento.</div>';
+      return;
+    }
+
+    for (const prova of minhasProvas) {
+      let feita = false, nota = null;
+      try {
+        const res = await fetch(`${API}/api/prova/${prova.id}/status`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        if (res.status === 401) { sair(); return; }
+        const data = await res.json();
+        feita = data.feita;
+        nota = data.nota;
+      } catch {}
+
+      const card = document.createElement('div');
+      card.className = 'prova-card' + (feita ? ' feita' : '');
+      card.innerHTML = `
+        <div class="prova-icon ${prova.iconClass}">${prova.icon}</div>
+        <div class="prova-info">
+          <div class="prova-titulo">${prova.titulo}</div>
+          <div class="prova-sub">${prova.subtitulo}</div>
+          ${feita ? `<div class="prova-nota">✅ Nota: ${String(nota).replace('.',',')} / 10,0</div>` : ''}
+        </div>
+        ${feita
+          ? '<span class="badge badge-feita">✔ Concluída</span>'
+          : `<button class="btn-fazer" onclick="fazerProva('${prova.arquivo}','${prova.id}')">▶ Fazer prova</button>`
+        }
+      `;
+      lista.appendChild(card);
+    }
+  }
+
+  function fazerProva(arquivo, provaId) {
+    localStorage.setItem('prova_id', provaId);
+    window.location.href = arquivo;
+  }
+
+  carregarStatus();
+</script>
+</body>
+</html>

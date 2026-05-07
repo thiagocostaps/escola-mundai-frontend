@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin – Escola Mundaí</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue:#1a73e8;--blue-light:#e8f0fe;--green:#34a853;--green-light:#e6f4ea;
+    --red:#ea4335;--red-light:#fce8e6;--yellow:#fbbc04;--yellow-light:#fef9e3;
+    --purple:#7c3aed;--bg:#f0f4ff;--card:#fff;--text:#1e293b;--muted:#64748b;
+    --border:#e2e8f0;--radius:14px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Nunito',sans-serif;background:var(--bg);min-height:100vh;}
+
+  /* ── LOGIN ── */
+  #loginScreen{
+    display:flex;align-items:center;justify-content:center;min-height:100vh;
+    background:linear-gradient(135deg,#1a73e8,#7c3aed);padding:20px;
+  }
+  .login-box{background:#fff;border-radius:20px;padding:36px;width:100%;max-width:380px;text-align:center;}
+  .login-box h2{font-family:'Baloo 2',cursive;font-size:22px;margin-bottom:20px;color:var(--text);}
+  .field{text-align:left;margin-bottom:14px;}
+  .field label{display:block;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:5px;}
+  .field input{width:100%;border:2px solid var(--border);border-radius:10px;padding:11px 14px;font-family:'Nunito',sans-serif;font-size:14px;outline:none;}
+  .field input:focus{border-color:var(--blue);}
+  .btn-primary{width:100%;background:linear-gradient(135deg,#1a73e8,#7c3aed);color:#fff;border:none;border-radius:12px;padding:13px;font-family:'Baloo 2',cursive;font-size:17px;font-weight:800;cursor:pointer;margin-top:6px;}
+  .btn-primary:hover{opacity:.9;}
+  .erro-login{background:var(--red-light);color:#991b1b;border-radius:8px;padding:8px 12px;font-size:13px;font-weight:700;margin-top:12px;display:none;}
+
+  /* ── LAYOUT ── */
+  #adminApp{display:none;}
+  .topbar{background:linear-gradient(135deg,#1a73e8,#7c3aed);color:#fff;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;}
+  .topbar-title{font-family:'Baloo 2',cursive;font-size:20px;font-weight:800;}
+  .btn-sair{background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.3);color:#fff;border-radius:8px;padding:6px 14px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;cursor:pointer;}
+
+  .tabs{background:#fff;border-bottom:2px solid var(--border);display:flex;padding:0 24px;}
+  .tab{padding:14px 20px;font-size:14px;font-weight:800;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s;}
+  .tab.active{color:var(--blue);border-color:var(--blue);}
+
+  .tab-content{display:none;padding:24px;max-width:1100px;margin:0 auto;}
+  .tab-content.active{display:block;}
+
+  /* ── CARDS ── */
+  .card{background:#fff;border-radius:var(--radius);padding:20px;box-shadow:0 2px 12px rgba(0,0,0,.07);margin-bottom:20px;}
+  .card-title{font-family:'Baloo 2',cursive;font-size:17px;font-weight:800;color:var(--text);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+
+  /* ── FORM GRID ── */
+  .form-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;}
+  .form-row .field{flex:1;min-width:140px;margin-bottom:0;}
+  .btn-sm{border:none;border-radius:8px;padding:9px 16px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;cursor:pointer;transition:opacity .2s;}
+  .btn-green{background:var(--green);color:#fff;}
+  .btn-blue{background:var(--blue);color:#fff;}
+  .btn-red{background:var(--red);color:#fff;}
+  .btn-sm:hover{opacity:.85;}
+
+  /* ── TABELA ── */
+  .table-wrap{overflow-x:auto;}
+  table{width:100%;border-collapse:collapse;font-size:14px;}
+  th{background:#f8fafc;padding:10px 14px;text-align:left;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);border-bottom:2px solid var(--border);}
+  td{padding:11px 14px;border-bottom:1px solid var(--border);color:var(--text);font-weight:600;}
+  tr:hover td{background:#f8fafc;}
+  .badge{border-radius:20px;padding:3px 10px;font-size:11px;font-weight:800;}
+  .badge-green{background:var(--green-light);color:var(--green);}
+  .badge-red{background:var(--red-light);color:var(--red);}
+  .badge-yellow{background:var(--yellow-light);color:#92600a;}
+
+  /* ── LOTE ── */
+  .lote-info{font-size:13px;color:var(--muted);font-weight:600;margin-bottom:10px;}
+  textarea{width:100%;border:2px solid var(--border);border-radius:10px;padding:12px;font-family:'Courier New',monospace;font-size:13px;resize:vertical;min-height:160px;outline:none;}
+  textarea:focus{border-color:var(--blue);}
+
+  /* ── FILTROS ── */
+  .filtros{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;align-items:center;}
+  .filtros select,.filtros input{border:2px solid var(--border);border-radius:8px;padding:8px 12px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:600;outline:none;}
+  .filtros select:focus,.filtros input:focus{border-color:var(--blue);}
+
+  /* ── MODAL ── */
+  .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;align-items:center;justify-content:center;z-index:1000;padding:20px;}
+  .modal-overlay.open{display:flex;}
+  .modal{background:#fff;border-radius:18px;padding:28px;width:100%;max-width:440px;box-shadow:0 20px 60px rgba(0,0,0,.2);}
+  .modal h3{font-family:'Baloo 2',cursive;font-size:18px;margin-bottom:18px;}
+  .modal-btns{display:flex;gap:10px;margin-top:18px;}
+
+  .resultado-msg{border-radius:10px;padding:12px 16px;font-size:14px;font-weight:700;margin-top:12px;display:none;}
+  .resultado-msg.ok{background:var(--green-light);color:#166534;}
+  .resultado-msg.err{background:var(--red-light);color:#991b1b;}
+
+  .nota-badge{display:inline-block;border-radius:20px;padding:3px 10px;font-size:12px;font-weight:800;}
+  .nota-alta{background:var(--green-light);color:var(--green);}
+  .nota-media{background:var(--yellow-light);color:#92600a;}
+  .nota-baixa{background:var(--red-light);color:var(--red);}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginScreen">
+  <div class="login-box">
+    <div style="font-size:40px;margin-bottom:8px;">⚙️</div>
+    <h2>Painel Administrador<br>Escola Mundaí</h2>
+    <div class="field"><label>Usuário</label><input type="text" id="adminUser" placeholder="admin"></div>
+    <div class="field"><label>Senha</label><input type="password" id="adminSenha" placeholder="••••••"></div>
+    <button class="btn-primary" onclick="adminLogin()">Entrar</button>
+    <div class="erro-login" id="erroLogin"></div>
+    <div style="margin-top:16px;"><a href="login.html" style="font-size:13px;color:var(--muted);font-weight:600;text-decoration:none;">← Voltar para login dos alunos</a></div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="adminApp">
+  <div class="topbar">
+    <div class="topbar-title">⚙️ Painel Admin – Escola Mundaí</div>
+    <button class="btn-sair" onclick="adminSair()">Sair</button>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" onclick="mudarAba('alunos')">👥 Alunos</div>
+    <div class="tab" onclick="mudarAba('resultados')">📊 Resultados</div>
+  </div>
+
+  <!-- ABA ALUNOS -->
+  <div class="tab-content active" id="aba-alunos">
+
+    <!-- Cadastro individual -->
+    <div class="card">
+      <div class="card-title">➕ Cadastrar Aluno</div>
+      <div class="form-row">
+        <div class="field"><label>Usuário</label><input type="text" id="n-usuario" placeholder="joao.silva"></div>
+        <div class="field"><label>Senha</label><input type="text" id="n-senha" placeholder="123456"></div>
+        <div class="field" style="flex:2;min-width:200px;"><label>Nome Completo</label><input type="text" id="n-nome" placeholder="João da Silva Santos"></div>
+        <div class="field"><label>Turma</label><input type="text" id="n-turma" placeholder="1A"></div>
+      </div>
+      <button class="btn-sm btn-green" onclick="cadastrarAluno()">✅ Cadastrar</button>
+      <div class="resultado-msg" id="msg-cadastro"></div>
+    </div>
+
+    <!-- Cadastro em lote -->
+    <div class="card">
+      <div class="card-title">📋 Cadastrar Vários de Uma Vez</div>
+      <div class="lote-info">
+        Cole abaixo um aluno por linha no formato: <strong>usuario;senha;Nome Completo;Turma</strong><br>
+        Exemplo: <code>maria.souza;abc123;Maria Souza Lima;1A</code>
+      </div>
+      <textarea id="lote-texto" placeholder="joao.silva;123456;João da Silva Santos;1A&#10;maria.souza;abc123;Maria Souza Lima;1A&#10;pedro.costa;senha1;Pedro Costa Oliveira;1B"></textarea>
+      <div style="margin-top:10px;display:flex;gap:10px;align-items:center;">
+        <button class="btn-sm btn-blue" onclick="cadastrarLote()">📤 Importar Alunos</button>
+        <span style="font-size:12px;color:var(--muted);font-weight:600;" id="lote-contagem"></span>
+      </div>
+      <div class="resultado-msg" id="msg-lote"></div>
+    </div>
+
+    <!-- Tabela de alunos -->
+    <div class="card">
+      <div class="card-title">👥 Lista de Alunos</div>
+      <div class="filtros">
+        <input type="text" id="busca-aluno" placeholder="🔍 Buscar aluno…" oninput="filtrarAlunos()">
+        <select id="filtro-turma-aluno" onchange="filtrarAlunos()">
+          <option value="">Todas as turmas</option>
+        </select>
+        <button class="btn-sm btn-blue" onclick="carregarAlunos()">🔄 Atualizar</button>
+      </div>
+      <div class="table-wrap">
+        <table id="tabela-alunos">
+          <thead><tr><th>Usuário</th><th>Nome Completo</th><th>Turma</th><th>Status</th><th>Ações</th></tr></thead>
+          <tbody id="tbody-alunos"><tr><td colspan="5" style="text-align:center;color:var(--muted)">Carregando…</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABA RESULTADOS -->
+  <div class="tab-content" id="aba-resultados">
+    <div class="card">
+      <div class="card-title">📊 Resultados das Avaliações</div>
+      <div class="filtros">
+        <select id="filtro-turma-res" onchange="carregarResultados()">
+          <option value="">Todas as turmas</option>
+        </select>
+        <select id="filtro-prova" onchange="carregarResultados()">
+          <option value="">Todas as provas</option>
+          <option value="informatica-1ano-t1">Informática – 1º Ano – I Trim.</option>
+        </select>
+        <button class="btn-sm btn-blue" onclick="carregarResultados()">🔄 Atualizar</button>
+        <button class="btn-sm btn-green" onclick="exportarCSV()">📥 Exportar CSV</button>
+      </div>
+      <div class="table-wrap">
+        <table id="tabela-resultados">
+          <thead><tr><th>Aluno</th><th>Turma</th><th>Avaliação</th><th>Nota</th><th>Enviado em</th><th>Ações</th></tr></thead>
+          <tbody id="tbody-resultados"><tr><td colspan="6" style="text-align:center;color:var(--muted)">Selecione os filtros acima</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de edição -->
+<div class="modal-overlay" id="modalEditar">
+  <div class="modal">
+    <h3>✏️ Editar Aluno</h3>
+    <input type="hidden" id="edit-id">
+    <div class="field"><label>Nome Completo</label><input type="text" id="edit-nome"></div>
+    <div class="field"><label>Turma</label><input type="text" id="edit-turma"></div>
+    <div class="field"><label>Nova Senha (deixe em branco para manter)</label><input type="password" id="edit-senha" placeholder="Nova senha…"></div>
+    <div class="field">
+      <label>Status</label>
+      <select id="edit-ativo" style="width:100%;border:2px solid var(--border);border-radius:10px;padding:10px;font-family:'Nunito',sans-serif;font-size:14px;outline:none;">
+        <option value="true">Ativo</option>
+        <option value="false">Inativo</option>
+      </select>
+    </div>
+    <div class="modal-btns">
+      <button class="btn-sm btn-green" style="flex:1" onclick="salvarEdicao()">✅ Salvar</button>
+      <button class="btn-sm" style="background:var(--border);color:var(--text);flex:1" onclick="fecharModal()">Cancelar</button>
+    </div>
+    <div class="resultado-msg" id="msg-edicao"></div>
+  </div>
+</div>
+
+<script>
+  const API = window.location.hostname === 'localhost'
+    ? 'http://localhost:3000'
+    : 'https://SEU-PROJETO.up.railway.app'; // ← trocar após deploy
+
+  let adminToken = localStorage.getItem('admin_token') || '';
+  let todosAlunos = [];
+  let todosResultados = [];
+
+  // ── LOGIN ──────────────────────────────────────────────────────────────────
+  async function adminLogin() {
+    const usuario = document.getElementById('adminUser').value.trim();
+    const senha   = document.getElementById('adminSenha').value;
+    const erroEl  = document.getElementById('erroLogin');
+    erroEl.style.display = 'none';
+    try {
+      const res = await fetch(`${API}/api/admin/login`, {
+        method: 'POST', headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({ usuario, senha })
+      });
+      const data = await res.json();
+      if (!res.ok) { erroEl.textContent = data.erro; erroEl.style.display = 'block'; return; }
+      adminToken = data.token;
+      localStorage.setItem('admin_token', adminToken);
+      mostrarApp();
+    } catch { erroEl.textContent = 'Erro de conexão.'; erroEl.style.display = 'block'; }
+  }
+
+  function mostrarApp() {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('adminApp').style.display = 'block';
+    carregarAlunos();
+  }
+
+  function adminSair() {
+    localStorage.removeItem('admin_token');
+    window.location.reload();
+  }
+
+  if (adminToken) mostrarApp();
+
+  document.getElementById('adminSenha').addEventListener('keydown', e => {
+    if (e.key === 'Enter') adminLogin();
+  });
+
+  // ── ABAS ──────────────────────────────────────────────────────────────────
+  function mudarAba(aba) {
+    document.querySelectorAll('.tab').forEach((t,i) => t.classList.toggle('active', ['alunos','resultados'][i] === aba));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    document.getElementById(`aba-${aba}`).classList.add('active');
+    if (aba === 'resultados') carregarResultados();
+  }
+
+  // ── HEADERS ───────────────────────────────────────────────────────────────
+  const headers = () => ({ 'Content-Type': 'application/json', Authorization: `Bearer ${adminToken}` });
+
+  // ── ALUNOS ────────────────────────────────────────────────────────────────
+  async function carregarAlunos() {
+    const res = await fetch(`${API}/api/admin/alunos`, { headers: headers() });
+    todosAlunos = await res.json();
+    popularTurmasAlunos();
+    renderAlunos(todosAlunos);
+  }
+
+  function popularTurmasAlunos() {
+    const turmas = [...new Set(todosAlunos.map(a => a.turma).filter(Boolean))].sort();
+    ['filtro-turma-aluno','filtro-turma-res'].forEach(id => {
+      const sel = document.getElementById(id);
+      const val = sel.value;
+      sel.innerHTML = '<option value="">Todas as turmas</option>' +
+        turmas.map(t => `<option value="${t}">${t}</option>`).join('');
+      sel.value = val;
+    });
+  }
+
+  function filtrarAlunos() {
+    const busca = document.getElementById('busca-aluno').value.toLowerCase();
+    const turma = document.getElementById('filtro-turma-aluno').value;
+    const filtrados = todosAlunos.filter(a =>
+      (!turma || a.turma === turma) &&
+      (!busca || a.nome_completo.toLowerCase().includes(busca) || a.usuario.includes(busca))
+    );
+    renderAlunos(filtrados);
+  }
+
+  function renderAlunos(alunos) {
+    const tbody = document.getElementById('tbody-alunos');
+    if (alunos.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--muted)">Nenhum aluno encontrado</td></tr>';
+      return;
+    }
+    tbody.innerHTML = alunos.map(a => `
+      <tr>
+        <td><code style="background:#f1f5f9;padding:2px 8px;border-radius:6px;font-size:13px;">${a.usuario}</code></td>
+        <td>${a.nome_completo}</td>
+        <td>${a.turma || '—'}</td>
+        <td><span class="badge ${a.ativo ? 'badge-green' : 'badge-red'}">${a.ativo ? 'Ativo' : 'Inativo'}</span></td>
+        <td style="display:flex;gap:6px;">
+          <button class="btn-sm btn-blue" onclick="abrirEdicao(${a.id},'${a.nome_completo.replace(/'/g,"\\'")}','${a.turma||''}',${a.ativo})">✏️</button>
+          <button class="btn-sm btn-red" onclick="deletarAluno(${a.id},'${a.nome_completo.replace(/'/g,"\\'")}')">🗑️</button>
+        </td>
+      </tr>
+    `).join('');
+  }
+
+  async function cadastrarAluno() {
+    const body = {
+      usuario: document.getElementById('n-usuario').value.trim(),
+      senha:   document.getElementById('n-senha').value.trim(),
+      nome_completo: document.getElementById('n-nome').value.trim(),
+      turma:   document.getElementById('n-turma').value.trim()
+    };
+    const msg = document.getElementById('msg-cadastro');
+    msg.style.display = 'none';
+    try {
+      const res = await fetch(`${API}/api/admin/alunos`, {
+        method:'POST', headers: headers(), body: JSON.stringify(body)
+      });
+      const data = await res.json();
+      if (!res.ok) { mostrarMsg(msg,'err', data.erro); return; }
+      mostrarMsg(msg,'ok','✅ Aluno cadastrado com sucesso!');
+      ['n-usuario','n-senha','n-nome','n-turma'].forEach(id => document.getElementById(id).value = '');
+      carregarAlunos();
+    } catch { mostrarMsg(msg,'err','Erro de conexão.'); }
+  }
+
+  function contarLinhas() {
+    const linhas = document.getElementById('lote-texto').value.trim().split('\n').filter(l => l.trim());
+    document.getElementById('lote-contagem').textContent = linhas.length > 0 ? `${linhas.length} aluno(s) detectado(s)` : '';
+  }
+  document.getElementById('lote-texto').addEventListener('input', contarLinhas);
+
+  async function cadastrarLote() {
+    const linhas = document.getElementById('lote-texto').value.trim().split('\n').filter(l => l.trim());
+    const msg = document.getElementById('msg-lote');
+    if (linhas.length === 0) { mostrarMsg(msg,'err','Cole pelo menos uma linha.'); return; }
+
+    const alunos = linhas.map(linha => {
+      const [usuario, senha, nome_completo, turma] = linha.split(';').map(s => s.trim());
+      return { usuario, senha, nome_completo, turma };
+    });
+
+    try {
+      const res = await fetch(`${API}/api/admin/alunos/lote`, {
+        method:'POST', headers: headers(), body: JSON.stringify({ alunos })
+      });
+      const data = await res.json();
+      let texto = `✅ ${data.criados.length} criado(s).`;
+      if (data.erros.length > 0)
+        texto += ` ⚠️ ${data.erros.length} erro(s): ${data.erros.map(e => `${e.usuario} (${e.erro})`).join(', ')}`;
+      mostrarMsg(msg, data.erros.length ? 'err' : 'ok', texto);
+      if (data.criados.length > 0) {
+        document.getElementById('lote-texto').value = '';
+        document.getElementById('lote-contagem').textContent = '';
+        carregarAlunos();
+      }
+    } catch { mostrarMsg(msg,'err','Erro de conexão.'); }
+  }
+
+  function abrirEdicao(id, nome, turma, ativo) {
+    document.getElementById('edit-id').value = id;
+    document.getElementById('edit-nome').value = nome;
+    document.getElementById('edit-turma').value = turma;
+    document.getElementById('edit-senha').value = '';
+    document.getElementById('edit-ativo').value = String(ativo);
+    document.getElementById('msg-edicao').style.display = 'none';
+    document.getElementById('modalEditar').classList.add('open');
+  }
+
+  function fecharModal() {
+    document.getElementById('modalEditar').classList.remove('open');
+  }
+
+  async function salvarEdicao() {
+    const id    = document.getElementById('edit-id').value;
+    const nome  = document.getElementById('edit-nome').value.trim();
+    const turma = document.getElementById('edit-turma').value.trim();
+    const senha = document.getElementById('edit-senha').value.trim();
+    const ativo = document.getElementById('edit-ativo').value === 'true';
+    const msg   = document.getElementById('msg-edicao');
+    try {
+      const res = await fetch(`${API}/api/admin/alunos/${id}`, {
+        method:'PUT', headers: headers(),
+        body: JSON.stringify({ nome_completo: nome, turma, senha: senha || undefined, ativo })
+      });
+      if (!res.ok) { mostrarMsg(msg,'err','Erro ao salvar.'); return; }
+      mostrarMsg(msg,'ok','✅ Salvo!');
+      setTimeout(() => { fecharModal(); carregarAlunos(); }, 800);
+    } catch { mostrarMsg(msg,'err','Erro de conexão.'); }
+  }
+
+  async function deletarAluno(id, nome) {
+    if (!confirm(`Deletar o aluno "${nome}"? Esta ação não pode ser desfeita.`)) return;
+    await fetch(`${API}/api/admin/alunos/${id}`, { method:'DELETE', headers: headers() });
+    carregarAlunos();
+  }
+
+  // ── RESULTADOS ────────────────────────────────────────────────────────────
+  async function carregarResultados() {
+    const turma = document.getElementById('filtro-turma-res').value;
+    const prova = document.getElementById('filtro-prova').value;
+    const params = new URLSearchParams();
+    if (turma) params.append('turma', turma);
+    if (prova) params.append('prova', prova);
+
+    const res = await fetch(`${API}/api/admin/resultados?${params}`, { headers: headers() });
+    todosResultados = await res.json();
+    renderResultados(todosResultados);
+  }
+
+  function renderResultados(rows) {
+    const tbody = document.getElementById('tbody-resultados');
+    if (rows.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--muted)">Nenhum resultado encontrado</td></tr>';
+      return;
+    }
+    tbody.innerHTML = rows.map(r => {
+      const n = parseFloat(r.nota);
+      const cls = n >= 7 ? 'nota-alta' : n >= 5 ? 'nota-media' : 'nota-baixa';
+      const data = new Date(r.enviado_em).toLocaleString('pt-BR');
+      return `<tr>
+        <td><strong>${r.nome_completo}</strong><br><small style="color:var(--muted)">${r.usuario}</small></td>
+        <td>${r.turma || '—'}</td>
+        <td style="font-size:12px;">${r.prova}</td>
+        <td><span class="nota-badge ${cls}">${String(n.toFixed(1)).replace('.',',')} / 10,0</span></td>
+        <td style="font-size:12px;">${data}</td>
+        <td><button class="btn-sm btn-red" onclick="deletarResultado(${r.id},'${r.nome_completo.replace(/'/g,"\\'")}')">🗑️</button></td>
+      </tr>`;
+    }).join('');
+  }
+
+  async function deletarResultado(id, nome) {
+    if (!confirm(`Deletar resultado de "${nome}"? O aluno poderá refazer a prova.`)) return;
+    await fetch(`${API}/api/admin/resultados/${id}`, { method:'DELETE', headers: headers() });
+    carregarResultados();
+  }
+
+  function exportarCSV() {
+    if (todosResultados.length === 0) { alert('Nenhum resultado para exportar.'); return; }
+    const linhas = [
+      ['Nome','Usuário','Turma','Prova','Nota','Enviado em'],
+      ...todosResultados.map(r => [
+        r.nome_completo, r.usuario, r.turma || '', r.prova,
+        parseFloat(r.nota).toFixed(1).replace('.',','),
+        new Date(r.enviado_em).toLocaleString('pt-BR')
+      ])
+    ];
+    const csv = linhas.map(l => l.map(v => `"${v}"`).join(';')).join('\n');
+    const blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'resultados_escola_mundai.csv'; a.click();
+  }
+
+  // ── HELPERS ───────────────────────────────────────────────────────────────
+  function mostrarMsg(el, tipo, texto) {
+    el.className = `resultado-msg ${tipo === 'ok' ? 'ok' : 'err'}`;
+    el.textContent = texto;
+    el.style.display = 'block';
+  }
+</script>
+</body>
+</html>
