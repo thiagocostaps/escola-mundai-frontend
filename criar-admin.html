@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Criar Admin — Escola Mundaí</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: sans-serif; background: #1a1a2e; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+    .card { background: #16213e; border: 1px solid #0f3460; border-radius: 12px; padding: 40px; width: 100%; max-width: 420px; color: #eee; }
+    h1 { font-size: 20px; margin-bottom: 6px; color: #e94560; }
+    p  { font-size: 13px; color: #aaa; margin-bottom: 28px; }
+    label { display: block; font-size: 13px; color: #bbb; margin-bottom: 6px; }
+    input { width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid #0f3460; background: #0f3460; color: #fff; font-size: 14px; margin-bottom: 18px; outline: none; }
+    input:focus { border-color: #e94560; }
+    button { width: 100%; padding: 12px; border-radius: 8px; border: none; background: #e94560; color: #fff; font-size: 15px; font-weight: bold; cursor: pointer; }
+    button:hover { background: #c73652; }
+    .msg { margin-top: 20px; padding: 12px 16px; border-radius: 8px; font-size: 14px; display: none; }
+    .msg.ok    { background: #1a3a2a; border: 1px solid #2d6a4f; color: #52b788; display: block; }
+    .msg.erro  { background: #3a1a1a; border: 1px solid #6a2d2d; color: #e07070; display: block; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>⚙️ Criar Admin</h1>
+    <p>Use esta página uma única vez para criar o primeiro administrador do sistema.</p>
+
+    <label>Chave secreta (SEED_KEY)</label>
+    <input type="password" id="chave" placeholder="mundai_setup_2024" />
+
+    <label>Usuário admin</label>
+    <input type="text" id="usuario" placeholder="admin" value="admin" />
+
+    <label>Senha do admin</label>
+    <input type="password" id="senha" placeholder="Escolha uma senha forte" />
+
+    <button onclick="criarAdmin()">Criar administrador</button>
+
+    <div class="msg" id="msg"></div>
+  </div>
+
+  <script>
+    async function criarAdmin() {
+      const chave   = document.getElementById('chave').value.trim();
+      const usuario = document.getElementById('usuario').value.trim();
+      const senha   = document.getElementById('senha').value;
+      const msg     = document.getElementById('msg');
+
+      if (!chave || !usuario || !senha) {
+        msg.className = 'msg erro';
+        msg.textContent = 'Preencha todos os campos.';
+        return;
+      }
+
+      msg.className = 'msg';
+      msg.textContent = 'Enviando...';
+      msg.style.display = 'block';
+
+      try {
+        const res = await fetch('https://escola-mundai-backend-production.up.railway.app/api/admin/seed', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ chave, usuario, senha })
+        });
+        const data = await res.json();
+
+        if (res.ok) {
+          msg.className = 'msg ok';
+          msg.textContent = '✅ ' + data.mensagem + ' Agora faça login no painel admin!';
+        } else {
+          msg.className = 'msg erro';
+          msg.textContent = '❌ ' + (data.erro || 'Erro desconhecido');
+        }
+      } catch (e) {
+        msg.className = 'msg erro';
+        msg.textContent = '❌ Erro de conexão: ' + e.message;
+      }
+    }
+  </script>
+</body>
+</html>
