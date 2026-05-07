@@ -29,7 +29,7 @@
     position: absolute; inset: 0;
     background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   }
-  .header-top { display: flex; justify-content: space-between; align-items: center; }
+  .header-top { display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 10; }
   .escola-tag {
     background: rgba(255,255,255,0.18); border: 1.5px solid rgba(255,255,255,0.3);
     border-radius: 20px; padding: 4px 14px; font-size: 13px; font-weight: 700;
@@ -40,12 +40,12 @@
     font-size: 13px; font-weight: 700; cursor: pointer; transition: background 0.2s;
   }
   .btn-sair:hover { background: rgba(255,255,255,0.25); }
-  .welcome { margin-top: 28px; }
+  .welcome { margin-top: 28px; position: relative; z-index: 10; }
   .welcome-sub { font-size: 14px; opacity: .8; font-weight: 600; }
   .welcome-nome { font-family: 'Baloo 2', cursive; font-size: 28px; font-weight: 800; margin-top: 2px; }
   .welcome-turma { font-size: 14px; opacity: .75; font-weight: 600; margin-top: 2px; }
 
-  main { max-width: 700px; margin: -36px auto 40px; padding: 0 16px; }
+  main { max-width: 700px; margin: -36px auto 40px; padding: 0 16px; position: relative; z-index: 1; }
 
   .section-title {
     font-family: 'Baloo 2', cursive; font-size: 18px; font-weight: 800;
@@ -114,7 +114,7 @@
 
 <header>
   <div class="header-top">
-    <span class="escola-tag">m escola mundaí</span>
+    <span class="escola-tag">🏫 Escola Mundaí</span>
     <button class="btn-sair" onclick="sair()">Sair →</button>
   </div>
   <div class="welcome">
@@ -154,7 +154,7 @@
   const provasDisponiveis = [
     {
       id: 'informatica-1ano-t1',
-      titulo: 'Avaliação Teórica – Informática',
+      titulo: 'Avaliação Teórica – Educ. Tecnológica',
       subtitulo: 'I Trimestre • 1º Ano',
       arquivo: 'prova_1ano.html',
       icon: '💻',
@@ -163,7 +163,7 @@
     },
     {
       id: 'informatica-2ano-t1',
-      titulo: 'Avaliação Teórica – Informática',
+      titulo: 'Avaliação Teórica – Educ. Tecnológica',
       subtitulo: 'I Trimestre • 2º Ano',
       arquivo: 'prova_2ano.html',
       icon: '🖱️',
@@ -173,7 +173,7 @@
     // ── Adicione as próximas provas abaixo: ──────────────────────────────────
     // {
     //   id: 'informatica-3ano-t1',
-    //   titulo: 'Avaliação Teórica – Informática',
+    //   titulo: 'Avaliação Teórica – Educ. Tecnológica',
     //   subtitulo: 'I Trimestre • 3º Ano',
     //   arquivo: 'prova_3ano.html',
     //   icon: '📁',
@@ -182,7 +182,7 @@
     // },
     // {
     //   id: 'informatica-4ano-t1',
-    //   titulo: 'Avaliação Teórica – Informática',
+    //   titulo: 'Avaliação Teórica – Educ. Tecnológica',
     //   subtitulo: 'I Trimestre • 4º Ano',
     //   arquivo: 'prova_4ano.html',
     //   icon: '🌐',
@@ -191,7 +191,7 @@
     // },
     // {
     //   id: 'informatica-5ano-t1',
-    //   titulo: 'Avaliação Teórica – Informática',
+    //   titulo: 'Avaliação Teórica – Educ. Tecnológica',
     //   subtitulo: 'I Trimestre • 5º Ano',
     //   arquivo: 'prova_5ano.html',
     //   icon: '🔒',
@@ -230,7 +230,7 @@
     }
 
     for (const prova of minhasProvas) {
-      let feita = false, nota = null;
+      let feita = false, nota = null, em = null;
       try {
         const res = await fetch(`${API}/api/prova/${prova.id}/status`, {
           headers: { Authorization: `Bearer ${token}` }
@@ -239,7 +239,10 @@
         const data = await res.json();
         feita = data.feita;
         nota  = data.nota;
+        em    = data.em;
       } catch {}
+
+      const dataFormatada = em ? new Date(em).toLocaleDateString('pt-BR', { day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit' }) : '';
 
       const card = document.createElement('div');
       card.className = 'prova-card' + (feita ? ' feita' : '');
@@ -249,6 +252,7 @@
           <div class="prova-titulo">${prova.titulo}</div>
           <div class="prova-sub">${prova.subtitulo}</div>
           ${feita ? `<div class="prova-nota">✅ Nota: ${String(nota).replace('.',',')} / 10,0</div>` : ''}
+          ${feita && dataFormatada ? `<div style="font-size:12px;color:#64748b;font-weight:600;margin-top:2px;">📅 Concluída em: ${dataFormatada}</div>` : ''}
         </div>
         ${feita
           ? '<span class="badge badge-feita">✔ Concluída</span>'
@@ -266,6 +270,6 @@
 
   carregarStatus();
 </script>
-<footer style="text-align:center;padding:20px;font-family:Nunito,sans-serif;font-size:13px;color:#666;border-top:2px solid #e2e8f0;margin-top:20px;background:#fff;">m escola mundaí &nbsp;|&nbsp; 💻 Informática &nbsp;|&nbsp; 👨‍🏫 Prof. Thiago Costa</footer>
+<footer style="text-align:center;padding:20px;font-family:Nunito,sans-serif;font-size:13px;color:#666;border-top:2px solid #e2e8f0;margin-top:20px;background:#fff;">🏫 Escola Mundaí &nbsp;|&nbsp; 📚 Educ. Tecnológica &nbsp;|&nbsp; 👨‍🏫 Prof. Thiago Costa</footer>
 </body>
 </html>
