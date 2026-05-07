@@ -102,6 +102,8 @@
   .resp-item .q-val{font-size:14px;font-weight:700;color:var(--text);}
   .resp-item.ok{border-color:var(--green);background:var(--green-light);}
   .resp-item.ok .q-val{color:#166534;}
+  .resp-item.wrong{border-color:var(--red);background:var(--red-light);}
+  .resp-item.wrong .q-val{color:#991b1b;}
   .resp-item.parcial{border-color:var(--yellow);background:var(--yellow-light);}
   .resp-item.parcial .q-val{color:#92600a;}
 </style>
@@ -481,46 +483,57 @@
       `<strong>${r.nome_completo}</strong> (${r.usuario}) — Turma: ${r.turma || '—'} — Prova: ${r.prova} — Nota: ${parseFloat(r.nota).toFixed(1).replace('.',',')}`;
 
     const respostas = r.respostas_json || {};
-    const labels = {
-      q1_match_computador: 'Q1 – Relacionar peças do computador',
-      q2_nome_pecas: 'Q2 – Nome das peças',
-      q3_ligar_computador: 'Q3 – Ordem para ligar o computador',
-      q4_principal_peca: 'Q4 – Principal peça do computador',
-      q5_perifericos: 'Q5 – Periféricos de entrada/saída',
-      q6_vf: 'Q6 – Verdadeiro ou Falso',
-      q7_mouse: 'Q7 – Função do mouse',
-      q8_teclado: 'Q8 – Função do teclado',
-      q9_monitor: 'Q9 – Sobre o monitor',
-      q10_mc: 'Q10 – Múltipla escolha',
-      q11_match_funcoes: 'Q11 – Relacionar funções',
-      q12_mc: 'Q12 – Múltipla escolha',
-      // Q2 do 2º ano
-      q1_match_mouse: 'Q1 – Relacionar botões do mouse',
-      q2_funcao_mouse: 'Q2 – Função do mouse',
-      q3_teclas: 'Q3 – Funções das teclas',
-      q4_area_trabalho: 'Q4 – Área de Trabalho',
-      q5_match_area: 'Q5 – Elementos da Área de Trabalho',
-      q7_maximizar: 'Q7 – Botão Maximizar',
-      q8_janela: 'Q8 – Minimizar/Maximizar/Restaurar',
-      q9_barra: 'Q9 – Barra de Tarefas',
-      q10_vf_teclado: 'Q10 – V ou F sobre teclado',
-      q11_botao_dir: 'Q11 – Botão direito do mouse',
-    };
 
-    const html = Object.entries(respostas).map(([key, val]) => {
-      const label = labels[key] || key;
+    // Ordem e labels para cada prova
+    const ordemLabels1ano = [
+      ['q1_match_computador', 'Q1 – Relacionar peças do computador'],
+      ['q2_pecas',            'Q2 – Nome das peças'],
+      ['q3_ligar_computador', 'Q3 – Ordem para ligar o computador'],
+      ['q4_principal_peca',   'Q4 – Principal peça do computador'],
+      ['q5_mouse',            'Q5 – Função do mouse'],
+      ['q6_vf',               'Q6 – Verdadeiro ou Falso'],
+      ['q7_teclado',          'Q7 – Função do teclado'],
+      ['q8_monitor',          'Q8 – Sobre o monitor'],
+      ['q9_mc',               'Q9 – Múltipla escolha'],
+      ['q10_mc',              'Q10 – Múltipla escolha'],
+      ['q11_match_funcoes',   'Q11 – Relacionar funções'],
+      ['q12_mc',              'Q12 – Múltipla escolha'],
+    ];
+    const ordemLabels2ano = [
+      ['q1_match_mouse',   'Q1 – Relacionar botões do mouse'],
+      ['q2_funcao_mouse',  'Q2 – Função do mouse'],
+      ['q3_teclas',        'Q3 – Funções das teclas'],
+      ['q4_area_trabalho', 'Q4 – Área de Trabalho'],
+      ['q5_match_area',    'Q5 – Elementos da Área de Trabalho'],
+      ['q6_vf',            'Q6 – Verdadeiro ou Falso'],
+      ['q7_maximizar',     'Q7 – Botão Maximizar'],
+      ['q8_janela',        'Q8 – Minimizar/Maximizar/Restaurar'],
+      ['q9_barra',         'Q9 – Barra de Tarefas'],
+      ['q10_vf_teclado',   'Q10 – V ou F sobre teclado'],
+      ['q11_botao_dir',    'Q11 – Botão direito do mouse'],
+    ];
+
+    const ordem = r.prova.includes('2ano') ? ordemLabels2ano : ordemLabels1ano;
+
+    // Monta HTML na ordem correta
+    const html = ordem.map(([key, label]) => {
+      const val = respostas[key];
+      if (val === undefined) return '';
       let display = '';
       if (typeof val === 'object' && val !== null) {
-        display = Object.entries(val).map(([k, v]) => `<em>${k}:</em> ${v ?? '—'}`).join(' &nbsp;|&nbsp; ');
+        display = Object.entries(val).map(([k, v]) => `<em>${k}:</em> <strong>${v ?? '—'}</strong>`).join(' &nbsp;|&nbsp; ');
       } else {
         display = val === 'correct' ? '✅ Correta' : val === 'wrong' ? '❌ Errada' : String(val ?? '—');
       }
-      const cls = val === 'correct' ? 'ok' : (typeof val === 'object' ? 'parcial' : '');
+      // Cor: verde = correto, vermelho = errado, cinza = texto/match
+      let cls = '';
+      if (val === 'correct') cls = 'ok';
+      else if (val === 'wrong') cls = 'wrong';
       return `<div class="resp-item ${cls}">
         <div class="q-label">${label}</div>
         <div class="q-val">${display}</div>
       </div>`;
-    }).join('');
+    }).filter(Boolean).join('');
 
     document.getElementById('modal-resp-body').innerHTML = html || '<p style="color:var(--muted)">Sem detalhes disponíveis.</p>';
     document.getElementById('modalRespostas').classList.add('open');
