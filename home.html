@@ -135,7 +135,7 @@
   const nome  = localStorage.getItem('aluno_nome') || '';
   const turma = (localStorage.getItem('aluno_turma') || '').toLowerCase().trim();
 
-  if (!token) window.location.href = 'login.html';
+  if (!token) window.location.href = "login.html";
 
   document.getElementById('nomeAluno').textContent = nome;
 
@@ -202,7 +202,8 @@
 
   function sair() {
     localStorage.clear();
-    window.location.href = 'login.html';
+    const base = window.location.pathname.replace('home.html', '');
+    window.location.href = base + 'login.html';
   }
 
   async function carregarStatus() {
