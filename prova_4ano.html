@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Avaliação Teórica – 4º Ano | Escola Mundaí</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green1: #1a5c2a; --green2: #2e7d32;
+    --green-light: #e6f4ea; --green-bg: #f1f8f2;
+    --blue-light: #e8f5e9;
+    --red: #ea4335; --red-light: #fce8e6;
+    --yellow: #fbbc04; --yellow-light: #fef9e3;
+    --purple-light: #ede9fe;
+    --bg: #f1f8f2; --card: #ffffff;
+    --text: #1e293b; --muted: #64748b;
+    --border: #e2e8f0; --radius: 18px;
+    --shadow: 0 4px 24px rgba(26,92,42,0.10);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding-bottom: 60px; }
+
+  header { background: linear-gradient(135deg, #1a5c2a 0%, #2e7d32 100%); color: #fff; padding: 32px 20px 40px; text-align: center; position: relative; overflow: hidden; }
+  header::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E"); pointer-events: none; }
+  .escola-tag { display: inline-block; background: rgba(255,255,255,0.18); border: 1.5px solid rgba(255,255,255,0.30); border-radius: 30px; padding: 4px 18px; font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; }
+  header h1 { font-family: 'Baloo 2', cursive; font-size: clamp(24px,5vw,38px); font-weight: 800; margin-bottom: 6px; text-shadow: 0 2px 8px rgba(0,0,0,0.18); }
+  .header-meta { display: flex; justify-content: center; gap: 18px; flex-wrap: wrap; margin-top: 14px; }
+  .meta-pill { background: rgba(255,255,255,0.20); border-radius: 20px; padding: 5px 14px; font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 5px; }
+
+  .progress-wrap { position: sticky; top: 0; z-index: 100; background: #fff; border-bottom: 2px solid var(--border); padding: 10px 20px; display: flex; align-items: center; gap: 14px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+  .progress-label { font-size: 13px; font-weight: 700; color: var(--muted); white-space: nowrap; }
+  .progress-bar-bg { flex: 1; height: 10px; background: var(--border); border-radius: 10px; overflow: hidden; }
+  .progress-bar { height: 100%; background: linear-gradient(90deg, #1a5c2a, #2e7d32); border-radius: 10px; transition: width 0.4s ease; width: 0%; }
+  .progress-count { font-size: 13px; font-weight: 800; color: var(--green1); white-space: nowrap; }
+
+  main { max-width: 780px; margin: 0 auto; padding: 30px 16px; display: flex; flex-direction: column; gap: 24px; }
+
+  .student-card { background: var(--card); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); border: 2px solid var(--green-light); }
+  .student-card h2 { font-family: 'Baloo 2', cursive; font-size: 18px; color: var(--green1); margin-bottom: 16px; }
+  .fields-row { display: flex; gap: 14px; flex-wrap: wrap; }
+  .field-group { flex: 1; min-width: 160px; }
+  .field-group label { display: block; font-size: 12px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 5px; }
+  .field-group input { width: 100%; border: 2px solid var(--border); border-radius: 10px; padding: 10px 14px; font-family: 'Nunito', sans-serif; font-size: 15px; font-weight: 600; color: var(--text); outline: none; transition: border-color 0.2s; }
+  .field-group input:focus { border-color: var(--green1); }
+
+  .q-card { background: var(--card); border-radius: var(--radius); padding: 26px 24px 22px; box-shadow: var(--shadow); border: 2px solid transparent; transition: border-color 0.3s; animation: slideIn 0.4s ease both; }
+  @keyframes slideIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  .q-card.answered { border-color: #cbd5e1; background: #f8fafc; }
+  .q-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .q-num { background: linear-gradient(135deg, #1a5c2a, #2e7d32); color: #fff; font-family: 'Baloo 2', cursive; font-size: 16px; font-weight: 800; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .q-points { margin-left: auto; background: var(--yellow-light); color: #92600a; font-size: 12px; font-weight: 800; border-radius: 20px; padding: 3px 10px; white-space: nowrap; }
+  .q-text { font-size: 16px; font-weight: 700; line-height: 1.5; margin-bottom: 18px; }
+  .q-hint { font-size: 13px; color: var(--muted); font-weight: 600; margin-bottom: 14px; font-style: italic; }
+
+  .options-list { display: flex; flex-direction: column; gap: 10px; }
+  .option-btn { display: flex; align-items: center; gap: 12px; background: var(--bg); border: 2px solid var(--border); border-radius: 12px; padding: 12px 16px; font-family: 'Nunito', sans-serif; font-size: 15px; font-weight: 700; color: var(--text); cursor: pointer; text-align: left; transition: all 0.18s; }
+  .option-btn:hover:not(:disabled) { background: var(--green-light); border-color: var(--green1); transform: translateX(4px); }
+  .option-btn.selected-answer { background: #f1f5f9; border-color: #94a3b8; color: #475569; }
+  .option-btn:disabled { cursor: default; }
+  .opt-circle { width: 28px; height: 28px; border-radius: 50%; background: var(--border); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; flex-shrink: 0; transition: background 0.18s; }
+  .option-btn.selected-answer .opt-circle { background: #94a3b8; color: #fff; }
+  .option-btn:hover:not(:disabled) .opt-circle { background: var(--green1); color: #fff; }
+
+  .text-answer { width: 100%; border: 2px solid var(--border); border-radius: 12px; padding: 12px 16px; font-family: 'Nunito', sans-serif; font-size: 15px; font-weight: 600; color: var(--text); resize: vertical; min-height: 70px; outline: none; transition: border-color 0.2s; }
+  .text-answer:focus { border-color: var(--green1); }
+  .text-answer-sm { min-height: unset !important; height: 42px; }
+
+  .tf-list { display: flex; flex-direction: column; gap: 12px; }
+  .tf-item .tf-statement { background: var(--bg); border: 2px solid var(--border); border-radius: 10px; padding: 10px 14px; font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+  .tf-btns { display: flex; gap: 8px; }
+  .tf-btn { flex: 1; padding: 8px; border-radius: 10px; border: 2px solid var(--border); background: var(--card); font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 800; cursor: pointer; transition: all 0.18s; }
+  .tf-btn:hover:not(:disabled) { border-color: var(--green1); background: var(--green-light); color: var(--green1); }
+  .tf-btn.selected-answer { background: #f1f5f9; border-color: #94a3b8; color: #475569; }
+  .tf-btn:disabled { cursor: default; }
+
+  .fill-row { display: flex; flex-direction: column; gap: 10px; }
+  .fill-item { background: var(--bg); border: 2px solid var(--border); border-radius: 10px; padding: 10px 14px; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .fill-item input { flex: 1; min-width: 140px; border: 2px solid var(--border); border-radius: 8px; padding: 6px 10px; font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 600; outline: none; }
+  .fill-item input:focus { border-color: var(--green1); }
+
+  .word-box { background: var(--green-light); border: 2px solid #a7d9b2; border-radius: 10px; padding: 10px 16px; font-size: 13px; font-weight: 800; margin-bottom: 14px; color: var(--green1); letter-spacing: .5px; }
+
+  .match-container { display: flex; gap: 14px; flex-wrap: wrap; }
+  .match-col { flex: 1; min-width: 140px; }
+  .match-col h4 { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); margin-bottom: 8px; }
+  .match-item { background: var(--green-light); border: 2px solid #a7d9b2; border-radius: 10px; padding: 10px 14px; font-size: 14px; font-weight: 700; margin-bottom: 8px; cursor: pointer; transition: all 0.2s; user-select: none; }
+  .match-item:hover { transform: scale(1.02); }
+  .match-item.selected { background: var(--green1); color: #fff; border-color: var(--green1); }
+  .match-item.matched { background: #f1f5f9; border-color: #94a3b8; color: #475569; cursor: default; }
+  .match-item.wrong-blink { animation: wrongBlink 0.4s; }
+  @keyframes wrongBlink { 0%,100%{background:var(--green-light)} 50%{background:#bbf7d0;} }
+
+  .feedback { display: none; align-items: center; gap: 8px; margin-top: 14px; padding: 10px 14px; border-radius: 10px; font-size: 14px; font-weight: 700; }
+  .feedback.show { display: flex; }
+  .feedback.answered { background: #f1f5f9; color: #475569; }
+
+  .check-btn { margin-top: 14px; display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #1a5c2a, #2e7d32); color: #fff; border: none; border-radius: 12px; padding: 11px 22px; font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 800; cursor: pointer; transition: opacity 0.18s, transform 0.12s; box-shadow: 0 3px 12px rgba(26,92,42,0.3); }
+  .check-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+  .confirm-btn { margin-top: 14px; display: inline-flex; align-items: center; gap: 8px; background: #16a34a; color: #fff; border: none; border-radius: 12px; padding: 11px 22px; font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 800; cursor: pointer; transition: opacity 0.18s; }
+  .confirm-btn:hover { opacity: 0.88; }
+  .edit-btn { margin-top: 10px; display: inline-flex; align-items: center; gap: 6px; background: transparent; color: var(--muted); border: 2px solid var(--border); border-radius: 10px; padding: 7px 16px; font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 800; cursor: pointer; transition: all 0.18s; margin-left: 8px; }
+  .edit-btn:hover { border-color: #94a3b8; color: #334155; background: #f1f5f9; }
+  .action-row { display: flex; align-items: center; flex-wrap: wrap; gap: 4px; margin-top: 14px; }
+  .action-row .check-btn, .action-row .confirm-btn { margin-top: 0; }
+
+  .submit-section { text-align: center; padding: 30px 0 10px; }
+  .submit-btn { background: linear-gradient(135deg, #1a5c2a, #2e7d32); color: #fff; border: none; border-radius: 18px; padding: 16px 48px; font-family: 'Baloo 2', cursive; font-size: 20px; font-weight: 800; cursor: pointer; box-shadow: 0 4px 20px rgba(26,92,42,0.35); transition: opacity 0.2s, transform 0.15s; }
+  .submit-btn:hover { opacity: 0.92; transform: translateY(-2px); }
+
+  #toast { position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(20px); background: #1e293b; color: #fff; border-radius: 14px; padding: 14px 22px; font-size: 15px; font-weight: 700; z-index: 9999; opacity: 0; pointer-events: none; transition: opacity 0.3s, transform 0.3s; }
+  #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  .q-card.missing { border-color: var(--red) !important; background: #fff5f5 !important; animation: shake 0.4s ease; }
+  @keyframes shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-6px)} 40%{transform:translateX(6px)} 60%{transform:translateX(-4px)} 80%{transform:translateX(4px)} }
+
+  #result-screen { display: none; background: var(--card); border-radius: var(--radius); padding: 40px 30px; box-shadow: var(--shadow); text-align: center; animation: slideIn 0.5s ease; }
+  .result-emoji { font-size: 64px; margin-bottom: 12px; }
+  .result-title { font-family: 'Baloo 2', cursive; font-size: 30px; font-weight: 800; margin-bottom: 6px; }
+  .result-name  { font-size: 18px; font-weight: 700; color: var(--muted); margin-bottom: 20px; }
+  .result-score { display: inline-block; font-family: 'Baloo 2', cursive; font-size: 56px; font-weight: 800; background: linear-gradient(135deg, #1a5c2a, #2e7d32); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 8px; }
+  .result-max { font-size: 16px; color: var(--muted); font-weight: 700; margin-bottom: 24px; }
+  .result-bar-bg { width: 100%; height: 18px; background: var(--border); border-radius: 18px; overflow: hidden; margin-bottom: 24px; }
+  .result-bar { height: 100%; border-radius: 18px; background: linear-gradient(90deg, #1a5c2a, #2e7d32); transition: width 1s ease; }
+  .result-msg { font-size: 17px; font-weight: 700; padding: 14px 20px; border-radius: 12px; margin-bottom: 20px; }
+  .result-details { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 24px; }
+  .detail-pill { border-radius: 20px; padding: 8px 18px; font-size: 14px; font-weight: 800; display: flex; align-items: center; gap: 6px; }
+  .detail-green { background: var(--green-light); color: var(--green1); }
+  .detail-red   { background: var(--red-light);   color: var(--red); }
+  .detail-blue  { background: #e8f5e9; color: var(--green1); }
+  .stars { font-size: 28px; letter-spacing: 4px; margin-bottom: 8px; }
+
+  @media (max-width: 500px) { .q-card { padding: 18px 14px 16px; } main { padding: 16px 10px; } .match-container { flex-direction: column; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="escola-tag">🏫 Escola Mundaí</div>
+  <h1>📂 Educação Tecnológica</h1>
+  <p style="font-size:15px;font-weight:700;opacity:.85;margin-top:4px;">Avaliação Teórica – I Trimestre</p>
+  <div class="header-meta">
+    <div class="meta-pill"><span>📚</span> 4º Ano</div>
+    <div class="meta-pill"><span>⏱️</span> 45 minutos</div>
+    <div class="meta-pill"><span>⭐</span> Valor: 10,0</div>
+  </div>
+</header>
+
+<div class="progress-wrap">
+  <span class="progress-label">Progresso</span>
+  <div class="progress-bar-bg"><div class="progress-bar" id="progressBar"></div></div>
+  <span class="progress-count" id="progressCount">0 / 11</span>
+</div>
+
+<main>
+
+  <div class="student-card">
+    <h2>📝 Seus dados</h2>
+    <div class="fields-row">
+      <div class="field-group"><label>Nome completo</label><input type="text" id="studentName" placeholder="Digite seu nome…" autocomplete="off"></div>
+      <div class="field-group" style="max-width:160px"><label>Data</label><input type="date" id="studentDate"></div>
+    </div>
+  </div>
+
+  <!-- Q1 — Diferença entre Recortar e Copiar (texto, 1,0) -->
+  <div class="q-card" id="q1">
+    <div class="q-header"><div class="q-num">1</div><span class="q-text" style="margin:0">Qual é a diferença entre Recortar e Copiar?</span><span class="q-points">1,0 pt</span></div>
+    <textarea class="text-answer" id="q1a" placeholder="Escreva sua resposta…"></textarea>
+    <div class="action-row" id="q1-actions"><button class="check-btn" onclick="previewText('q1',['q1a'])">👁️ Pré-visualizar</button></div>
+    <div class="feedback" id="q1-feedback"></div>
+  </div>
+
+  <!-- Q2 — Completar com atalhos (1,0) -->
+  <div class="q-card" id="q2">
+    <div class="q-header"><div class="q-num">2</div><span class="q-text" style="margin:0">Complete as afirmações com as palavras do quadro</span><span class="q-points">1,0 pt</span></div>
+    <div class="word-box">LIXEIRA &nbsp;•&nbsp; CTRL+V &nbsp;•&nbsp; CTRL+X &nbsp;•&nbsp; CTRL+C &nbsp;•&nbsp; DELETE &nbsp;•&nbsp; F2 &nbsp;•&nbsp; RESTAURAR</div>
+    <div class="fill-row">
+      <div class="fill-item"><span>a) O atalho para recortar um arquivo é</span><input class="text-answer-sm" id="q2a" placeholder="…"></div>
+      <div class="fill-item"><span>b) O atalho para copiar um arquivo é</span><input class="text-answer-sm" id="q2b" placeholder="…"></div>
+      <div class="fill-item"><span>c) Para colar um item copiado ou recortado, usamos</span><input class="text-answer-sm" id="q2c" placeholder="…"></div>
+      <div class="fill-item"><span>d) Ao excluir um arquivo com a tecla</span><input class="text-answer-sm" id="q2d" placeholder="…" style="max-width:120px"><span>, ele é enviado para a Lixeira.</span></div>
+      <div class="fill-item"><span>e) Para recuperar um arquivo excluído, basta abrir a</span><input class="text-answer-sm" id="q2e" placeholder="…" style="max-width:120px"><span>e clicar em</span><input class="text-answer-sm" id="q2f" placeholder="…" style="max-width:130px"></div>
+      <div class="fill-item"><span>f) A tecla</span><input class="text-answer-sm" id="q2g" placeholder="…" style="max-width:80px"><span>é usada para renomear uma pasta ou arquivo.</span></div>
+    </div>
+    <div class="action-row" id="q2-actions"><button class="check-btn" onclick="previewText('q2',['q2a','q2b','q2c','q2d','q2e','q2f','q2g'])">👁️ Pré-visualizar</button></div>
+    <div class="feedback" id="q2-feedback"></div>
+  </div>
+
+  <!-- Q3 — Operação correta (múltipla escolha, 0,9) -->
+  <div class="q-card" id="q3">
+    <div class="q-header"><div class="q-num">3</div><span class="q-text" style="margin:0">Para mover uma foto de uma pasta para outra, qual operação devo usar?</span><span class="q-points">0,9 pt</span></div>
+    <div class="options-list">
+      <button class="option-btn" onclick="checkMC('q3',this,'wrong')"><span class="opt-circle">A</span> Copiar (CTRL+C) e Colar (CTRL+V)</button>
+      <button class="option-btn" onclick="checkMC('q3',this,'correct')"><span class="opt-circle">B</span> Recortar (CTRL+X) e Colar (CTRL+V)</button>
+      <button class="option-btn" onclick="checkMC('q3',this,'wrong')"><span class="opt-circle">C</span> Excluir (DELETE) e Restaurar</button>
+      <button class="option-btn" onclick="checkMC('q3',this,'wrong')"><span class="opt-circle">D</span> Renomear (F2) e Colar</button>
+    </div>
+    <div class="feedback" id="q3-feedback"></div>
+  </div>
+
+  <!-- Q4 — Analisar situações (relacionar, 1,0) -->
+  <div class="q-card" id="q4">
+    <div class="q-header"><div class="q-num">4</div><span class="q-text" style="margin:0">Relacione cada situação com a operação correta</span><span class="q-points">1,0 pt</span></div>
+    <p class="q-hint">👆 Clique em uma situação da esquerda, depois na operação da direita.</p>
+    <div class="match-container">
+      <div class="match-col">
+        <h4>Situação</h4>
+        <div class="match-item" data-match="left4" data-id="mover" id="ml4-mover">Mover uma foto para outra pasta</div>
+        <div class="match-item" data-match="left4" data-id="copiar" id="ml4-copiar">Ter o mesmo documento em duas pastas</div>
+        <div class="match-item" data-match="left4" data-id="restaurar" id="ml4-restaurar">Recuperar arquivo excluído</div>
+        <div class="match-item" data-match="left4" data-id="renomear" id="ml4-renomear">Mudar o nome de um arquivo</div>
+      </div>
+      <div class="match-col">
+        <h4>Operação</h4>
+        <div class="match-item" data-match="right4" data-id="copiar" id="mr4-copiar">Copiar e Colar</div>
+        <div class="match-item" data-match="right4" data-id="restaurar" id="mr4-restaurar">Restaurar da Lixeira</div>
+        <div class="match-item" data-match="right4" data-id="mover" id="mr4-mover">Recortar e Colar</div>
+        <div class="match-item" data-match="right4" data-id="renomear" id="mr4-renomear">F2 (Renomear)</div>
+      </div>
+    </div>
+    <div class="action-row" id="q4-actions"></div>
+    <div class="feedback" id="q4-feedback"></div>
+  </div>
+
+  <!-- Q5 — V ou F (0,8) -->
+  <div class="q-card" id="q5">
+    <div class="q-header"><div class="q-num">5</div><span class="q-text" style="margin:0">Marque V (Verdadeiro) ou F (Falso)</span><span class="q-points">0,8 pt</span></div>
+    <div class="tf-list">
+      <div class="tf-item">
+        <div class="tf-statement">Ao recortar e colar um arquivo, ele permanece no local original e uma cópia vai para o destino.</div>
+        <div class="tf-btns"><button class="tf-btn" onclick="checkTF('q5','tf5a',this,'V')">✅ Verdadeiro</button><button class="tf-btn" onclick="checkTF('q5','tf5a',this,'F')">❌ Falso</button></div>
+      </div>
+      <div class="tf-item">
+        <div class="tf-statement">O atalho SHIFT + Delete exclui o arquivo permanentemente, sem enviar à Lixeira.</div>
+        <div class="tf-btns"><button class="tf-btn" onclick="checkTF('q5','tf5b',this,'V')">✅ Verdadeiro</button><button class="tf-btn" onclick="checkTF('q5','tf5b',this,'F')">❌ Falso</button></div>
+      </div>
+      <div class="tf-item">
+        <div class="tf-statement">É possível recuperar um arquivo excluído se a Lixeira ainda não tiver sido esvaziada.</div>
+        <div class="tf-btns"><button class="tf-btn" onclick="checkTF('q5','tf5c',this,'V')">✅ Verdadeiro</button><button class="tf-btn" onclick="checkTF('q5','tf5c',this,'F')">❌ Falso</button></div>
+      </div>
+      <div class="tf-item">
+        <div class="tf-statement">O atalho Ctrl + B salva o arquivo.</div>
+        <div class="tf-btns"><button class="tf-btn" onclick="checkTF('q5','tf5d',this,'V')">✅ Verdadeiro</button><button class="tf-btn" onclick="checkTF('q5','tf5d',this,'F')">❌ Falso</button></div>
+      </div>
+    </div>
+    <div class="feedback" id="q5-feedback"></div>
+  </div>
+
+  <!-- Q6 — O que é Excluir? (MC, 0,9) -->
+  <div class="q-card" id="q6">
+    <div class="q-header"><div class="q-num">6</div><span class="q-text" style="margin:0">O que acontece quando excluímos um arquivo no Windows?</span><span class="q-points">0,9 pt</span></div>
+    <div class="options-list">
+      <button class="option-btn" onclick="checkMC('q6',this,'wrong')"><span class="opt-circle">A</span> O arquivo é apagado permanentemente do computador.</button>
+      <button class="option-btn" onclick="checkMC('q6',this,'correct')"><span class="opt-circle">B</span> O arquivo é enviado para a Lixeira, podendo ser recuperado.</button>
+      <button class="option-btn" onclick="checkMC('q6',this,'wrong')"><span class="opt-circle">C</span> O arquivo é copiado para outra pasta automaticamente.</button>
+      <button class="option-btn" onclick="checkMC('q6',this,'wrong')"><span class="opt-circle">D</span> O arquivo fica oculto, mas ainda pode ser usado normalmente.</button>
+    </div>
+    <div class="feedback" id="q6-feedback"></div>
+  </div>
+
+  <!-- Q7 — Para que serve CTRL+Z? (MC, 0,9) -->
+  <div class="q-card" id="q7">
+    <div class="q-header"><div class="q-num">7</div><span class="q-text" style="margin:0">Para que serve o atalho CTRL + Z?</span><span class="q-points">0,9 pt</span></div>
+    <div class="options-list">
+      <button class="option-btn" onclick="checkMC('q7',this,'wrong')"><span class="opt-circle">A</span> Salvar o arquivo.</button>
+      <button class="option-btn" onclick="checkMC('q7',this,'wrong')"><span class="opt-circle">B</span> Copiar o arquivo.</button>
+      <button class="option-btn" onclick="checkMC('q7',this,'correct')"><span class="opt-circle">C</span> Desfazer a última ação realizada.</button>
+      <button class="option-btn" onclick="checkMC('q7',this,'wrong')"><span class="opt-circle">D</span> Fechar o programa.</button>
+    </div>
+    <div class="feedback" id="q7-feedback"></div>
+  </div>
+
+  <!-- Q8 — Área de transferência (MC, 0,9) -->
+  <div class="q-card" id="q8">
+    <div class="q-header"><div class="q-num">8</div><span class="q-text" style="margin:0">O que é a Área de Transferência do Windows?</span><span class="q-points">0,9 pt</span></div>
+    <div class="options-list">
+      <button class="option-btn" onclick="checkMC('q8',this,'wrong')"><span class="opt-circle">A</span> Uma pasta especial onde ficam os arquivos excluídos.</button>
+      <button class="option-btn" onclick="checkMC('q8',this,'correct')"><span class="opt-circle">B</span> Um espaço temporário que guarda o último item copiado ou recortado.</button>
+      <button class="option-btn" onclick="checkMC('q8',this,'wrong')"><span class="opt-circle">C</span> O local onde ficam os programas instalados.</button>
+      <button class="option-btn" onclick="checkMC('q8',this,'wrong')"><span class="opt-circle">D</span> Uma ferramenta para organizar arquivos em pastas.</button>
+    </div>
+    <div class="feedback" id="q8-feedback"></div>
+  </div>
+
+  <!-- Q9 — Como restaurar arquivo (texto, 0,8) -->
+  <div class="q-card" id="q9">
+    <div class="q-header"><div class="q-num">9</div><span class="q-text" style="margin:0">Explique como restaurar um arquivo que foi enviado para a Lixeira</span><span class="q-points">0,8 pt</span></div>
+    <textarea class="text-answer" id="q9a" placeholder="Escreva os passos…"></textarea>
+    <div class="action-row" id="q9-actions"><button class="check-btn" onclick="previewText('q9',['q9a'])">👁️ Pré-visualizar</button></div>
+    <div class="feedback" id="q9-feedback"></div>
+  </div>
+
+  <!-- Q10 — Salvar arquivo (MC, 0,9) -->
+  <div class="q-card" id="q10">
+    <div class="q-header"><div class="q-num">10</div><span class="q-text" style="margin:0">Qual atalho usamos para salvar um arquivo pela primeira vez?</span><span class="q-points">0,9 pt</span></div>
+    <div class="options-list">
+      <button class="option-btn" onclick="checkMC('q10',this,'wrong')"><span class="opt-circle">A</span> CTRL + C</button>
+      <button class="option-btn" onclick="checkMC('q10',this,'wrong')"><span class="opt-circle">B</span> CTRL + Z</button>
+      <button class="option-btn" onclick="checkMC('q10',this,'correct')"><span class="opt-circle">C</span> CTRL + S (ou salvar como)</button>
+      <button class="option-btn" onclick="checkMC('q10',this,'wrong')"><span class="opt-circle">D</span> CTRL + X</button>
+    </div>
+    <div class="feedback" id="q10-feedback"></div>
+  </div>
+
+  <!-- Q11 — Recortar vs Copiar diferença (MC, 0,9) -->
+  <div class="q-card" id="q11">
+    <div class="q-header"><div class="q-num">11</div><span class="q-text" style="margin:0">Ao copiar um texto e colar várias vezes, o que acontece?</span><span class="q-points">0,9 pt</span></div>
+    <div class="options-list">
+      <button class="option-btn" onclick="checkMC('q11',this,'wrong')"><span class="opt-circle">A</span> O texto original desaparece após a primeira colagem.</button>
+      <button class="option-btn" onclick="checkMC('q11',this,'correct')"><span class="opt-circle">B</span> O texto pode ser colado quantas vezes forem necessárias, pois fica na área de transferência.</button>
+      <button class="option-btn" onclick="checkMC('q11',this,'wrong')"><span class="opt-circle">C</span> O texto só pode ser colado uma vez.</button>
+      <button class="option-btn" onclick="checkMC('q11',this,'wrong')"><span class="opt-circle">D</span> O texto é excluído automaticamente após a colagem.</button>
+    </div>
+    <div class="feedback" id="q11-feedback"></div>
+  </div>
+
+  <div class="submit-section">
+    <button class="submit-btn" onclick="submitProva()">🚀 Finalizar Prova</button>
+  </div>
+
+  <div id="result-screen">
+    <div class="result-emoji" id="result-emoji">🏆</div>
+    <div class="stars" id="result-stars">⭐⭐⭐⭐⭐</div>
+    <div class="result-title" id="result-title">Excelente!</div>
+    <div class="result-name" id="result-name"></div>
+    <div class="result-score" id="result-score">10,0</div>
+    <div class="result-max">de 10,0 pontos</div>
+    <div class="result-bar-bg"><div class="result-bar" id="result-bar" style="width:0%"></div></div>
+    <div class="result-msg" id="result-msg"></div>
+    <div class="result-details" id="result-details"></div>
+  </div>
+
+</main>
+
+<footer style="text-align:center;padding:20px;font-family:Nunito,sans-serif;font-size:13px;color:#666;border-top:2px solid #e2e8f0;margin-top:20px;background:#fff;">
+  🏫 Escola Mundaí &nbsp;|&nbsp; 📚 Educação Tecnológica &nbsp;|&nbsp; 👨‍🏫 Prof. Thiago Costa
+</footer>
+
+<div id="toast"></div>
+
+<script>
+const answered = {}, scores = {};
+const TOTAL_Q = 11;
+const mcPts = { q3:0.9, q6:0.9, q7:0.9, q8:0.9, q10:0.9, q11:0.9 };
+const _mcPending = {};
+
+function markAnswered(qid, pts) { answered[qid]=true; scores[qid]=pts; updateProgress(); }
+function updateProgress() {
+  const n = Object.keys(answered).length;
+  document.getElementById('progressBar').style.width = (n/TOTAL_Q*100)+'%';
+  document.getElementById('progressCount').textContent = n+' / '+TOTAL_Q;
+}
+function showFeedback(id) { const el=document.getElementById(id); if(el){el.className='feedback show answered';el.innerHTML='✔️ Resposta registrada.';} }
+
+// TEXT
+function previewText(qid,ids) {
+  const vals=ids.map(id=>document.getElementById(id)?.value.trim()||'');
+  if(vals.every(v=>v.length===0)){showToast('⚠️ Preencha pelo menos um campo!');return;}
+  ids.forEach(id=>{const el=document.getElementById(id);if(el)el.disabled=true;});
+  const row=document.getElementById(qid+'-actions');
+  row.innerHTML=`<button class="confirm-btn" onclick="confirmText('${qid}',${JSON.stringify(ids)})">✔ Confirmar</button><button class="edit-btn" onclick="editText('${qid}',${JSON.stringify(ids)})">✏️ Editar</button>`;
+}
+function confirmText(qid,ids) {
+  if(answered[qid])return;
+  ids.forEach(id=>{const el=document.getElementById(id);if(el)el.disabled=true;});
+  const pts={q1:1.0,q2:1.0,q9:0.8}; markAnswered(qid,pts[qid]||0.8);
+  document.getElementById(qid).classList.add('answered');
+  document.getElementById(qid+'-actions').innerHTML='';
+  showFeedback(qid+'-feedback');
+}
+function editText(qid,ids) {
+  ids.forEach(id=>{const el=document.getElementById(id);if(el)el.disabled=false;});
+  document.getElementById(qid+'-actions').innerHTML=`<button class="check-btn" onclick="previewText('${qid}',${JSON.stringify(ids)})">👁️ Pré-visualizar</button>`;
+}
+
+// MC
+function checkMC(qid,btn,result) {
+  if(answered[qid])return;
+  if(_mcPending[qid])_mcPending[qid].btn.classList.remove('selected-answer');
+  _mcPending[qid]={btn,result};
+  document.getElementById(qid).querySelectorAll('.option-btn').forEach(b=>{b.classList.remove('selected-answer');b.disabled=false;});
+  btn.classList.add('selected-answer');
+  const fb=document.getElementById(qid+'-feedback');
+  fb.className='feedback show answered';
+  fb.innerHTML=`<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><button class="confirm-btn" style="margin-top:0;padding:8px 18px;font-size:13px;" onclick="confirmMC('${qid}')">✔ Confirmar</button><button class="edit-btn" style="margin-top:0;" onclick="editMC('${qid}')">✏️ Editar</button></div>`;
+}
+function confirmMC(qid) {
+  const p=_mcPending[qid];if(!p)return;
+  document.getElementById(qid).querySelectorAll('.option-btn').forEach(b=>b.disabled=true);
+  markAnswered(qid,p.result==='correct'?(mcPts[qid]||0.9):0);
+  document.getElementById(qid).classList.add('answered');
+  const fb=document.getElementById(qid+'-feedback');fb.className='feedback show answered';fb.innerHTML='✔️ Resposta registrada.';
+}
+function editMC(qid) {
+  document.getElementById(qid).querySelectorAll('.option-btn').forEach(b=>{b.disabled=false;b.classList.remove('selected-answer');});
+  _mcPending[qid]=null;
+  const fb=document.getElementById(qid+'-feedback');fb.className='feedback';fb.innerHTML='';
+}
+
+// TF Q5 (4 itens)
+const tf5={tf5a:null,tf5b:null,tf5c:null,tf5d:null};
+const tf5correct={tf5a:'F',tf5b:'V',tf5c:'V',tf5d:'F'};
+function checkTF(qid,subid,btn,answer) {
+  if(answered[qid])return;
+  tf5[subid]=answer;
+  btn.closest('.tf-item').querySelectorAll('.tf-btn').forEach(b=>{b.classList.remove('selected-answer');b.disabled=false;});
+  btn.classList.add('selected-answer');
+  if(Object.values(tf5).every(v=>v!==null)) {
+    const correct=Object.keys(tf5).filter(k=>tf5[k]===tf5correct[k]).length;
+    document.getElementById(qid).querySelectorAll('.tf-btn').forEach(b=>b.disabled=true);
+    markAnswered(qid,parseFloat((correct*0.2).toFixed(1)));
+    document.getElementById(qid).classList.add('answered');
+    showFeedback(qid+'-feedback');
+  }
+}
+
+// MATCH Q4
+const ms4={selected:null,pairs:0,correct:0};
+const ms4total=4;
+document.querySelectorAll('[data-match="left4"],[data-match="right4"]').forEach(el=>el.addEventListener('click',()=>handleMatch4(el)));
+function handleMatch4(el) {
+  if(answered['q4'])return;
+  if(el.classList.contains('matched'))return;
+  if(el.dataset.match==='left4') {
+    document.querySelectorAll('[data-match="left4"]').forEach(e=>e.classList.remove('selected'));
+    el.classList.add('selected'); ms4.selected=el;
+  } else {
+    if(!ms4.selected)return;
+    const ok=ms4.selected.dataset.id===el.dataset.id;
+    if(ok){ms4.selected.classList.remove('selected');ms4.selected.classList.add('matched');el.classList.add('matched');ms4.pairs++;ms4.correct++;}
+    else{ms4.selected.classList.add('wrong-blink');el.classList.add('wrong-blink');setTimeout(()=>{ms4.selected&&ms4.selected.classList.remove('wrong-blink');el.classList.remove('wrong-blink');},400);}
+    ms4.selected.classList.remove('selected');ms4.selected=null;
+    if(ms4.pairs===ms4total){document.getElementById('q4-actions').innerHTML='<button class="confirm-btn" onclick="confirmMatch4()">✔ Confirmar</button><button class="edit-btn" onclick="editMatch4()">✏️ Refazer</button>';}
+  }
+}
+function confirmMatch4(){markAnswered('q4',parseFloat((1.0*ms4.correct/ms4total).toFixed(2)));document.getElementById('q4').classList.add('answered');document.getElementById('q4-actions').innerHTML='';showFeedback('q4-feedback');}
+function editMatch4(){ms4.selected=null;ms4.pairs=0;ms4.correct=0;document.querySelectorAll('[data-match="left4"],[data-match="right4"]').forEach(el=>el.classList.remove('matched','selected','wrong-blink'));document.getElementById('q4-actions').innerHTML='';document.getElementById('q4-feedback').className='feedback';document.getElementById('q4-feedback').innerHTML='';}
+
+// TOAST
+let toastTimer=null;
+function showToast(msg){const el=document.getElementById('toast');el.innerHTML=msg;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),3500);}
+
+// SUBMIT
+const API_URL=localStorage.getItem('api_url')||'https://escola-mundai-backend-production.up.railway.app';
+const PROVA_ID='edutech-4ano-t1';
+const alunoToken=localStorage.getItem('token');
+const alunoNome=localStorage.getItem('aluno_nome')||'';
+if(!alunoToken)window.location.href='login.html';
+if(alunoNome){const ni=document.getElementById('studentName');if(ni){ni.value=alunoNome;ni.readOnly=true;ni.style.background='#f1f5f9';}}
+const ALL_Q=['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10','q11'];
+
+async function submitProva(){
+  ['q3','q6','q7','q8','q10','q11'].forEach(qid=>{if(!answered[qid]&&_mcPending[qid])confirmMC(qid);});
+  [['q1',['q1a']],['q2',['q2a','q2b','q2c','q2d','q2e','q2f','q2g']],['q9',['q9a']]].forEach(([qid,ids])=>{
+    if(!answered[qid]){const any=ids.some(id=>(document.getElementById(id)?.value||'').trim().length>0);if(any)confirmText(qid,ids);}
+  });
+  if(!answered['q4']&&ms4.pairs===ms4total)confirmMatch4();
+  if(!answered['q5']&&Object.values(tf5).every(v=>v!==null)){const correct=Object.keys(tf5).filter(k=>tf5[k]===tf5correct[k]).length;markAnswered('q5',parseFloat((correct*0.2).toFixed(1)));}
+
+  const missing=ALL_Q.filter(q=>!answered[q]);
+  ALL_Q.forEach(q=>document.getElementById(q).classList.remove('missing'));
+  if(missing.length>0){missing.forEach(q=>document.getElementById(q).classList.add('missing'));document.getElementById(missing[0]).scrollIntoView({behavior:'smooth',block:'center'});showToast('⚠️ Responda ainda: '+missing.map(q=>'Q'+q.replace('q','')).join(', '));return;}
+
+  const totalPts=parseFloat(Math.min(Object.values(scores).reduce((a,b)=>a+b,0),10).toFixed(1));
+  const pct=Math.round((totalPts/10)*100);
+  const submitBtn=document.querySelector('.submit-btn');
+  if(submitBtn){submitBtn.disabled=true;submitBtn.textContent='📤 Enviando…';}
+
+  const respostas={
+    q1_recortar_copiar:document.getElementById('q1a')?.value||'',
+    q2_completar:{a:document.getElementById('q2a')?.value||'',b:document.getElementById('q2b')?.value||'',c:document.getElementById('q2c')?.value||'',d:document.getElementById('q2d')?.value||'',e:document.getElementById('q2e')?.value||'',f:document.getElementById('q2f')?.value||'',g:document.getElementById('q2g')?.value||''},
+    q3_mover_foto:_mcPending['q3']?_mcPending['q3'].result:(scores['q3']>0?'correct':'wrong'),
+    q4_match_operacoes:{pares:ms4.correct+'/'+ms4total},
+    q5_vf:{a:tf5.tf5a,b:tf5.tf5b,c:tf5.tf5c,d:tf5.tf5d},
+    q6_excluir:_mcPending['q6']?_mcPending['q6'].result:(scores['q6']>0?'correct':'wrong'),
+    q7_ctrlz:_mcPending['q7']?_mcPending['q7'].result:(scores['q7']>0?'correct':'wrong'),
+    q8_area_transf:_mcPending['q8']?_mcPending['q8'].result:(scores['q8']>0?'correct':'wrong'),
+    q9_restaurar:document.getElementById('q9a')?.value||'',
+    q10_salvar:_mcPending['q10']?_mcPending['q10'].result:(scores['q10']>0?'correct':'wrong'),
+    q11_copiar_colar:_mcPending['q11']?_mcPending['q11'].result:(scores['q11']>0?'correct':'wrong'),
+  };
+
+  try{const res=await fetch(`${API_URL}/api/prova/${PROVA_ID}/enviar`,{method:'POST',headers:{'Content-Type':'application/json',Authorization:`Bearer ${alunoToken}`},body:JSON.stringify({respostas,nota:totalPts})});if(res.status===401){window.location.href='login.html';return;}}catch(e){console.warn(e);}
+
+  document.querySelector('.submit-section').style.display='none';
+  const rs=document.getElementById('result-screen');rs.style.display='block';rs.scrollIntoView({behavior:'smooth',block:'center'});
+  document.getElementById('result-name').textContent=alunoNome||document.getElementById('studentName')?.value||'Aluno(a)';
+  document.getElementById('result-score').textContent=totalPts.toFixed(1).replace('.',',');
+  setTimeout(()=>{document.getElementById('result-bar').style.width=pct+'%';},300);
+
+  let emoji,title,msg,stars;
+  if(pct>=90){emoji='🏆';title='Excelente!';stars='⭐⭐⭐⭐⭐';msg='Incrível! Você dominou o conteúdo!';}
+  else if(pct>=70){emoji='🎉';title='Muito Bem!';stars='⭐⭐⭐⭐';msg='Ótima pontuação! Continue assim!';}
+  else if(pct>=50){emoji='👍';title='Bom trabalho!';stars='⭐⭐⭐';msg='Revise o conteúdo para melhorar ainda mais.';}
+  else{emoji='📖';title='Continue estudando!';stars='⭐⭐';msg='Não desanime! Revise o material e tente de novo.';}
+
+  document.getElementById('result-emoji').textContent=emoji;
+  document.getElementById('result-title').textContent=title;
+  document.getElementById('result-stars').textContent=stars;
+  document.getElementById('result-msg').textContent=msg;
+  document.getElementById('result-msg').className='result-msg detail-'+(pct>=70?'green':'red');
+  const correctCount=Object.values(scores).filter(s=>s>0).length;
+  document.getElementById('result-details').innerHTML=`<div class="detail-pill detail-green">✅ ${correctCount} corretas</div><div class="detail-pill detail-red">❌ ${ALL_Q.length-correctCount} erradas</div><div class="detail-pill detail-blue">📋 ${ALL_Q.length} respondidas</div><div style="margin-top:16px;width:100%"><a href="home.html" style="display:inline-block;background:#1a5c2a;color:#fff;border-radius:12px;padding:12px 28px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;text-decoration:none;">← Voltar para início</a></div>`;
+}
+
+document.getElementById('studentDate').valueAsDate=new Date();
+updateProgress();
+</script>
+</body>
+</html>
