@@ -201,12 +201,8 @@
   ];
 
   function sair() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('aluno_nome');
-    localStorage.removeItem('aluno_turma');
-    localStorage.removeItem('api_url');
-    localStorage.removeItem('prova_id');
-    window.location.replace('https://thiagocostaps.github.io/escola-mundai-frontend/login.html');
+    localStorage.clear();
+    window.location.replace('https://thiagocostaps.github.io/escola-mundai-frontend/login.html?logout=1');
   }
 
   async function carregarStatus() {

@@ -140,8 +140,16 @@
     el.style.display = 'block';
   }
 
-  // Se já logado, vai direto pra home
-  if (localStorage.getItem('token')) window.location.href = 'home.html';
+  // Se veio de logout, limpa tudo
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('logout') === '1') {
+    localStorage.clear();
+  }
+
+  // Se já logado e não é logout, vai direto pra home
+  if (localStorage.getItem('token') && params.get('logout') !== '1') {
+    window.location.href = 'home.html';
+  }
 </script>
 </body>
 </html>
