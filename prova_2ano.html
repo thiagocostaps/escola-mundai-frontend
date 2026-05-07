@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Avaliação Teórica – 2º Ano | Escola Mundaí</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #1a73e8;
+    --blue-light: #e8f0fe;
+    --green: #34a853;
+    --green-light: #e6f4ea;
+    --red: #ea4335;
+    --red-light: #fce8e6;
+    --yellow: #fbbc04;
+    --yellow-light: #fef9e3;
+    --purple: #7c3aed;
+    --purple-light: #ede9fe;
+    --bg: #f0f4ff;
+    --card: #ffffff;
+    --text: #1e293b;
+    --muted: #64748b;
+    --border: #e2e8f0;
+    --radius: 18px;
+    --shadow: 0 4px 24px rgba(26,115,232,0.10);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding-bottom: 60px; }
+
+  header {
+    background: linear-gradient(135deg, #0ea5e9 0%, #7c3aed 100%);
+    color: #fff; padding: 32px 20px 40px; text-align: center; position: relative; overflow: hidden;
+  }
+  header::before {
+    content: ''; position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+  .escola-tag { display: inline-block; background: rgba(255,255,255,0.18); border: 1.5px solid rgba(255,255,255,0.30); border-radius: 30px; padding: 4px 18px; font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; }
+  header h1 { font-family: 'Baloo 2', cursive; font-size: clamp(26px, 5vw, 40px); font-weight: 800; margin-bottom: 6px; text-shadow: 0 2px 8px rgba(0,0,0,0.18); }
+  .header-meta { display: flex; justify-content: center; gap: 18px; flex-wrap: wrap; margin-top: 14px; }
+  .meta-pill { background: rgba(255,255,255,0.20); border-radius: 20px; padding: 5px 14px; font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 5px; }
+  .meta-pill span { font-size: 15px; }
+
+  .progress-wrap { position: sticky; top: 0; z-index: 100; background: #fff; border-bottom: 2px solid var(--border); padding: 10px 20px; display: flex; align-items: center; gap: 14px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+  .progress-label { font-size: 13px; font-weight: 700; color: var(--muted); white-space: nowrap; }
+  .progress-bar-bg { flex: 1; height: 10px; background: var(--border); border-radius: 10px; overflow: hidden; }
+  .progress-bar { height: 100%; background: linear-gradient(90deg, #0ea5e9, #7c3aed); border-radius: 10px; transition: width 0.4s ease; width: 0%; }
+  .progress-count { font-size: 13px; font-weight: 800; color: var(--blue); white-space: nowrap; }
+
+  main { max-width: 780px; margin: 0 auto; padding: 30px 16px; display: flex; flex-direction: column; gap: 24px; }
+
+  .student-card { background: var(--card); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); border: 2px solid var(--blue-light); }
+  .student-card h2 { font-family: 'Baloo 2', cursive; font-size: 18px; color: var(--blue); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .fields-row { display: flex; gap: 14px; flex-wrap: wrap; }
+  .field-group { flex: 1; min-width: 160px; }
+  .field-group label { display: block; font-size: 12px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 5px; }
+  .field-group input { width: 100%; border: 2px solid var(--border); border-radius: 10px; padding: 10px 14px; font-family: 'Nunito', sans-serif; font-size: 15px; font-weight: 600; color: var(--text); outline: none; transition: border-color 0.2s; }
+  .field-group input:focus { border-color: var(--blue); }
+
+  .q-card { background: var(--card); border-radius: var(--radius); padding: 26px 24px 22px; box-shadow: var(--shadow); border: 2px solid transparent; transition: border-color 0.3s, box-shadow 0.3s; animation: slideIn 0.4s ease both; }
+  @keyframes slideIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  .q-card.answered { border-color: #cbd5e1; background: #f8fafc; }
+  .q-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .q-num { background: linear-gradient(135deg, #0ea5e9, #7c3aed); color: #fff; font-family: 'Baloo 2', cursive; font-size: 16px; font-weight: 800; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .q-points { margin-left: auto; background: var(--yellow-light); color: #92600a; font-size: 12px; font-weight: 800; border-radius: 20px; padding: 3px 10px; white-space: nowrap; }
+  .q-text { font-size: 16px; font-weight: 700; line-height: 1.5; margin-bottom: 18px; color: var(--text); }
+  .q-hint { font-size: 13px; color: var(--muted); font-weight: 600; margin-bottom: 14px; font-style: italic; }
+
+  .match-container { display: flex; gap: 14px; flex-wrap: wrap; }
+  .match-col { flex: 1; min-width: 140px; }
+  .match-col h4 { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); margin-bottom: 8px; }
+  .match-item { background: var(--blue-light); border: 2px solid #c5d8fd; border-radius: 10px; padding: 10px 14px; font-size: 14px; font-weight: 700; margin-bottom: 8px; cursor: pointer; transition: background 0.2s, border-color 0.2s, transform 0.15s; user-select: none; }
+  .match-item:hover { transform: scale(1.02); }
+  .match-item.selected { background: var(--blue); color: #fff; border-color: var(--blue); }
+  .match-item.matched  { background: #f1f5f9; border-color: #94a3b8; color: #475569; cursor: default; }
+  .match-item.matched-right { background: #f1f5f9; border-color: #94a3b8; color: #475569; cursor: default; }
+  .match-item.used { background: #f1f5f9; border-color: #94a3b8; color: #475569; cursor: default; }
+  .match-item.wrong-blink { animation: wrongBlink 0.4s; }
+  @keyframes wrongBlink { 0%,100%{background:var(--blue-light)} 50%{background:#dbeafe;border-color:#93c5fd;} }
+
+  .options-list { display: flex; flex-direction: column; gap: 10px; }
+  .option-btn { display: flex; align-items: center; gap: 12px; background: var(--bg); border: 2px solid var(--border); border-radius: 12px; padding: 12px 16px; font-family: 'Nunito', sans-serif; font-size: 15px; font-weight: 700; color: var(--text); cursor: pointer; text-align: left; transition: background 0.18s, border-color 0.18s, transform 0.12s; }
+  .option-btn:hover:not(:disabled) { background: var(--blue-light); border-color: var(--blue); transform: translateX(4px); }
+  .option-btn.selected-answer { background: #f1f5f9; border-color: #94a3b8; color: #475569; }
+  .option-btn:disabled { cursor: default; }
+  .opt-circle { width: 28px; height: 28px; border-radius: 50%; background: var(--border); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; flex-shrink: 0; transition: background 0.18s; }
+  .option-btn.selected-answer .opt-circle { background: #94a3b8; color: #fff; }
+  .option-btn:hover:not(:disabled) .opt-circle { background: var(--blue); color: #fff; }
+
+  .tf-list { display: flex; flex-direction: column; gap: 12px; }
+  .tf-statement { font-size: 15px; font-weight: 600; background: var(--bg); border-radius: 10px; padding: 10px 14px; margin-bottom: 6px; border: 2px solid var(--border); }
+  .tf-btns { display: flex; gap: 8px; }
+  .tf-btn { flex: 1; padding: 8px; border-radius: 10px; border: 2px solid var(--border); background: var(--card); font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 800; cursor: pointer; transition: all 0.18s; }
+  .tf-btn:hover:not(:disabled) { border-color: var(--blue); background: var(--blue-light); color: var(--blue); }
+  .tf-btn.selected-answer { background: #f1f5f9; border-color: #94a3b8; color: #475569; font-weight: 900; }
+  .tf-btn:disabled { cursor: default; }
+
+  .text-answer { width: 100%; border: 2px solid var(--border); border-radius: 12px; padding: 12px 16px; font-family: 'Nunito', sans-serif; font-size: 15px; font-weight: 600; color: var(--text); resize: vertical; min-height: 80px; outline: none; transition: border-color 0.2s; }
+  .text-answer:focus { border-color: var(--blue); }
+
+  .feedback { display: none; align-items: center; gap: 8px; margin-top: 14px; padding: 10px 14px; border-radius: 10px; font-size: 14px; font-weight: 700; }
+  .feedback.show { display: flex; }
+  .feedback.answered { background: #f1f5f9; color: #475569; }
+
+  .check-btn { margin-top: 14px; display: flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #0ea5e9, #7c3aed); color: #fff; border: none; border-radius: 12px; padding: 11px 22px; font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 800; cursor: pointer; transition: opacity 0.18s, transform 0.12s; box-shadow: 0 3px 12px rgba(14,165,233,0.3); }
+  .check-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+  .check-btn:disabled { background: var(--border); color: var(--muted); cursor: default; box-shadow: none; transform: none; }
+
+  .confirm-btn { margin-top: 14px; display: inline-flex; align-items: center; gap: 8px; background: #16a34a; color: #fff; border: none; border-radius: 12px; padding: 11px 22px; font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 800; cursor: pointer; transition: opacity 0.18s, transform 0.12s; box-shadow: 0 3px 12px rgba(22,163,74,0.25); }
+  .confirm-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+  .edit-btn { margin-top: 10px; display: inline-flex; align-items: center; gap: 6px; background: transparent; color: var(--muted); border: 2px solid var(--border); border-radius: 10px; padding: 7px 16px; font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 800; cursor: pointer; transition: all 0.18s; margin-left: 8px; }
+  .edit-btn:hover { border-color: #94a3b8; color: #334155; background: #f1f5f9; }
+  .action-row { display: flex; align-items: center; flex-wrap: wrap; gap: 4px; margin-top: 14px; }
+  .action-row .check-btn, .action-row .confirm-btn { margin-top: 0; }
+
+  .submit-section { text-align: center; padding: 30px 0 10px; }
+  .submit-btn { background: linear-gradient(135deg, #34a853, #0ea5e9); color: #fff; border: none; border-radius: 18px; padding: 16px 48px; font-family: 'Baloo 2', cursive; font-size: 20px; font-weight: 800; cursor: pointer; box-shadow: 0 4px 20px rgba(52,168,83,0.35); transition: opacity 0.2s, transform 0.15s; letter-spacing: .5px; }
+  .submit-btn:hover { opacity: 0.92; transform: translateY(-2px); }
+
+  #toast { position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%); background: #1e293b; color: #fff; border-radius: 14px; padding: 14px 22px; font-size: 15px; font-weight: 700; z-index: 9999; box-shadow: 0 6px 28px rgba(0,0,0,0.25); display: flex; align-items: center; gap: 10px; opacity: 0; pointer-events: none; transition: opacity 0.3s, transform 0.3s; transform: translateX(-50%) translateY(20px); white-space: nowrap; }
+  #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  .q-card.missing { border-color: var(--red) !important; background: #fff5f5 !important; animation: shake 0.4s ease; }
+  @keyframes shake { 0%,100% { transform: translateX(0); } 20% { transform: translateX(-6px); } 40% { transform: translateX(6px); } 60% { transform: translateX(-4px); } 80% { transform: translateX(4px); } }
+
+  #result-screen { display: none; background: var(--card); border-radius: var(--radius); padding: 40px 30px; box-shadow: var(--shadow); text-align: center; animation: slideIn 0.5s ease; }
+  .result-emoji { font-size: 64px; margin-bottom: 12px; }
+  .result-title { font-family: 'Baloo 2', cursive; font-size: 30px; font-weight: 800; margin-bottom: 6px; }
+  .result-name  { font-size: 18px; font-weight: 700; color: var(--muted); margin-bottom: 20px; }
+  .result-score { display: inline-block; font-family: 'Baloo 2', cursive; font-size: 56px; font-weight: 800; background: linear-gradient(135deg, #0ea5e9, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 8px; }
+  .result-max { font-size: 16px; color: var(--muted); font-weight: 700; margin-bottom: 24px; }
+  .result-bar-bg { width: 100%; height: 18px; background: var(--border); border-radius: 18px; overflow: hidden; margin-bottom: 24px; }
+  .result-bar { height: 100%; border-radius: 18px; background: linear-gradient(90deg, #34a853, #0ea5e9); transition: width 1s ease; }
+  .result-msg { font-size: 17px; font-weight: 700; padding: 14px 20px; border-radius: 12px; margin-bottom: 20px; }
+  .result-details { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 24px; }
+  .detail-pill { border-radius: 20px; padding: 8px 18px; font-size: 14px; font-weight: 800; display: flex; align-items: center; gap: 6px; }
+  .detail-green { background: var(--green-light); color: var(--green); }
+  .detail-red   { background: var(--red-light);   color: var(--red); }
+  .detail-blue  { background: var(--blue-light);  color: var(--blue); }
+  .stars { font-size: 28px; letter-spacing: 4px; margin-bottom: 8px; }
+
+  /* Tabela de completar */
+  .fill-table { width: 100%; border-collapse: collapse; margin-top: 4px; }
+  .fill-table th { background: var(--blue-light); color: var(--blue); font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: .5px; padding: 10px 14px; border: 2px solid #c5d8fd; }
+  .fill-table td { padding: 8px 14px; border: 2px solid var(--border); font-size: 14px; font-weight: 600; vertical-align: middle; }
+  .fill-table input.text-answer { min-height: unset; height: 38px; border-radius: 8px; }
+
+  @media (max-width: 500px) { .q-card { padding: 18px 14px 16px; } main { padding: 16px 10px; } .match-container { flex-direction: column; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="escola-tag">🏫 Escola Mundaí</div>
+  <h1>💻 Prova de Informática</h1>
+  <p style="font-size:15px;font-weight:700;opacity:.85;margin-top:4px;">Avaliação Teórica – I Trimestre</p>
+  <div class="header-meta">
+    <div class="meta-pill"><span>📚</span> 2º Ano</div>
+    <div class="meta-pill"><span>⏱️</span> 45 minutos</div>
+    <div class="meta-pill"><span>⭐</span> Valor: 10,0</div>
+  </div>
+</header>
+
+<div class="progress-wrap">
+  <span class="progress-label">Progresso</span>
+  <div class="progress-bar-bg"><div class="progress-bar" id="progressBar"></div></div>
+  <span class="progress-count" id="progressCount">0 / 11</span>
+</div>
+
+<main>
+
+  <!-- Student Info -->
+  <div class="student-card">
+    <h2>📝 Seus dados</h2>
+    <div class="fields-row">
+      <div class="field-group">
+        <label>Nome completo</label>
+        <input type="text" id="studentName" placeholder="Digite seu nome…" autocomplete="off">
+      </div>
+      <div class="field-group" style="max-width:160px">
+        <label>Data</label>
+        <input type="date" id="studentDate">
+      </div>
+    </div>
+  </div>
+
+  <!-- Q1 – Relacionar mouse com função (0,9 pts) -->
+  <div class="q-card" id="q1">
+    <div class="q-header">
+      <div class="q-num">1</div>
+      <span class="q-text" style="margin:0">Relacione cada botão do mouse com sua função</span>
+      <span class="q-points">0,9 pts</span>
+    </div>
+    <p class="q-hint">👆 Clique em um item da esquerda, depois clique no correspondente da direita.</p>
+    <div class="match-container">
+      <div class="match-col">
+        <h4>Botão</h4>
+        <div class="match-item" data-match="left" data-id="esquerdo"  id="ml-esquerdo">Botão esquerdo</div>
+        <div class="match-item" data-match="left" data-id="direito"   id="ml-direito">Botão direito</div>
+        <div class="match-item" data-match="left" data-id="scroll"    id="ml-scroll">Botão do meio (scroll)</div>
+      </div>
+      <div class="match-col">
+        <h4>Função</h4>
+        <div class="match-item" data-match="right" data-id="scroll"   id="mr-scroll">Rolar a página para cima ou para baixo.</div>
+        <div class="match-item" data-match="right" data-id="esquerdo" id="mr-esquerdo">Selecionar e abrir arquivos e programas.</div>
+        <div class="match-item" data-match="right" data-id="direito"  id="mr-direito">Abre um menu com opções extras.</div>
+      </div>
+    </div>
+    <div class="action-row" id="q1-actions"></div>
+    <div class="feedback" id="q1-feedback"></div>
+  </div>
+
+  <!-- Q2 – Função do mouse (múltipla escolha, 0,8 pts) -->
+  <div class="q-card" id="q2">
+    <div class="q-header">
+      <div class="q-num">2</div>
+      <span class="q-text" style="margin:0">Qual é a principal função do mouse?</span>
+      <span class="q-points">0,8 pts</span>
+    </div>
+    <div class="options-list">
+      <button class="option-btn" onclick="checkMC('q2',this,'wrong')"><span class="opt-circle">A</span> Digitar textos no computador.</button>
+      <button class="option-btn" onclick="checkMC('q2',this,'correct')"><span class="opt-circle">B</span> Mover o cursor e interagir com os elementos na tela.</button>
+      <button class="option-btn" onclick="checkMC('q2',this,'wrong')"><span class="opt-circle">C</span> Ligar e desligar o computador.</button>
+      <button class="option-btn" onclick="checkMC('q2',this,'wrong')"><span class="opt-circle">D</span> Imprimir documentos.</button>
+    </div>
+    <div class="feedback" id="q2-feedback"></div>
+  </div>
+
+  <!-- Q3 – Funções de teclas (completar tabela, 1,0 pt) -->
+  <div class="q-card" id="q3">
+    <div class="q-header">
+      <div class="q-num">3</div>
+      <span class="q-text" style="margin:0">Escreva a função de cada tecla</span>
+      <span class="q-points">1,0 pt</span>
+    </div>
+    <table class="fill-table">
+      <thead><tr><th>Tecla</th><th>Função</th></tr></thead>
+      <tbody>
+        <tr><td><strong>SHIFT</strong></td><td><input class="text-answer" id="q3a" placeholder="Para que serve o SHIFT?"></td></tr>
+        <tr><td><strong>BACKSPACE</strong></td><td><input class="text-answer" id="q3b" placeholder="Para que serve o BACKSPACE?"></td></tr>
+        <tr><td><strong>ENTER</strong></td><td><input class="text-answer" id="q3c" placeholder="Para que serve o ENTER?"></td></tr>
+      </tbody>
+    </table>
+    <div class="action-row" id="q3-actions">
+      <button class="check-btn" onclick="previewQ3()">👁️ Pré-visualizar</button>
+    </div>
+    <div class="feedback" id="q3-feedback"></div>
+  </div>
+
+  <!-- Q4 – Área de trabalho (múltipla escolha, 0,8 pts) -->
+  <div class="q-card" id="q4">
+    <div class="q-header">
+      <div class="q-num">4</div>
+      <span class="q-text" style="margin:0">O que é a Área de Trabalho do computador?</span>
+      <span class="q-points">0,8 pts</span>
+    </div>
+    <div class="options-list">
+      <button class="option-btn" onclick="checkMC('q4',this,'wrong')"><span class="opt-circle">A</span> O local onde fica o processador do computador.</button>
+      <button class="option-btn" onclick="checkMC('q4',this,'wrong')"><span class="opt-circle">B</span> A mesa física onde o computador está apoiado.</button>
+      <button class="option-btn" onclick="checkMC('q4',this,'correct')"><span class="opt-circle">C</span> A primeira tela que aparece quando o computador é ligado.</button>
+      <button class="option-btn" onclick="checkMC('q4',this,'wrong')"><span class="opt-circle">D</span> O programa usado para navegar na internet.</button>
+    </div>
+    <div class="feedback" id="q4-feedback"></div>
+  </div>
+
+  <!-- Q5 – Relacionar elementos da Área de Trabalho (0,9 pts) -->
+  <div class="q-card" id="q5">
+    <div class="q-header">
+      <div class="q-num">5</div>
+      <span class="q-text" style="margin:0">Relacione cada elemento da Área de Trabalho com sua descrição</span>
+      <span class="q-points">0,9 pts</span>
+    </div>
+    <p class="q-hint">👆 Clique em um item da esquerda, depois clique no correspondente da direita.</p>
+    <div class="match-container">
+      <div class="match-col">
+        <h4>Elemento</h4>
+        <div class="match-item" data-match="left2" data-id="icones"   id="ml2-icones">Ícones</div>
+        <div class="match-item" data-match="left2" data-id="barra"    id="ml2-barra">Barra de Tarefas</div>
+        <div class="match-item" data-match="left2" data-id="lixeira"  id="ml2-lixeira">Lixeira</div>
+      </div>
+      <div class="match-col">
+        <h4>Descrição</h4>
+        <div class="match-item" data-match="right2" data-id="lixeira" id="mr2-lixeira">Guarda arquivos que foram apagados.</div>
+        <div class="match-item" data-match="right2" data-id="icones"  id="mr2-icones">Símbolos que representam programas ou arquivos.</div>
+        <div class="match-item" data-match="right2" data-id="barra"   id="mr2-barra">Fica na parte inferior da tela.</div>
+      </div>
+    </div>
+    <div class="action-row" id="q5-actions"></div>
+    <div class="feedback" id="q5-feedback"></div>
+  </div>
+
+  <!-- Q6 – Verdadeiro ou Falso (0,9 pts) -->
+  <div class="q-card" id="q6">
+    <div class="q-header">
+      <div class="q-num">6</div>
+      <span class="q-text" style="margin:0">Marque Verdadeiro (V) ou Falso (F)</span>
+      <span class="q-points">0,9 pts</span>
+    </div>
+    <div class="tf-list">
+      <div class="tf-item">
+        <div class="tf-statement">O duplo clique com o botão esquerdo do mouse serve para abrir arquivos e programas.</div>
+        <div class="tf-btns">
+          <button class="tf-btn" onclick="checkTF('q6','q6a',this,'V')">✅ Verdadeiro</button>
+          <button class="tf-btn" onclick="checkTF('q6','q6a',this,'F')">❌ Falso</button>
+        </div>
+      </div>
+      <div class="tf-item">
+        <div class="tf-statement">A tecla BACKSPACE apaga a letra que está à frente do cursor.</div>
+        <div class="tf-btns">
+          <button class="tf-btn" onclick="checkTF('q6','q6b',this,'V')">✅ Verdadeiro</button>
+          <button class="tf-btn" onclick="checkTF('q6','q6b',this,'F')">❌ Falso</button>
+        </div>
+      </div>
+      <div class="tf-item">
+        <div class="tf-statement">O Botão Pesquisar serve para encontrar programas e arquivos no computador.</div>
+        <div class="tf-btns">
+          <button class="tf-btn" onclick="checkTF('q6','q6c',this,'V')">✅ Verdadeiro</button>
+          <button class="tf-btn" onclick="checkTF('q6','q6c',this,'F')">❌ Falso</button>
+        </div>
+      </div>
+    </div>
+    <div class="feedback" id="q6-feedback"></div>
+  </div>
+
+  <!-- Q7 – Botões da janela (múltipla escolha, 0,8 pts) -->
+  <div class="q-card" id="q7">
+    <div class="q-header">
+      <div class="q-num">7</div>
+      <span class="q-text" style="margin:0">O que faz o botão MAXIMIZAR de uma janela?</span>
+      <span class="q-points">0,8 pts</span>
+    </div>
+    <div class="options-list">
+      <button class="option-btn" onclick="checkMC('q7',this,'wrong')"><span class="opt-circle">A</span> Fecha a janela completamente.</button>
+      <button class="option-btn" onclick="checkMC('q7',this,'correct')"><span class="opt-circle">B</span> Faz a janela ocupar toda a tela.</button>
+      <button class="option-btn" onclick="checkMC('q7',this,'wrong')"><span class="opt-circle">C</span> Faz a janela ficar bem pequena na barra de tarefas.</button>
+      <button class="option-btn" onclick="checkMC('q7',this,'wrong')"><span class="opt-circle">D</span> Volta a janela ao tamanho original.</button>
+    </div>
+    <div class="feedback" id="q7-feedback"></div>
+  </div>
+
+  <!-- Q8 – Completar com palavras (MINIMIZAR, MAXIMIZAR, RESTAURAR, 0,9 pts) -->
+  <div class="q-card" id="q8">
+    <div class="q-header">
+      <div class="q-num">8</div>
+      <span class="q-text" style="margin:0">Complete com a palavra correta: MINIMIZAR • MAXIMIZAR • RESTAURAR</span>
+      <span class="q-points">0,9 pts</span>
+    </div>
+    <p class="q-hint">💡 Use as palavras do quadro acima para preencher os espaços.</p>
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div style="background:var(--bg);border:2px solid var(--border);border-radius:10px;padding:12px 16px;font-size:15px;font-weight:600;">
+        a) Para fazer a janela ocupar toda a tela usamos: <input class="text-answer" id="q8a" style="min-height:unset;height:36px;width:180px;display:inline-block;vertical-align:middle;margin-left:6px;" placeholder="…">
+      </div>
+      <div style="background:var(--bg);border:2px solid var(--border);border-radius:10px;padding:12px 16px;font-size:15px;font-weight:600;">
+        b) Para deixar a janela bem pequena usamos: <input class="text-answer" id="q8b" style="min-height:unset;height:36px;width:180px;display:inline-block;vertical-align:middle;margin-left:6px;" placeholder="…">
+      </div>
+      <div style="background:var(--bg);border:2px solid var(--border);border-radius:10px;padding:12px 16px;font-size:15px;font-weight:600;">
+        c) Para voltar a janela ao tamanho anterior usamos: <input class="text-answer" id="q8c" style="min-height:unset;height:36px;width:180px;display:inline-block;vertical-align:middle;margin-left:6px;" placeholder="…">
+      </div>
+    </div>
+    <div class="action-row" id="q8-actions">
+      <button class="check-btn" onclick="previewQ8()">👁️ Pré-visualizar</button>
+    </div>
+    <div class="feedback" id="q8-feedback"></div>
+  </div>
+
+  <!-- Q9 – Múltipla escolha Barra de Tarefas (0,8 pts) -->
+  <div class="q-card" id="q9">
+    <div class="q-header">
+      <div class="q-num">9</div>
+      <span class="q-text" style="margin:0">Onde fica a Barra de Tarefas na Área de Trabalho?</span>
+      <span class="q-points">0,8 pts</span>
+    </div>
+    <div class="options-list">
+      <button class="option-btn" onclick="checkMC('q9',this,'wrong')"><span class="opt-circle">A</span> Na parte superior da tela.</button>
+      <button class="option-btn" onclick="checkMC('q9',this,'correct')"><span class="opt-circle">B</span> Na parte inferior da tela.</button>
+      <button class="option-btn" onclick="checkMC('q9',this,'wrong')"><span class="opt-circle">C</span> No lado esquerdo da tela.</button>
+      <button class="option-btn" onclick="checkMC('q9',this,'wrong')"><span class="opt-circle">D</span> No centro da tela.</button>
+    </div>
+    <div class="feedback" id="q9-feedback"></div>
+  </div>
+
+  <!-- Q10 – Verdadeiro ou Falso sobre teclado (0,9 pts) -->
+  <div class="q-card" id="q10">
+    <div class="q-header">
+      <div class="q-num">10</div>
+      <span class="q-text" style="margin:0">Marque Verdadeiro (V) ou Falso (F) sobre o teclado</span>
+      <span class="q-points">0,9 pts</span>
+    </div>
+    <div class="tf-list">
+      <div class="tf-item">
+        <div class="tf-statement">A tecla SHIFT, quando pressionada junto com uma letra, escreve a letra em maiúsculo.</div>
+        <div class="tf-btns">
+          <button class="tf-btn" onclick="checkTF('q10','q10a',this,'V')">✅ Verdadeiro</button>
+          <button class="tf-btn" onclick="checkTF('q10','q10a',this,'F')">❌ Falso</button>
+        </div>
+      </div>
+      <div class="tf-item">
+        <div class="tf-statement">A tecla ENTER serve para apagar letras que foram digitadas erradas.</div>
+        <div class="tf-btns">
+          <button class="tf-btn" onclick="checkTF('q10','q10b',this,'V')">✅ Verdadeiro</button>
+          <button class="tf-btn" onclick="checkTF('q10','q10b',this,'F')">❌ Falso</button>
+        </div>
+      </div>
+      <div class="tf-item">
+        <div class="tf-statement">O teclado é usado para digitar textos e números no computador.</div>
+        <div class="tf-btns">
+          <button class="tf-btn" onclick="checkTF('q10','q10c',this,'V')">✅ Verdadeiro</button>
+          <button class="tf-btn" onclick="checkTF('q10','q10c',this,'F')">❌ Falso</button>
+        </div>
+      </div>
+    </div>
+    <div class="feedback" id="q10-feedback"></div>
+  </div>
+
+  <!-- Q11 – Múltipla escolha RESTAURAR (0,8 pts) -->
+  <div class="q-card" id="q11">
+    <div class="q-header">
+      <div class="q-num">11</div>
+      <span class="q-text" style="margin:0">O que acontece quando clicamos com o botão DIREITO do mouse sobre um arquivo?</span>
+      <span class="q-points">0,8 pts</span>
+    </div>
+    <div class="options-list">
+      <button class="option-btn" onclick="checkMC('q11',this,'wrong')"><span class="opt-circle">A</span> O arquivo é aberto imediatamente.</button>
+      <button class="option-btn" onclick="checkMC('q11',this,'wrong')"><span class="opt-circle">B</span> O arquivo é enviado para a lixeira.</button>
+      <button class="option-btn" onclick="checkMC('q11',this,'correct')"><span class="opt-circle">C</span> Aparece um menu com opções como abrir, copiar, renomear e excluir.</button>
+      <button class="option-btn" onclick="checkMC('q11',this,'wrong')"><span class="opt-circle">D</span> O computador é reiniciado.</button>
+    </div>
+    <div class="feedback" id="q11-feedback"></div>
+  </div>
+
+  <!-- Submit -->
+  <div class="submit-section">
+    <button class="submit-btn" onclick="submitProva()">🚀 Finalizar Prova</button>
+  </div>
+
+  <!-- Result -->
+  <div id="result-screen">
+    <div class="result-emoji" id="result-emoji">🏆</div>
+    <div class="stars" id="result-stars">⭐⭐⭐⭐⭐</div>
+    <div class="result-title" id="result-title">Excelente!</div>
+    <div class="result-name" id="result-name"></div>
+    <div class="result-score" id="result-score">10,0</div>
+    <div class="result-max">de 10,0 pontos</div>
+    <div class="result-bar-bg"><div class="result-bar" id="result-bar" style="width:0%"></div></div>
+    <div class="result-msg" id="result-msg"></div>
+    <div class="result-details" id="result-details"></div>
+  </div>
+
+</main>
+
+<div id="toast"></div>
+
+<script>
+// ── STATE ──────────────────────────────────────────────────────────────────────
+const answered = {};
+const scores   = {};
+const TOTAL_Q  = 11;
+
+function markAnswered(qid, pts) {
+  answered[qid] = true;
+  scores[qid]   = pts;
+  updateProgress();
+}
+function updateProgress() {
+  const n = Object.keys(answered).length;
+  document.getElementById('progressBar').style.width = (n / TOTAL_Q * 100) + '%';
+  document.getElementById('progressCount').textContent = n + ' / ' + TOTAL_Q;
+}
+function showFeedback(id) {
+  const el = document.getElementById(id);
+  if (el) { el.className = 'feedback show answered'; el.innerHTML = '✔️ Resposta registrada.'; }
+}
+
+// ── CONFIRM / EDIT ──────────────────────────────────────────────────────────
+function showConfirmBar(qid, onConfirm, onEdit) {
+  const row = document.getElementById(qid + '-actions');
+  if (!row) return;
+  row.innerHTML =
+    '<button class="confirm-btn" onclick="(' + onConfirm + ')()">' +
+    '✔ Confirmar resposta</button>' +
+    '<button class="edit-btn" onclick="(' + onEdit + ')()">' +
+    '✏️ Editar</button>';
+}
+
+// ── Q3 (teclas) ──
+function previewQ3() {
+  const vals = ['q3a','q3b','q3c'].map(id => document.getElementById(id).value.trim());
+  if (vals.every(v => v.length === 0)) { showToast('⚠️ Preencha pelo menos um campo!'); return; }
+  ['q3a','q3b','q3c'].forEach(id => document.getElementById(id).disabled = true);
+  showConfirmBar('q3', 'confirmQ3', 'editQ3');
+}
+function confirmQ3() { checkQ3(); document.getElementById('q3-actions').innerHTML = ''; }
+function editQ3() {
+  ['q3a','q3b','q3c'].forEach(id => { document.getElementById(id).disabled = false; });
+  document.getElementById('q3-actions').innerHTML = '<button class="check-btn" onclick="previewQ3()">👁️ Pré-visualizar</button>';
+}
+function checkQ3() {
+  if (answered['q3']) return;
+  const shiftOk = ['maiúsculo','maiusculo','maiusculas','maiúsculas','grande','caixa alta','uppercase','letras maiúsculas','letras maiusculas'];
+  const backOk  = ['apagar','deletar','delete','apaga','excluir','excluí','remove','remov'];
+  const enterOk = ['confirmar','confirma','pular','pula','linha','próxima','proxima','confirma','ok','aceitar'];
+  const a = document.getElementById('q3a').value.trim().toLowerCase();
+  const b = document.getElementById('q3b').value.trim().toLowerCase();
+  const c = document.getElementById('q3c').value.trim().toLowerCase();
+  ['q3a','q3b','q3c'].forEach(id => document.getElementById(id).disabled = true);
+  const aOk = shiftOk.some(k => a.includes(k));
+  const bOk = backOk.some(k => b.includes(k));
+  const cOk = enterOk.some(k => c.includes(k));
+  const correct = [aOk, bOk, cOk].filter(Boolean).length;
+  const pts = parseFloat((correct * (1.0/3)).toFixed(2));
+  markAnswered('q3', pts);
+  document.getElementById('q3').classList.add('answered');
+  showFeedback('q3-feedback');
+}
+
+// ── Q8 (MINIMIZAR / MAXIMIZAR / RESTAURAR) ──
+function previewQ8() {
+  const vals = ['q8a','q8b','q8c'].map(id => document.getElementById(id).value.trim());
+  if (vals.every(v => v.length === 0)) { showToast('⚠️ Preencha pelo menos um campo!'); return; }
+  ['q8a','q8b','q8c'].forEach(id => document.getElementById(id).disabled = true);
+  showConfirmBar('q8', 'confirmQ8', 'editQ8');
+}
+function confirmQ8() { checkQ8(); document.getElementById('q8-actions').innerHTML = ''; }
+function editQ8() {
+  ['q8a','q8b','q8c'].forEach(id => { document.getElementById(id).disabled = false; });
+  document.getElementById('q8-actions').innerHTML = '<button class="check-btn" onclick="previewQ8()">👁️ Pré-visualizar</button>';
+}
+function checkQ8() {
+  if (answered['q8']) return;
+  const a = document.getElementById('q8a').value.trim().toLowerCase();
+  const b = document.getElementById('q8b').value.trim().toLowerCase();
+  const c = document.getElementById('q8c').value.trim().toLowerCase();
+  ['q8a','q8b','q8c'].forEach(id => document.getElementById(id).disabled = true);
+  const aOk = a.includes('maxim');
+  const bOk = b.includes('minim');
+  const cOk = c.includes('restaur');
+  const correct = [aOk, bOk, cOk].filter(Boolean).length;
+  const pts = parseFloat((correct * 0.3).toFixed(1));
+  markAnswered('q8', pts);
+  document.getElementById('q8').classList.add('answered');
+  showFeedback('q8-feedback');
+}
+
+// ── MC ──────────────────────────────────────────────────────────────────────
+const _mcPending = {};
+const mcPts = { q2: 0.8, q4: 0.8, q7: 0.8, q9: 0.8, q11: 0.8 };
+function checkMC(qid, btn, result) {
+  if (answered[qid]) return;
+  if (_mcPending[qid]) _mcPending[qid].btn.classList.remove('selected-answer');
+  _mcPending[qid] = { btn, result };
+  const card = document.getElementById(qid);
+  card.querySelectorAll('.option-btn').forEach(b => { b.classList.remove('selected-answer'); b.disabled = false; });
+  btn.classList.add('selected-answer');
+  const fb = document.getElementById(qid + '-feedback');
+  fb.className = 'feedback show answered';
+  fb.innerHTML =
+    '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">' +
+    '<button class="confirm-btn" style="margin-top:0;padding:8px 18px;font-size:13px;" onclick="confirmMC(\''+qid+'\')">' +
+    '✔ Confirmar</button>' +
+    '<button class="edit-btn" style="margin-top:0;" onclick="editMC(\''+qid+'\')">' +
+    '✏️ Editar</button></div>';
+}
+function confirmMC(qid) {
+  const p = _mcPending[qid]; if (!p) return;
+  document.getElementById(qid).querySelectorAll('.option-btn').forEach(b => { b.disabled = true; });
+  markAnswered(qid, p.result === 'correct' ? (mcPts[qid] || 0.8) : 0);
+  document.getElementById(qid).classList.add('answered');
+  const fb = document.getElementById(qid + '-feedback');
+  fb.className = 'feedback show answered';
+  fb.innerHTML = '✔️ Resposta registrada.';
+}
+function editMC(qid) {
+  document.getElementById(qid).querySelectorAll('.option-btn').forEach(b => { b.disabled = false; b.classList.remove('selected-answer'); });
+  _mcPending[qid] = null;
+  const fb = document.getElementById(qid + '-feedback');
+  fb.className = 'feedback'; fb.innerHTML = '';
+}
+
+// ── TF ──────────────────────────────────────────────────────────────────────
+const _tfPending = {};
+const q6answers  = { q6a: null, q6b: null, q6c: null };
+const q10answers = { q10a: null, q10b: null, q10c: null };
+const tfCorrect6  = { q6a: 'V', q6b: 'F', q6c: 'V' };
+const tfCorrect10 = { q10a: 'V', q10b: 'F', q10c: 'V' };
+
+function checkTF(qid, subid, btn, answer) {
+  const answersMap = qid === 'q6' ? q6answers : q10answers;
+  const correctMap = qid === 'q6' ? tfCorrect6 : tfCorrect10;
+  if (answered[qid]) return;
+  answersMap[subid] = answer;
+  const item = btn.closest('.tf-item');
+  item.querySelectorAll('.tf-btn').forEach(b => { b.classList.remove('selected-answer'); b.disabled = false; });
+  btn.classList.add('selected-answer');
+  // check all 3 answered
+  const allKeys = Object.keys(answersMap);
+  const allDone = allKeys.every(k => answersMap[k] !== null);
+  if (allDone) {
+    const correct = allKeys.filter(k => answersMap[k] === correctMap[k]).length;
+    const pts = parseFloat((correct * 0.3).toFixed(1));
+    // lock all
+    document.getElementById(qid).querySelectorAll('.tf-btn').forEach(b => b.disabled = true);
+    markAnswered(qid, pts);
+    document.getElementById(qid).classList.add('answered');
+    showFeedback(qid + '-feedback');
+  }
+}
+
+// ── MATCH ──────────────────────────────────────────────────────────────────
+const matchState = { 1: { selected: null, pairs: 0, correct: 0 }, 2: { selected: null, pairs: 0, correct: 0 } };
+const matchTotals = { 1: 3, 2: 3 };
+const matchPtsMap = { 1: 0.9, 2: 0.9 };
+const matchQid    = { 1: 'q1', 2: 'q5' };
+
+document.querySelectorAll('[data-match="left"], [data-match="right"]').forEach(el => {
+  el.addEventListener('click', () => handleMatch(el, 'q1', 1));
+});
+document.querySelectorAll('[data-match="left2"], [data-match="right2"]').forEach(el => {
+  el.addEventListener('click', () => handleMatch(el, 'q5', 2));
+});
+
+function handleMatch(el, qCardId, group) {
+  if (answered[qCardId]) return;
+  const s = matchState[group];
+  const leftAttr  = group === 1 ? 'left'  : 'left2';
+  const rightAttr = group === 1 ? 'right' : 'right2';
+  const side = el.dataset.match;
+  if (el.classList.contains('matched') || el.classList.contains('used')) return;
+
+  if (side === leftAttr || side === 'left') {
+    if (side !== leftAttr) return;
+    document.querySelectorAll('[data-match="'+leftAttr+'"]').forEach(e => e.classList.remove('selected'));
+    el.classList.add('selected');
+    s.selected = el;
+  } else if (side === rightAttr || side === 'right') {
+    if (side !== rightAttr) return;
+    if (!s.selected) return;
+    const leftId  = s.selected.dataset.id;
+    const rightId = el.dataset.id;
+    const isCorrect = leftId === rightId;
+    if (isCorrect) {
+      s.selected.classList.remove('selected');
+      s.selected.classList.add('matched');
+      el.classList.add('matched-right');
+      s.pairs++;
+      s.correct++;
+    } else {
+      s.selected.classList.add('wrong-blink');
+      el.classList.add('wrong-blink');
+      setTimeout(() => {
+        s.selected && s.selected.classList.remove('wrong-blink');
+        el.classList.remove('wrong-blink');
+      }, 400);
+    }
+    s.selected.classList.remove('selected');
+    s.selected = null;
+
+    if (s.pairs === matchTotals[group]) {
+      const actRow = document.getElementById(qCardId + '-actions');
+      actRow.innerHTML =
+        '<button class="confirm-btn" onclick="confirmMatch('+group+')">✔ Confirmar resposta</button>' +
+        '<button class="edit-btn" onclick="editMatch('+group+')">✏️ Refazer</button>';
+    }
+  }
+}
+
+function confirmMatch(group) {
+  const qCardId = matchQid[group];
+  markAnswered(qCardId, matchPtsMap[group] * matchState[group].correct / matchTotals[group]);
+  document.getElementById(qCardId).classList.add('answered');
+  document.getElementById(qCardId + '-actions').innerHTML = '';
+  showFeedback(qCardId + '-feedback');
+}
+
+function editMatch(group) {
+  const qCardId = matchQid[group];
+  matchState[group] = { selected: null, pairs: 0, correct: 0 };
+  const leftAttr  = group === 1 ? 'left'  : 'left2';
+  const rightAttr = group === 1 ? 'right' : 'right2';
+  document.querySelectorAll('[data-match="'+leftAttr+'"], [data-match="'+rightAttr+'"]').forEach(el => {
+    el.classList.remove('matched','matched-right','used','selected');
+  });
+  document.getElementById(qCardId + '-actions').innerHTML = '';
+  document.getElementById(qCardId + '-feedback').className = 'feedback';
+  document.getElementById(qCardId + '-feedback').innerHTML = '';
+}
+
+// ── TOAST ──────────────────────────────────────────────────────────────────
+let toastTimer = null;
+function showToast(msg) {
+  const el = document.getElementById('toast');
+  el.innerHTML = msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 3500);
+}
+
+// ── API / SUBMIT ──────────────────────────────────────────────────────────
+const API_URL    = localStorage.getItem('api_url') || 'https://escola-mundai-backend-production.up.railway.app';
+const PROVA_ID   = 'informatica-2ano-t1';
+const alunoToken = localStorage.getItem('token');
+const alunoNome  = localStorage.getItem('aluno_nome') || '';
+
+if (!alunoToken) window.location.href = 'login.html';
+if (alunoNome) {
+  const nomeInput = document.getElementById('studentName');
+  if (nomeInput) { nomeInput.value = alunoNome; nomeInput.readOnly = true; nomeInput.style.background = '#f1f5f9'; }
+}
+
+const ALL_QUESTIONS = ['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10','q11'];
+
+async function submitProva() {
+  // Force-confirm pending MC
+  ['q2','q4','q7','q9','q11'].forEach(qid => {
+    if (!answered[qid] && _mcPending[qid]) confirmMC(qid);
+  });
+  // Force-confirm text answers
+  if (!answered['q3']) {
+    const any = ['q3a','q3b','q3c'].some(id => document.getElementById(id).value.trim().length > 0);
+    if (any) checkQ3();
+  }
+  if (!answered['q8']) {
+    const any = ['q8a','q8b','q8c'].some(id => document.getElementById(id).value.trim().length > 0);
+    if (any) checkQ8();
+  }
+  // Force-confirm TF
+  if (!answered['q6']) {
+    const any6 = q6answers.q6a !== null || q6answers.q6b !== null || q6answers.q6c !== null;
+    if (any6) {
+      const keys = Object.keys(q6answers);
+      const correct = keys.filter(k => q6answers[k] === tfCorrect6[k]).length;
+      markAnswered('q6', parseFloat((correct * 0.3).toFixed(1)));
+    }
+  }
+  if (!answered['q10']) {
+    const any10 = q10answers.q10a !== null || q10answers.q10b !== null || q10answers.q10c !== null;
+    if (any10) {
+      const keys = Object.keys(q10answers);
+      const correct = keys.filter(k => q10answers[k] === tfCorrect10[k]).length;
+      markAnswered('q10', parseFloat((correct * 0.3).toFixed(1)));
+    }
+  }
+  // Force-confirm matches
+  [1, 2].forEach(group => {
+    if (!answered[matchQid[group]] && matchState[group].pairs === matchTotals[group]) confirmMatch(group);
+  });
+
+  const missing = ALL_QUESTIONS.filter(q => !answered[q]);
+  ALL_QUESTIONS.forEach(q => document.getElementById(q).classList.remove('missing'));
+  if (missing.length > 0) {
+    missing.forEach(q => document.getElementById(q).classList.add('missing'));
+    document.getElementById(missing[0]).scrollIntoView({ behavior: 'smooth', block: 'center' });
+    const names = missing.map(q => 'Questão ' + q.replace('q','')).join(', ');
+    showToast('⚠️ Responda ainda: <strong style="color:#fbbf24;">' + names + '</strong>');
+    return;
+  }
+
+  const totalPts = parseFloat(Math.min(Object.values(scores).reduce((a,b) => a+b, 0), 10).toFixed(1));
+  const pct = Math.round((totalPts / 10) * 100);
+
+  const submitBtn = document.querySelector('.submit-btn');
+  if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = '📤 Enviando…'; }
+
+  const respostasDetalhadas = {
+    q1_match_mouse:   { pares: matchState[1].correct + '/' + matchTotals[1] },
+    q2_funcao_mouse:  _mcPending['q2'] ? _mcPending['q2'].result : (scores['q2'] > 0 ? 'correct' : 'wrong'),
+    q3_teclas:        { shift: document.getElementById('q3a')?.value||'', backspace: document.getElementById('q3b')?.value||'', enter: document.getElementById('q3c')?.value||'' },
+    q4_area_trabalho: _mcPending['q4'] ? _mcPending['q4'].result : (scores['q4'] > 0 ? 'correct' : 'wrong'),
+    q5_match_area:    { pares: matchState[2].correct + '/' + matchTotals[2] },
+    q6_vf:            { q6a: q6answers.q6a, q6b: q6answers.q6b, q6c: q6answers.q6c },
+    q7_maximizar:     _mcPending['q7'] ? _mcPending['q7'].result : (scores['q7'] > 0 ? 'correct' : 'wrong'),
+    q8_janela:        { maximizar: document.getElementById('q8a')?.value||'', minimizar: document.getElementById('q8b')?.value||'', restaurar: document.getElementById('q8c')?.value||'' },
+    q9_barra:         _mcPending['q9'] ? _mcPending['q9'].result : (scores['q9'] > 0 ? 'correct' : 'wrong'),
+    q10_vf_teclado:   { q10a: q10answers.q10a, q10b: q10answers.q10b, q10c: q10answers.q10c },
+    q11_botao_dir:    _mcPending['q11'] ? _mcPending['q11'].result : (scores['q11'] > 0 ? 'correct' : 'wrong'),
+  };
+
+  try {
+    const res = await fetch(`${API_URL}/api/prova/${PROVA_ID}/enviar`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${alunoToken}` },
+      body: JSON.stringify({ respostas: respostasDetalhadas, nota: totalPts })
+    });
+    if (res.status === 401) { window.location.href = 'login.html'; return; }
+  } catch(e) { console.warn('Não foi possível salvar no servidor:', e); }
+
+  document.querySelector('.submit-section').style.display = 'none';
+  const rs = document.getElementById('result-screen');
+  rs.style.display = 'block';
+  rs.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+  document.getElementById('result-name').textContent  = alunoNome || document.getElementById('studentName')?.value || 'Aluno(a)';
+  document.getElementById('result-score').textContent = totalPts.toFixed(1).replace('.',',');
+  setTimeout(() => { document.getElementById('result-bar').style.width = pct + '%'; }, 300);
+
+  let emoji, title, msg, msgClass, stars;
+  if      (pct >= 90) { emoji='🏆'; title='Excelente!';         stars='⭐⭐⭐⭐⭐'; msg='Incrível! Você dominou o conteúdo! Continue assim!';                 msgClass='correct'; }
+  else if (pct >= 70) { emoji='🎉'; title='Muito Bem!';         stars='⭐⭐⭐⭐';  msg='Ótima pontuação! Você está aprendendo muito bem!';                   msgClass='correct'; }
+  else if (pct >= 50) { emoji='👍'; title='Bom trabalho!';      stars='⭐⭐⭐';   msg='Você está no caminho certo! Revise o conteúdo para melhorar ainda mais.'; msgClass='info'; }
+  else                { emoji='📖'; title='Continue estudando!'; stars='⭐⭐';    msg='Não desanime! Revise o material e tente de novo.';                   msgClass='wrong'; }
+
+  document.getElementById('result-emoji').textContent = emoji;
+  document.getElementById('result-title').textContent = title;
+  document.getElementById('result-stars').textContent = stars;
+  document.getElementById('result-msg').textContent   = msg;
+  document.getElementById('result-msg').className = 'result-msg ' + (msgClass==='correct'?'detail-green':msgClass==='info'?'detail-blue':'detail-red');
+
+  const correctCount = Object.values(scores).filter(s => s > 0).length;
+  const answeredCount = Object.keys(answered).length;
+  document.getElementById('result-details').innerHTML = `
+    <div class="detail-pill detail-green">✅ ${correctCount} corretas</div>
+    <div class="detail-pill detail-red">❌ ${answeredCount - correctCount} erradas</div>
+    <div class="detail-pill detail-blue">📋 ${answeredCount} respondidas</div>
+    <div style="margin-top:16px;width:100%">
+      <a href="home.html" style="display:inline-block;background:#0ea5e9;color:#fff;border-radius:12px;padding:12px 28px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;text-decoration:none;">← Voltar para início</a>
+    </div>
+  `;
+}
+
+document.getElementById('studentDate').valueAsDate = new Date();
+updateProgress();
+</script>
+</body>
+</html>

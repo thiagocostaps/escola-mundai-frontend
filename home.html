@@ -45,10 +45,7 @@
   .welcome-nome { font-family: 'Baloo 2', cursive; font-size: 28px; font-weight: 800; margin-top: 2px; }
   .welcome-turma { font-size: 14px; opacity: .75; font-weight: 600; margin-top: 2px; }
 
-  main {
-    max-width: 700px; margin: -36px auto 40px;
-    padding: 0 16px;
-  }
+  main { max-width: 700px; margin: -36px auto 40px; padding: 0 16px; }
 
   .section-title {
     font-family: 'Baloo 2', cursive; font-size: 18px; font-weight: 800;
@@ -76,6 +73,8 @@
   .icon-blue   { background: var(--blue-light); }
   .icon-green  { background: var(--green-light); }
   .icon-yellow { background: var(--yellow-light); }
+  .icon-purple { background: #ede9fe; }
+  .icon-red    { background: var(--red-light); }
 
   .prova-info { flex: 1; }
   .prova-titulo { font-family: 'Baloo 2', cursive; font-size: 17px; font-weight: 800; color: var(--text); }
@@ -100,6 +99,15 @@
   .btn-fazer:hover { opacity: 0.88; }
 
   .loading { text-align: center; padding: 40px; color: var(--muted); font-weight: 700; }
+
+  .empty-state {
+    text-align: center; padding: 48px 20px;
+    background: var(--card); border-radius: var(--radius);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+  }
+  .empty-state .emoji { font-size: 48px; margin-bottom: 12px; }
+  .empty-state p { font-size: 15px; font-weight: 700; color: var(--muted); }
+  .empty-state small { font-size: 13px; color: #94a3b8; font-weight: 600; }
 </style>
 </head>
 <body>
@@ -122,17 +130,27 @@
 </main>
 
 <script>
-  const API = localStorage.getItem('api_url') || 'https://escola-mundai-backend-production.up.railway.app';
+  const API   = localStorage.getItem('api_url') || 'https://escola-mundai-backend-production.up.railway.app';
   const token = localStorage.getItem('token');
   const nome  = localStorage.getItem('aluno_nome') || '';
-  const turma = localStorage.getItem('aluno_turma') || '';
+  const turma = (localStorage.getItem('aluno_turma') || '').toLowerCase().trim();
 
   if (!token) window.location.href = 'login.html';
 
   document.getElementById('nomeAluno').textContent = nome;
-  document.getElementById('turmaAluno').textContent = turma ? `Turma: ${turma}` : '';
 
-  // Lista de provas disponíveis — adicione mais conforme criar
+  // Formatar nome da turma para exibição
+  const turmaDisplay = turma
+    .replace('1mat','1º Ano – Matutino').replace('1vesp','1º Ano – Vespertino')
+    .replace('2mat','2º Ano – Matutino').replace('2vesp','2º Ano – Vespertino')
+    .replace('3mat','3º Ano – Matutino').replace('3vesp','3º Ano – Vespertino')
+    .replace('4mat','4º Ano – Matutino').replace('4vesp','4º Ano – Vespertino')
+    .replace('5mat','5º Ano – Matutino').replace('5vesp','5º Ano – Vespertino');
+  document.getElementById('turmaAluno').textContent = turmaDisplay ? `Turma: ${turmaDisplay}` : '';
+
+  // ── LISTA DE PROVAS ───────────────────────────────────────────────────────
+  // turmas: lista de turmas que têm acesso à prova
+  // Para liberar para todas as turmas de um ano, liste as duas (mat e vesp)
   const provasDisponiveis = [
     {
       id: 'informatica-1ano-t1',
@@ -141,10 +159,45 @@
       arquivo: 'prova_1ano.html',
       icon: '💻',
       iconClass: 'icon-blue',
-      turmas: ['1A', '1B', '1C', '1'] // turmas que têm acesso
-    }
-    // Adicione as próximas provas aqui:
-    // { id: 'informatica-2ano-t1', titulo: '...', arquivo: 'prova_2ano.html', turmas: ['2A','2B'] }
+      turmas: ['1mat', '1vesp']
+    },
+    {
+      id: 'informatica-2ano-t1',
+      titulo: 'Avaliação Teórica – Informática',
+      subtitulo: 'I Trimestre • 2º Ano',
+      arquivo: 'prova_2ano.html',
+      icon: '🖱️',
+      iconClass: 'icon-purple',
+      turmas: ['2mat', '2vesp']
+    },
+    // ── Adicione as próximas provas abaixo: ──────────────────────────────────
+    // {
+    //   id: 'informatica-3ano-t1',
+    //   titulo: 'Avaliação Teórica – Informática',
+    //   subtitulo: 'I Trimestre • 3º Ano',
+    //   arquivo: 'prova_3ano.html',
+    //   icon: '📁',
+    //   iconClass: 'icon-green',
+    //   turmas: ['3mat', '3vesp']
+    // },
+    // {
+    //   id: 'informatica-4ano-t1',
+    //   titulo: 'Avaliação Teórica – Informática',
+    //   subtitulo: 'I Trimestre • 4º Ano',
+    //   arquivo: 'prova_4ano.html',
+    //   icon: '🌐',
+    //   iconClass: 'icon-yellow',
+    //   turmas: ['4mat', '4vesp']
+    // },
+    // {
+    //   id: 'informatica-5ano-t1',
+    //   titulo: 'Avaliação Teórica – Informática',
+    //   subtitulo: 'I Trimestre • 5º Ano',
+    //   arquivo: 'prova_5ano.html',
+    //   icon: '🔒',
+    //   iconClass: 'icon-red',
+    //   turmas: ['5mat', '5vesp']
+    // },
   ];
 
   function sair() {
@@ -159,11 +212,16 @@
     // Filtra provas da turma do aluno
     const minhasProvas = provasDisponiveis.filter(p =>
       !p.turmas || p.turmas.length === 0 ||
-      p.turmas.some(t => t.toLowerCase() === turma.toLowerCase())
+      p.turmas.some(t => t.toLowerCase() === turma)
     );
 
     if (minhasProvas.length === 0) {
-      lista.innerHTML = '<div class="loading">Nenhuma avaliação disponível no momento.</div>';
+      lista.innerHTML = `
+        <div class="empty-state">
+          <div class="emoji">📭</div>
+          <p>Nenhuma avaliação disponível no momento.</p>
+          <small>Turma: ${turma || 'não definida'} — aguarde seu professor liberar as provas.</small>
+        </div>`;
       return;
     }
 
@@ -176,7 +234,7 @@
         if (res.status === 401) { sair(); return; }
         const data = await res.json();
         feita = data.feita;
-        nota = data.nota;
+        nota  = data.nota;
       } catch {}
 
       const card = document.createElement('div');
