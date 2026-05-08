@@ -105,7 +105,7 @@ main{max-width:780px;margin:0 auto;padding:30px 16px;display:flex;flex-direction
 <div class="progress-wrap">
   <span class="progress-label">Progresso</span>
   <div class="progress-bar-bg"><div class="progress-bar" id="progressBar"></div></div>
-  <span class="progress-count" id="progressCount">0 / 13</span>
+  <span class="progress-count" id="progressCount">0 / 15</span>
 </div>
 <main>
   <!-- DADOS -->
@@ -125,7 +125,7 @@ main{max-width:780px;margin:0 auto;padding:30px 16px;display:flex;flex-direction
       <div>
         <div class="q-text">Complete as afirmações abaixo usando as palavras:</div>
         <div class="q-meta">
-          <span class="q-pts">1,0 pt</span>
+          <span class="q-pts">0,75 pt</span>
           <span class="q-fixed-badge">Questão fixa</span>
         </div>
       </div>
@@ -150,7 +150,7 @@ main{max-width:780px;margin:0 auto;padding:30px 16px;display:flex;flex-direction
       <div>
         <div class="q-text">Marque V (Verdadeiro) ou F (Falso):</div>
         <div class="q-meta">
-          <span class="q-pts">1,0 pt</span>
+          <span class="q-pts">0,75 pt</span>
           <span class="q-fixed-badge">Questão fixa</span>
         </div>
       </div>
@@ -174,7 +174,7 @@ main{max-width:780px;margin:0 auto;padding:30px 16px;display:flex;flex-direction
       <div>
         <div class="q-text">Observe os ícones abaixo e escreva o nome de cada operação:</div>
         <div class="q-meta">
-          <span class="q-pts">1,0 pt</span>
+          <span class="q-pts">0,75 pt</span>
           <span class="q-fixed-badge">Questão fixa</span>
         </div>
       </div>
@@ -256,8 +256,8 @@ main{max-width:780px;margin:0 auto;padding:30px 16px;display:flex;flex-direction
 <script>
 const BANCO=[{id:1,texto:'O professor Thiago mostrou teclado, mouse, monitor e gabinete. Essas partes do computador são chamadas de:',correta:'Hardware',erradas:['Software','Internet','Aplicativos']},{id:2,texto:'A coordenadora Stela explicou que programas e aplicativos fazem parte da parte do computador que não podemos tocar. Essa parte é chamada de:',correta:'Software',erradas:['Hardware','Monitor','Teclado']},{id:3,texto:'O professor Thiago mostrou um aparelho que ajuda a proteger o computador contra problemas de energia. Qual é esse aparelho?',correta:'Estabilizador',erradas:['Mouse','Impressora','Webcam']},{id:4,texto:'O professor Thiago explicou que existe uma peça conhecida como o "cérebro" do computador. Qual é ela?',correta:'CPU',erradas:['Mouse','Monitor','Caixa de som']},{id:5,texto:'A professora Sandra comparou medidas da Matemática com as medidas do computador. Qual é a menor unidade de armazenamento?',correta:'Byte',erradas:['Megabyte','Gigabyte','Terabyte']},{id:6,texto:'A professora Roberta perguntou qual unidade guarda mais informações. Qual é a maior?',correta:'Terabyte',erradas:['Byte','Kilobyte','Megabyte']},{id:7,texto:'O professor Thiago explicou que o computador trabalha com linguagem binária. Quais números fazem parte dela?',correta:'0 e 1',erradas:['1 e 2','2 e 3','5 e 6']},{id:8,texto:'A coordenadora Stela perguntou qual programa principal faz o computador funcionar corretamente. A resposta certa é:',correta:'Sistema operacional',erradas:['Teclado','Mouse','Pasta']},{id:9,texto:'A professora Carol ligou o computador e apareceu a primeira tela com ícones. Essa tela se chama:',correta:'Área de trabalho',erradas:['Lixeira','Janela','Pasta']},{id:10,texto:'A professora Cléssia mostrou os pequenos desenhos da tela que representam programas. Esses desenhos são chamados de:',correta:'Ícones',erradas:['Letras','Pastas','Cabos']},{id:11,texto:'Um aluno apagou um arquivo sem querer. A professora Roberta explicou que ele foi para um lugar antes de ser apagado de vez. Que lugar é esse?',correta:'Lixeira',erradas:['Internet','Word','Teclado']},{id:12,texto:'A professora Carol abriu a Lixeira e trouxe um arquivo de volta. O que ela fez?',correta:'Restaurou',erradas:['Excluiu','Imprimiu','Desligou']},{id:13,texto:'O professor Thiago clicou em um botão e a janela ficou escondida na barra de tarefas. Qual botão foi usado?',correta:'Minimizar',erradas:['Fechar','Maximizar','Excluir']},{id:14,texto:'A professora Sandra quis aumentar a janela para ocupar a tela toda. Qual botão ela deve usar?',correta:'Maximizar',erradas:['Minimizar','Fechar','Copiar']},{id:15,texto:'A professora Roberta terminou a atividade e quis encerrar o programa. Qual botão ela deve clicar?',correta:'Fechar',erradas:['Maximizar','Minimizar','Restaurar']},{id:16,texto:'O professor Thiago quis tirar um texto de um lugar para colocá-lo em outro. Qual atalho faz isso?',correta:'Ctrl + X',erradas:['Ctrl + C','Ctrl + V','Ctrl + A']},{id:17,texto:'A professora Cléssia quis fazer uma cópia de um texto sem apagar o original. Qual atalho ela deve usar?',correta:'Ctrl + C',erradas:['Ctrl + X','Ctrl + V','Ctrl + Z']},{id:18,texto:'A coordenadora Stela copiou um texto e quis colocá-lo em outro lugar. Qual atalho ela deve usar?',correta:'Ctrl + V',erradas:['Ctrl + A','Ctrl + C','Ctrl + S']},{id:19,texto:'A professora Carol quis apagar um arquivo que não seria mais usado. Qual tecla ajuda nessa ação?',correta:'Delete',erradas:['Enter','Shift','Caps Lock']},{id:20,texto:'O professor Thiago pediu para os alunos abrirem um programa usado para escrever textos. Qual é esse programa?',correta:'Word',erradas:['PowerPoint','Paint','Excel']},{id:21,texto:'A professora Roberta pediu para mudar a cor de uma palavra no Word. Antes disso, era preciso marcar a palavra. Essa ação se chama:',correta:'Selecionar',erradas:['Apagar','Fechar','Salvar']},{id:22,texto:'O professor Thiago ensinou um comando que cria um texto de exemplo no Word. Qual é esse comando?',correta:'=rand(2,4)',erradas:['=copiar(2,4)','=word(2,4)','=texto(2,4)']},{id:23,texto:'A coordenadora Stela quis marcar todo o texto de uma vez. Qual atalho ela deve usar?',correta:'Ctrl + T',erradas:['Ctrl + V','Ctrl + A','Ctrl + X']},{id:24,texto:'O professor Thiago pediu para deixar o texto alinhado certinho nos parágrafos. Esse alinhamento é chamado de:',correta:'Justificado',erradas:['Centralizado','Direita','Esquerda']},{id:25,texto:'A professora Sandra quis colocar o título no meio da página. Qual alinhamento ela deve usar?',correta:'Centralizado',erradas:['Justificado','Esquerda','Direita']},{id:26,texto:'A professora Cléssia quis desfazer uma ação que havia feito no Word. Qual atalho ela deve usar?',correta:'Ctrl + Z',erradas:['Ctrl + C','Ctrl + S','Ctrl + X']}];
 
-const MC_TOTAL=10;
-const MC_PTS=0.7;
+const MC_TOTAL=12;
+const MC_PTS=0.65;
 const LETRAS=['A','B','C','D'];
 const answeredFixed={f1:false,f2:false,f3:false};
 const answeredMC={};
@@ -286,8 +286,8 @@ function updateProgress(){
   const fixedDone=Object.values(answeredFixed).filter(Boolean).length;
   const mcDone=Object.keys(answeredMC).length;
   const total=fixedDone+mcDone;
-  document.getElementById('progressBar').style.width=(total/13*100)+'%';
-  document.getElementById('progressCount').textContent=total+' / 13';
+  document.getElementById('progressBar').style.width=(total/15*100)+'%';
+  document.getElementById('progressCount').textContent=total+' / 15';
 }
 
 // FIXED Q1
@@ -407,7 +407,7 @@ async function submitProva(){
   if(missing.length>0){missing.forEach(id=>document.getElementById(id)&&document.getElementById(id).classList.add('missing'));document.getElementById(missing[0]).scrollIntoView({behavior:'smooth',block:'center'});showToast('Responda todas as questões antes de finalizar!');return;}
 
   // Calc score
-  const fixedPts=3.0;
+  const fixedPts=2.25;
   const mcCorrect=provaQs.filter((_,qi)=>answeredMC[qi]!==undefined&&answeredMC[qi]===provaQs[qi].correctIndex).length;
   const mcPts=parseFloat((mcCorrect*MC_PTS).toFixed(2));
   const totalPts=parseFloat(Math.min(fixedPts+mcPts,10).toFixed(1));
