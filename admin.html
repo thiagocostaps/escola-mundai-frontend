@@ -109,6 +109,18 @@
   </div>
 </div>
 
+<!-- MODAL VER RESPOSTAS -->
+<div id="modalRespostas" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;padding:20px;">
+  <div style="background:#fff;border-radius:18px;padding:28px;width:100%;max-width:640px;max-height:88vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.25);">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+      <h3 style="font-family:'Baloo 2',cursive;font-size:18px;color:#1a5c2a;">📋 Respostas do Aluno</h3>
+      <button onclick="fecharModal()" style="background:#f1f5f9;border:none;border-radius:8px;padding:6px 14px;font-size:13px;font-weight:800;cursor:pointer;color:#475569;">✕ Fechar</button>
+    </div>
+    <div id="modal-resp-sub" style="font-size:13px;color:#64748b;font-weight:600;margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid #e2e8f0;"></div>
+    <div id="modal-resp-body"></div>
+  </div>
+</div>
+
 <!-- APP -->
 <div id="adminApp">
   <div class="topbar">
@@ -438,16 +450,95 @@
     tbody.innerHTML = rows.map(r => {
       const n = parseFloat(r.nota);
       const cls = n >= 7 ? 'nota-alta' : n >= 5 ? 'nota-media' : 'nota-baixa';
-      const data = new Date(r.enviado_em).toLocaleString('pt-BR');
+      const data = new Date(r.enviado_em).toLocaleString('pt-BR', {timeZone:'America/Bahia', day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit', second:'2-digit'});
       return `<tr>
         <td><strong>${r.nome_completo}</strong><br><small style="color:var(--muted)">${r.usuario}</small></td>
         <td>${r.turma || '—'}</td>
         <td style="font-size:12px;">${r.prova}</td>
         <td><span class="nota-badge ${cls}">${String(n.toFixed(1)).replace('.',',')} / 10,0</span></td>
         <td style="font-size:12px;">${data}</td>
-        <td><button class="btn-sm btn-red" onclick="deletarResultado(${r.id},'${r.nome_completo.replace(/'/g,"\\'")}')">🗑️</button></td>
+        <td><button class="btn-sm btn-blue" onclick="verRespostas(${r.id})" title="Ver respostas">👁️</button> <button class="btn-sm btn-red" onclick="deletarResultado(${r.id},'${r.nome_completo.replace(/'/g,"\\'")}')">🗑️</button></td>
       </tr>`;
     }).join('');
+  }
+
+  function fecharModal() {
+    document.getElementById('modalRespostas').style.display = 'none';
+  }
+
+  function verRespostas(id) {
+    const r = todosResultados.find(x => x.id === id);
+    if (!r) return;
+
+    const data = new Date(r.enviado_em).toLocaleString('pt-BR', {timeZone:'America/Bahia', day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit'});
+    document.getElementById('modal-resp-sub').innerHTML =
+      `<strong>${r.nome_completo}</strong> (${r.usuario}) &nbsp;|&nbsp; Turma: <strong>${r.turma||'—'}</strong> &nbsp;|&nbsp; Prova: <strong>${r.prova}</strong> &nbsp;|&nbsp; Nota: <strong>${parseFloat(r.nota).toFixed(1).replace('.',',')} / 10,0</strong> &nbsp;|&nbsp; Enviado: <strong>${data}</strong>`;
+
+    const respostas = r.respostas_json || {};
+    let html = '';
+
+    // Detectar formato novo (4º/5º ano com banco aleatório)
+    const keys = Object.keys(respostas);
+    const isNovoFormato = keys.some(k => k.startsWith('q') && k.includes('_id'));
+
+    if (isNovoFormato) {
+      // Novo formato: questões aleatórias do banco
+      html = keys.map((key, idx) => {
+        const v = respostas[key];
+        if (!v || typeof v !== 'object') return '';
+        const acertou = v.acertou;
+        const cor = acertou ? '#dcfce7' : '#fce8e6';
+        const borda = acertou ? '#16a34a' : '#ea4335';
+        const icone = acertou ? '✅' : '❌';
+        return `<div style="border:2px solid ${borda};background:${cor};border-radius:10px;padding:12px 14px;margin-bottom:10px;">
+          <div style="font-size:12px;font-weight:800;text-transform:uppercase;color:#64748b;margin-bottom:4px;">Questão ${idx+1} ${icone}</div>
+          <div style="font-size:14px;font-weight:700;color:#1e293b;margin-bottom:6px;">${v.questao||''}</div>
+          <div style="font-size:13px;font-weight:600;color:#475569;">Respondeu: <strong>${v.respondeu||'—'}</strong></div>
+          ${!acertou ? `<div style="font-size:13px;font-weight:600;color:#16a34a;">Correta: <strong>${v.correta||'—'}</strong></div>` : ''}
+        </div>`;
+      }).filter(Boolean).join('');
+    } else {
+      // Formato antigo (provas 1º, 2º, 3º ano)
+      const labels = {
+        q1_match:'Q1 – Relacionar peças', q2_pecas:'Q2 – Nome das peças',
+        q3_fechar:'Q3 – Fechar computador', q4_salvar:'Q4 – Salvar arquivo',
+        q5_mouse:'Q5 – Função do mouse', q6_vf:'Q6 – Verdadeiro ou Falso',
+        q7_formas:'Q7 – Formas geométricas', q8_desktop:'Q8 – Área de trabalho',
+        q9_teclado:'Q9 – Função do teclado', q10_tools:'Q10 – Ferramentas',
+        q11_match:'Q11 – Relacionar funções', q12_shift:'Q12 – Tecla Shift',
+        q1_match_mouse:'Q1 – Botões do mouse', q2_funcao_mouse:'Q2 – Função do mouse',
+        q3_teclas:'Q3 – Funções teclas', q4_area_trabalho:'Q4 – Área de trabalho',
+        q5_match_area:'Q5 – Elementos área trabalho', q6_vf:'Q6 – V ou F',
+        q7_maximizar:'Q7 – Maximizar', q8_janela:'Q8 – Janelas',
+        q9_barra:'Q9 – Barra tarefas', q10_vf_teclado:'Q10 – V ou F teclado',
+        q11_botao_dir:'Q11 – Botão direito',
+        q1_software:'Q1 – Software', q2_hardware:'Q2 – Hardware',
+        q3_sh:'Q3 – S ou H', q4_equipamentos:'Q4 – Equipamentos',
+        q5_botoes_mouse:'Q5 – Botões mouse', q6_teclas:'Q6 – Teclas',
+        q7_simbolo:'Q7 – Símbolo ligar', q8_so:'Q8 – Sistema operacional',
+        q9_match_area:'Q9 – Área de trabalho', q10_atalho:'Q10 – Atalho arquivos',
+        q11_shift_del:'Q11 – Shift+Delete',
+      };
+      html = keys.map(key => {
+        const val = respostas[key];
+        const label = labels[key] || key;
+        let display = '';
+        let cls = '';
+        if (val === 'correct') { display = '✅ Correta'; cls = '#dcfce7'; }
+        else if (val === 'wrong') { display = '❌ Errada'; cls = '#fce8e6'; }
+        else if (typeof val === 'object' && val !== null) {
+          display = Object.entries(val).map(([k,v]) => `<em>${k}:</em> <strong>${v??'—'}</strong>`).join(' &nbsp;|&nbsp; ');
+          cls = '#f8fafc';
+        } else { display = String(val??'—'); cls = '#f8fafc'; }
+        return `<div style="border:2px solid #e2e8f0;background:${cls};border-radius:10px;padding:10px 14px;margin-bottom:8px;">
+          <div style="font-size:12px;font-weight:800;text-transform:uppercase;color:#64748b;margin-bottom:3px;">${label}</div>
+          <div style="font-size:14px;font-weight:600;color:#1e293b;">${display}</div>
+        </div>`;
+      }).join('');
+    }
+
+    document.getElementById('modal-resp-body').innerHTML = html || '<p style="color:#64748b;font-weight:600;">Sem detalhes disponíveis.</p>';
+    document.getElementById('modalRespostas').style.display = 'flex';
   }
 
   async function deletarResultado(id, nome) {
