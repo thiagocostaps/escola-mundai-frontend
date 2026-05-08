@@ -3,144 +3,238 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Avaliação – 4º e 5º Ano | Escola Mundaí</title>
+<title>Avaliação Teórica – 4º Ano | Escola Mundaí</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@700;800&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --green1: #1a5c2a; --green2: #2e7d32;
-    --green-light: #e6f4ea; --bg: #f1f8f2;
-    --red: #ea4335; --red-light: #fce8e6;
-    --yellow-light: #fef9e3;
-    --card: #fff; --text: #1e293b; --muted: #64748b;
-    --border: #e2e8f0; --radius: 18px;
-    --shadow: 0 4px 24px rgba(26,92,42,0.10);
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding-bottom: 60px; }
-
-  header { background: linear-gradient(135deg, #1a5c2a 0%, #2e7d32 100%); color: #fff; padding: 32px 20px 40px; text-align: center; position: relative; overflow: hidden; }
-  header::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E"); pointer-events: none; }
-  .escola-tag { display: inline-block; background: rgba(255,255,255,0.18); border: 1.5px solid rgba(255,255,255,0.30); border-radius: 30px; padding: 4px 18px; font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; }
-  header h1 { font-family: 'Baloo 2', cursive; font-size: clamp(24px,5vw,38px); font-weight: 800; margin-bottom: 6px; text-shadow: 0 2px 8px rgba(0,0,0,0.18); }
-  .header-meta { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; margin-top: 14px; }
-  .meta-pill { background: rgba(255,255,255,0.20); border-radius: 20px; padding: 5px 14px; font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 5px; }
-
-  .progress-wrap { position: sticky; top: 0; z-index: 100; background: #fff; border-bottom: 2px solid var(--border); padding: 10px 20px; display: flex; align-items: center; gap: 14px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
-  .progress-label { font-size: 13px; font-weight: 700; color: var(--muted); white-space: nowrap; }
-  .progress-bar-bg { flex: 1; height: 10px; background: var(--border); border-radius: 10px; overflow: hidden; }
-  .progress-bar { height: 100%; background: linear-gradient(90deg, #1a5c2a, #2e7d32); border-radius: 10px; transition: width 0.4s ease; width: 0%; }
-  .progress-count { font-size: 13px; font-weight: 800; color: var(--green1); white-space: nowrap; }
-
-  main { max-width: 780px; margin: 0 auto; padding: 30px 16px; display: flex; flex-direction: column; gap: 20px; }
-
-  .student-card { background: var(--card); border-radius: var(--radius); padding: 22px; box-shadow: var(--shadow); border: 2px solid var(--green-light); }
-  .student-card h2 { font-family: 'Baloo 2', cursive; font-size: 17px; color: var(--green1); margin-bottom: 14px; }
-  .fields-row { display: flex; gap: 14px; flex-wrap: wrap; }
-  .field-group { flex: 1; min-width: 160px; }
-  .field-group label { display: block; font-size: 12px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 5px; }
-  .field-group input { width: 100%; border: 2px solid var(--border); border-radius: 10px; padding: 10px 14px; font-family: 'Nunito', sans-serif; font-size: 15px; font-weight: 600; color: var(--text); outline: none; transition: border-color 0.2s; }
-  .field-group input:focus { border-color: var(--green1); }
-
-  /* QUESTION CARD */
-  .q-card { background: var(--card); border-radius: var(--radius); padding: 24px 22px 20px; box-shadow: var(--shadow); border: 2px solid transparent; animation: slideIn 0.3s ease both; }
-  @keyframes slideIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
-  .q-card.answered { border-color: #cbd5e1; background: #f8fafc; }
-  .q-card.missing { border-color: var(--red) !important; background: #fff5f5 !important; animation: shake 0.4s ease; }
-  @keyframes shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-6px)} 40%{transform:translateX(6px)} 60%{transform:translateX(-4px)} 80%{transform:translateX(4px)} }
-
-  .q-header { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 18px; }
-  .q-num { background: linear-gradient(135deg, #1a5c2a, #2e7d32); color: #fff; font-family: 'Baloo 2', cursive; font-size: 16px; font-weight: 800; min-width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .q-text-wrap { flex: 1; }
-  .q-text { font-size: 16px; font-weight: 700; line-height: 1.55; color: var(--text); }
-  .q-points { margin-top: 4px; display: inline-block; background: var(--yellow-light); color: #92600a; font-size: 12px; font-weight: 800; border-radius: 20px; padding: 2px 10px; }
-
-  /* OPTIONS */
-  .options-list { display: flex; flex-direction: column; gap: 10px; }
-  .opt { display: flex; align-items: center; gap: 14px; background: var(--bg); border: 2px solid var(--border); border-radius: 14px; padding: 13px 16px; font-family: 'Nunito', sans-serif; font-size: 15px; font-weight: 700; color: var(--text); cursor: pointer; text-align: left; transition: all 0.18s; width: 100%; }
-  .opt:hover:not(:disabled) { background: var(--green-light); border-color: var(--green1); transform: translateX(5px); }
-  .opt.selected { background: var(--green-light); border-color: var(--green1); }
-  .opt.confirmed-correct { background: #dcfce7; border-color: #16a34a; color: #14532d; }
-  .opt.confirmed-wrong { background: var(--red-light); border-color: var(--red); color: #7f1d1d; }
-  .opt.show-correct { background: #dcfce7; border-color: #16a34a; color: #14532d; }
-  .opt:disabled { cursor: default; transform: none !important; }
-  .opt-letter { width: 30px; height: 30px; border-radius: 50%; background: var(--border); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 900; flex-shrink: 0; transition: background 0.18s; }
-  .opt:hover:not(:disabled) .opt-letter { background: var(--green1); color: #fff; }
-  .opt.selected .opt-letter { background: var(--green1); color: #fff; }
-  .opt.confirmed-correct .opt-letter { background: #16a34a; color: #fff; }
-  .opt.confirmed-wrong .opt-letter { background: var(--red); color: #fff; }
-  .opt.show-correct .opt-letter { background: #16a34a; color: #fff; }
-
-  .q-feedback { margin-top: 12px; padding: 10px 14px; border-radius: 10px; font-size: 14px; font-weight: 700; display: none; }
-  .q-feedback.show { display: block; }
-  .q-feedback.correct { background: #dcfce7; color: #14532d; }
-  .q-feedback.wrong { background: var(--red-light); color: #7f1d1d; }
-  .q-feedback.registered { background: #f1f5f9; color: #475569; }
-
-  /* CONFIRM ROW */
-  .confirm-row { margin-top: 12px; display: none; align-items: center; gap: 8px; flex-wrap: wrap; }
-  .confirm-row.show { display: flex; }
-  .btn-confirm { background: #16a34a; color: #fff; border: none; border-radius: 10px; padding: 9px 20px; font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 800; cursor: pointer; transition: opacity 0.18s; }
-  .btn-confirm:hover { opacity: 0.88; }
-  .btn-edit { background: transparent; color: var(--muted); border: 2px solid var(--border); border-radius: 10px; padding: 7px 16px; font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 800; cursor: pointer; transition: all 0.18s; }
-  .btn-edit:hover { border-color: #94a3b8; background: #f1f5f9; }
-
-  .submit-section { text-align: center; padding: 28px 0 10px; }
-  .submit-btn { background: linear-gradient(135deg, #1a5c2a, #2e7d32); color: #fff; border: none; border-radius: 18px; padding: 16px 48px; font-family: 'Baloo 2', cursive; font-size: 20px; font-weight: 800; cursor: pointer; box-shadow: 0 4px 20px rgba(26,92,42,0.35); transition: opacity 0.2s, transform 0.15s; }
-  .submit-btn:hover { opacity: 0.92; transform: translateY(-2px); }
-
-  #toast { position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(20px); background: #1e293b; color: #fff; border-radius: 14px; padding: 14px 22px; font-size: 15px; font-weight: 700; z-index: 9999; opacity: 0; pointer-events: none; transition: opacity 0.3s, transform 0.3s; white-space: nowrap; }
-  #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-
-  #result-screen { display: none; background: var(--card); border-radius: var(--radius); padding: 40px 30px; box-shadow: var(--shadow); text-align: center; animation: slideIn 0.5s ease; }
-  .result-emoji { font-size: 64px; margin-bottom: 12px; }
-  .result-title { font-family: 'Baloo 2', cursive; font-size: 30px; font-weight: 800; margin-bottom: 6px; }
-  .result-name { font-size: 18px; font-weight: 700; color: var(--muted); margin-bottom: 20px; }
-  .result-score { display: inline-block; font-family: 'Baloo 2', cursive; font-size: 56px; font-weight: 800; background: linear-gradient(135deg, #1a5c2a, #2e7d32); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 8px; }
-  .result-max { font-size: 16px; color: var(--muted); font-weight: 700; margin-bottom: 24px; }
-  .result-bar-bg { width: 100%; height: 18px; background: var(--border); border-radius: 18px; overflow: hidden; margin-bottom: 24px; }
-  .result-bar { height: 100%; border-radius: 18px; background: linear-gradient(90deg, #1a5c2a, #2e7d32); transition: width 1s ease; }
-  .result-msg { font-size: 17px; font-weight: 700; padding: 14px 20px; border-radius: 12px; margin-bottom: 20px; }
-  .result-details { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 24px; }
-  .detail-pill { border-radius: 20px; padding: 8px 18px; font-size: 14px; font-weight: 800; display: flex; align-items: center; gap: 6px; }
-  .detail-green { background: var(--green-light); color: var(--green1); }
-  .detail-red { background: var(--red-light); color: var(--red); }
-  .stars { font-size: 28px; letter-spacing: 4px; margin-bottom: 8px; }
-
-  @media (max-width:500px) { .q-card { padding: 18px 14px 16px; } main { padding: 16px 10px; } }
+:root{--g1:#1a5c2a;--g2:#2e7d32;--gl:#e6f4ea;--bg:#f1f8f2;--red:#ea4335;--rl:#fce8e6;--yl:#fef9e3;--card:#fff;--text:#1e293b;--muted:#64748b;--border:#e2e8f0;--radius:18px;--shadow:0 4px 24px rgba(26,92,42,.10);}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding-bottom:60px;}
+header{background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;padding:32px 20px 40px;text-align:center;position:relative;overflow:hidden;}
+header::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.07'%3E%3Ccircle cx='20' cy='20' r='1'/%3E%3C/g%3E%3C/svg%3E");pointer-events:none;}
+.escola-tag{display:inline-block;background:rgba(255,255,255,.18);border:1.5px solid rgba(255,255,255,.30);border-radius:30px;padding:4px 18px;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;}
+header h1{font-family:'Baloo 2',cursive;font-size:clamp(24px,5vw,36px);font-weight:800;margin-bottom:6px;}
+.header-meta{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:14px;}
+.meta-pill{background:rgba(255,255,255,.20);border-radius:20px;padding:5px 14px;font-size:13px;font-weight:700;}
+.progress-wrap{position:sticky;top:0;z-index:100;background:#fff;border-bottom:2px solid var(--border);padding:10px 20px;display:flex;align-items:center;gap:14px;box-shadow:0 2px 12px rgba(0,0,0,.06);}
+.progress-label{font-size:13px;font-weight:700;color:var(--muted);white-space:nowrap;}
+.progress-bar-bg{flex:1;height:10px;background:var(--border);border-radius:10px;overflow:hidden;}
+.progress-bar{height:100%;background:linear-gradient(90deg,var(--g1),var(--g2));border-radius:10px;transition:width .4s ease;width:0%;}
+.progress-count{font-size:13px;font-weight:800;color:var(--g1);white-space:nowrap;}
+main{max-width:780px;margin:0 auto;padding:30px 16px;display:flex;flex-direction:column;gap:20px;}
+.student-card{background:var(--card);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);border:2px solid var(--gl);}
+.student-card h2{font-size:17px;font-weight:800;color:var(--g1);margin-bottom:14px;}
+.fields-row{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:12px;}
+.field-group{flex:1;min-width:160px;}
+.field-group label{display:block;font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px;}
+.field-group input{width:100%;border:2px solid var(--border);border-radius:10px;padding:10px 14px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:600;color:var(--text);outline:none;transition:border-color .2s;}
+.field-group input:focus{border-color:var(--g1);}
+.turma-pill{background:var(--gl);border-radius:10px;padding:8px 16px;font-size:14px;font-weight:700;color:var(--g1);display:inline-block;}
+.q-card{background:var(--card);border-radius:var(--radius);padding:24px 22px 20px;box-shadow:var(--shadow);border:2px solid transparent;animation:slideIn .3s ease both;}
+@keyframes slideIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.q-card.fixed-q{border-color:#a7d9b2;}
+.q-card.answered{border-color:#cbd5e1;background:#f8fafc;}
+.q-card.missing{border-color:var(--red)!important;background:#fff5f5!important;animation:shake .4s ease;}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+.q-header{display:flex;align-items:flex-start;gap:14px;margin-bottom:16px;}
+.q-num{min-width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;font-size:16px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.q-text{font-size:15px;font-weight:700;line-height:1.55;color:var(--text);}
+.q-meta{display:flex;gap:8px;margin-top:6px;flex-wrap:wrap;}
+.q-pts{background:var(--yl);color:#92600a;font-size:12px;font-weight:800;border-radius:20px;padding:2px 10px;}
+.q-fixed-badge{background:var(--gl);color:var(--g1);font-size:12px;font-weight:800;border-radius:20px;padding:2px 10px;}
+.word-box{background:var(--gl);border:1.5px solid #a7d9b2;border-radius:8px;padding:8px 14px;font-size:13px;font-weight:800;color:var(--g1);margin-bottom:14px;}
+.fill-row{display:flex;flex-direction:column;gap:10px;}
+.fill-item{background:#f8fafc;border:2px solid var(--border);border-radius:10px;padding:11px 14px;font-size:14px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.fill-item input{border:2px solid var(--border);border-radius:8px;padding:6px 10px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;outline:none;text-transform:uppercase;}
+.fill-item input:focus{border-color:var(--g1);}
+.vf-list{display:flex;flex-direction:column;gap:10px;}
+.vf-item{background:#f8fafc;border:2px solid var(--border);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:12px;}
+.vf-input{width:52px;height:40px;border:2px solid var(--border);border-radius:8px;text-align:center;font-size:16px;font-weight:800;color:var(--g1);outline:none;font-family:'Nunito',sans-serif;flex-shrink:0;}
+.vf-input:focus{border-color:var(--g1);}
+.vf-text{font-size:14px;font-weight:600;color:var(--text);line-height:1.5;}
+.icons-row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+.icon-card{background:#f8fafc;border:2px solid var(--border);border-radius:14px;padding:20px 16px;display:flex;flex-direction:column;align-items:center;gap:14px;flex:1;min-width:150px;max-width:190px;}
+.icon-input{width:100%;border:2px solid var(--border);border-radius:8px;padding:8px 10px;font-size:14px;font-weight:700;text-align:center;outline:none;color:var(--text);font-family:'Nunito',sans-serif;}
+.icon-input:focus{border-color:var(--g1);}
+.options-list{display:flex;flex-direction:column;gap:9px;}
+.opt{display:flex;align-items:center;gap:12px;background:#f8fafc;border:2px solid var(--border);border-radius:12px;padding:12px 15px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;color:var(--text);cursor:pointer;text-align:left;width:100%;transition:all .18s;}
+.opt:hover:not(:disabled){background:var(--gl);border-color:var(--g1);transform:translateX(4px);}
+.opt.selected{background:var(--gl);border-color:var(--g1);color:var(--g1);}
+.opt:disabled{cursor:default;transform:none!important;}
+.opt-letter{min-width:30px;height:30px;border-radius:50%;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0;transition:background .18s;}
+.opt.selected .opt-letter{background:var(--g1);color:#fff;}
+.opt:hover:not(:disabled) .opt-letter{background:var(--g1);color:#fff;}
+.action-row{margin-top:14px;display:flex;gap:8px;flex-wrap:wrap;}
+.btn-confirm{background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;border:none;border-radius:10px;padding:9px 20px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;cursor:pointer;}
+.btn-confirm:hover{opacity:.88;}
+.btn-edit{background:transparent;color:var(--muted);border:2px solid var(--border);border-radius:10px;padding:8px 16px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;cursor:pointer;}
+.btn-edit:hover{background:#f1f5f9;border-color:#94a3b8;}
+.q-fb{display:none;margin-top:10px;background:#f1f5f9;color:#475569;border-radius:10px;padding:10px 14px;font-size:14px;font-weight:700;}
+.submit-section{text-align:center;padding:28px 0 10px;}
+.submit-btn{background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;border:none;border-radius:18px;padding:16px 48px;font-family:'Baloo 2',cursive;font-size:20px;font-weight:800;cursor:pointer;box-shadow:0 4px 20px rgba(26,92,42,.35);transition:opacity .2s,transform .15s;}
+.submit-btn:hover{opacity:.92;transform:translateY(-2px);}
+#toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(20px);background:#1e293b;color:#fff;border-radius:14px;padding:14px 22px;font-size:15px;font-weight:700;z-index:9999;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;white-space:nowrap;}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+#result-screen{display:none;background:var(--card);border-radius:var(--radius);padding:40px 30px;box-shadow:var(--shadow);text-align:center;}
+.result-emoji{font-size:64px;margin-bottom:12px;}
+.result-title{font-family:'Baloo 2',cursive;font-size:30px;font-weight:800;margin-bottom:6px;}
+.result-name{font-size:18px;font-weight:700;color:var(--muted);margin-bottom:20px;}
+.result-score{display:inline-block;font-family:'Baloo 2',cursive;font-size:56px;font-weight:800;background:linear-gradient(135deg,var(--g1),var(--g2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px;}
+.result-max{font-size:16px;color:var(--muted);font-weight:700;margin-bottom:24px;}
+.result-bar-bg{width:100%;height:18px;background:var(--border);border-radius:18px;overflow:hidden;margin-bottom:24px;}
+.result-bar{height:100%;border-radius:18px;background:linear-gradient(90deg,var(--g1),var(--g2));transition:width 1s ease;}
+.result-msg{font-size:17px;font-weight:700;padding:14px 20px;border-radius:12px;margin-bottom:20px;}
+.result-details{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:24px;}
+.detail-pill{border-radius:20px;padding:8px 18px;font-size:14px;font-weight:800;display:flex;align-items:center;gap:6px;}
+.dg{background:var(--gl);color:var(--g1);}
+.dr{background:var(--rl);color:var(--red);}
+.stars{font-size:28px;letter-spacing:4px;margin-bottom:8px;}
+@media(max-width:500px){.q-card{padding:18px 14px 16px;}main{padding:16px 10px;}.icons-row{flex-direction:column;align-items:center;}}
 </style>
 </head>
 <body>
-
 <header>
-  <div class="escola-tag">🏫 Escola Mundaí</div>
-  <h1 id="headerTitle">📚 Educação Tecnológica</h1>
+  <div class="escola-tag">ESCOLA MUNDAÍ</div>
+  <h1>Educação Tecnológica</h1>
   <p style="font-size:15px;font-weight:700;opacity:.85;margin-top:4px;">Avaliação Teórica – I Trimestre</p>
   <div class="header-meta">
-    <div class="meta-pill" id="anoMeta"><span>📚</span> <span id="anoLabel">Carregando…</span></div>
-    <div class="meta-pill"><span>⏱️</span> 45 minutos</div>
-    <div class="meta-pill"><span>⭐</span> Valor: 10,0</div>
+    <div class="meta-pill" id="anoMeta">4º Ano</div>
+    <div class="meta-pill">45 minutos</div>
+    <div class="meta-pill">Valor: 10,0</div>
   </div>
 </header>
-
 <div class="progress-wrap">
   <span class="progress-label">Progresso</span>
   <div class="progress-bar-bg"><div class="progress-bar" id="progressBar"></div></div>
   <span class="progress-count" id="progressCount">0 / 13</span>
 </div>
-
 <main>
+  <!-- DADOS -->
   <div class="student-card">
-    <h2>📝 Seus dados</h2>
+    <h2>Seus dados</h2>
     <div class="fields-row">
       <div class="field-group"><label>Nome completo</label><input type="text" id="studentName" placeholder="Digite seu nome…" autocomplete="off"></div>
       <div class="field-group" style="max-width:160px"><label>Data</label><input type="date" id="studentDate"></div>
     </div>
+    <div class="turma-pill" id="turmaPill"></div>
   </div>
 
+  <!-- Q1 FIXA: COMPLETAR -->
+  <div class="q-card fixed-q" id="qcard-fixed1">
+    <div class="q-header">
+      <div class="q-num">1</div>
+      <div>
+        <div class="q-text">Complete as afirmações abaixo usando as palavras:</div>
+        <div class="q-meta">
+          <span class="q-pts">1,0 pt</span>
+          <span class="q-fixed-badge">Questão fixa</span>
+        </div>
+      </div>
+    </div>
+    <div class="word-box">MINIMIZAR &nbsp;•&nbsp; MAXIMIZAR &nbsp;•&nbsp; RESTAURAR &nbsp;•&nbsp; FECHAR</div>
+    <div class="fill-row">
+      <div class="fill-item"><span>a) O botão</span><input id="f1a" style="width:160px" placeholder="…"><span>faz a janela ocupar toda a tela do monitor.</span></div>
+      <div class="fill-item"><span>b) Ao clicar em</span><input id="f1b" style="width:160px" placeholder="…"><span>, a janela é reduzida para a Barra de Tarefas, mas continua aberta.</span></div>
+      <div class="fill-item"><span>c) O botão</span><input id="f1c" style="width:160px" placeholder="…"><span>encerra completamente o programa em execução.</span></div>
+      <div class="fill-item"><span>d) Após maximizar uma janela, o botão</span><input id="f1d" style="width:160px" placeholder="…"><span>faz ela voltar ao tamanho anterior.</span></div>
+    </div>
+    <div class="action-row" id="ar-fixed1">
+      <button class="btn-confirm" onclick="confirmarFixed1()">Confirmar resposta</button>
+    </div>
+    <div class="q-fb" id="fb-fixed1">Resposta registrada.</div>
+  </div>
+
+  <!-- Q2 FIXA: V ou F -->
+  <div class="q-card fixed-q" id="qcard-fixed2">
+    <div class="q-header">
+      <div class="q-num">2</div>
+      <div>
+        <div class="q-text">Marque V (Verdadeiro) ou F (Falso):</div>
+        <div class="q-meta">
+          <span class="q-pts">1,0 pt</span>
+          <span class="q-fixed-badge">Questão fixa</span>
+        </div>
+      </div>
+    </div>
+    <div class="vf-list">
+      <div class="vf-item"><input class="vf-input" id="vf1" maxlength="1" placeholder="V/F" oninput="this.value=this.value.toUpperCase().replace(/[^VF]/g,'')"><span class="vf-text">Ao recortar e colar um arquivo, ele permanece no local original e uma cópia vai para o destino.</span></div>
+      <div class="vf-item"><input class="vf-input" id="vf2" maxlength="1" placeholder="V/F" oninput="this.value=this.value.toUpperCase().replace(/[^VF]/g,'')"><span class="vf-text">O atalho SHIFT + Delete exclui o arquivo permanentemente, sem enviar à Lixeira.</span></div>
+      <div class="vf-item"><input class="vf-input" id="vf3" maxlength="1" placeholder="V/F" oninput="this.value=this.value.toUpperCase().replace(/[^VF]/g,'')"><span class="vf-text">É possível recuperar um arquivo excluído se a Lixeira ainda não tiver sido esvaziada.</span></div>
+      <div class="vf-item"><input class="vf-input" id="vf4" maxlength="1" placeholder="V/F" oninput="this.value=this.value.toUpperCase().replace(/[^VF]/g,'')"><span class="vf-text">O atalho Ctrl + B salva o arquivo.</span></div>
+    </div>
+    <div class="action-row" id="ar-fixed2">
+      <button class="btn-confirm" onclick="confirmarFixed2()">Confirmar resposta</button>
+    </div>
+    <div class="q-fb" id="fb-fixed2">Resposta registrada.</div>
+  </div>
+
+  <!-- Q3 FIXA: ÍCONES -->
+  <div class="q-card fixed-q" id="qcard-fixed3">
+    <div class="q-header">
+      <div class="q-num">3</div>
+      <div>
+        <div class="q-text">Observe os ícones abaixo e escreva o nome de cada operação:</div>
+        <div class="q-meta">
+          <span class="q-pts">1,0 pt</span>
+          <span class="q-fixed-badge">Questão fixa</span>
+        </div>
+      </div>
+    </div>
+    <div class="icons-row">
+      <!-- COLAR -->
+      <div class="icon-card">
+        <svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+          <rect x="10" y="16" width="30" height="40" rx="3" fill="#FFF3E0" stroke="#FF9800" stroke-width="2.5"/>
+          <rect x="19" y="10" width="12" height="11" rx="2" fill="#FFB74D" stroke="#FF9800" stroke-width="2"/>
+          <rect x="22" y="7" width="6" height="7" rx="1.5" fill="#FFF3E0" stroke="#FF9800" stroke-width="1.8"/>
+          <rect x="18" y="26" width="22" height="26" rx="2" fill="#fff" stroke="#FFB74D" stroke-width="2"/>
+          <line x1="22" y1="32" x2="36" y2="32" stroke="#FFCC80" stroke-width="1.8" stroke-linecap="round"/>
+          <line x1="22" y1="37" x2="36" y2="37" stroke="#FFCC80" stroke-width="1.8" stroke-linecap="round"/>
+          <line x1="22" y1="42" x2="30" y2="42" stroke="#FFCC80" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        <input class="icon-input" id="ic1" placeholder="Nome da operação…">
+      </div>
+      <!-- COPIAR -->
+      <div class="icon-card">
+        <svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+          <rect x="22" y="8" width="26" height="32" rx="3" fill="#E3F2FD" stroke="#2196F3" stroke-width="2.5"/>
+          <polyline points="38,8 48,8 48,18" fill="none" stroke="#2196F3" stroke-width="2.5" stroke-linejoin="round"/>
+          <line x1="38" y1="8" x2="48" y2="18" stroke="#2196F3" stroke-width="2.5"/>
+          <rect x="12" y="20" width="26" height="34" rx="3" fill="#BBDEFB" stroke="#2196F3" stroke-width="2.5"/>
+          <polyline points="28,20 38,20 38,30" fill="none" stroke="#2196F3" stroke-width="2.5" stroke-linejoin="round"/>
+          <line x1="28" y1="20" x2="38" y2="30" stroke="#2196F3" stroke-width="2.5"/>
+          <line x1="17" y1="36" x2="33" y2="36" stroke="#90CAF9" stroke-width="1.8" stroke-linecap="round"/>
+          <line x1="17" y1="41" x2="33" y2="41" stroke="#90CAF9" stroke-width="1.8" stroke-linecap="round"/>
+          <line x1="17" y1="46" x2="27" y2="46" stroke="#90CAF9" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        <input class="icon-input" id="ic2" placeholder="Nome da operação…">
+      </div>
+      <!-- RECORTAR -->
+      <div class="icon-card">
+        <svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="14" cy="50" r="9" fill="#E3F2FD" stroke="#2196F3" stroke-width="3"/>
+          <circle cx="14" cy="50" r="4" fill="#2196F3"/>
+          <circle cx="50" cy="50" r="9" fill="#E3F2FD" stroke="#2196F3" stroke-width="3"/>
+          <circle cx="50" cy="50" r="4" fill="#2196F3"/>
+          <line x1="14" y1="41" x2="32" y2="28" stroke="#2196F3" stroke-width="3.5" stroke-linecap="round"/>
+          <line x1="50" y1="41" x2="32" y2="28" stroke="#2196F3" stroke-width="3.5" stroke-linecap="round"/>
+          <line x1="32" y1="28" x2="18" y2="10" stroke="#2196F3" stroke-width="3.5" stroke-linecap="round"/>
+          <line x1="32" y1="28" x2="46" y2="10" stroke="#2196F3" stroke-width="3.5" stroke-linecap="round"/>
+          <circle cx="32" cy="28" r="3.5" fill="#2196F3"/>
+        </svg>
+        <input class="icon-input" id="ic3" placeholder="Nome da operação…">
+      </div>
+    </div>
+    <div class="action-row" id="ar-fixed3">
+      <button class="btn-confirm" onclick="confirmarFixed3()">Confirmar resposta</button>
+    </div>
+    <div class="q-fb" id="fb-fixed3">Resposta registrada.</div>
+  </div>
+
+  <!-- QUESTÕES MC ALEATÓRIAS -->
   <div id="questionsContainer"></div>
 
   <div class="submit-section">
-    <button class="submit-btn" onclick="submitProva()">🚀 Finalizar Prova</button>
+    <button class="submit-btn" onclick="submitProva()">Finalizar Prova</button>
   </div>
 
   <div id="result-screen">
@@ -155,419 +249,200 @@
     <div class="result-details" id="result-details"></div>
   </div>
 </main>
-
 <footer style="text-align:center;padding:20px;font-family:Nunito,sans-serif;font-size:13px;color:#666;border-top:2px solid #e2e8f0;margin-top:20px;background:#fff;">
-  🏫 Escola Mundaí &nbsp;|&nbsp; 📚 Educação Tecnológica &nbsp;|&nbsp; 👨‍🏫 Prof. Thiago Costa
+  Escola Mundaí &nbsp;|&nbsp; Educação Tecnológica &nbsp;|&nbsp; Prof. Thiago Costa
 </footer>
-
 <div id="toast"></div>
-
 <script>
-// ── BANCO DE QUESTÕES (26 questões) ───────────────────────────────────────────
-const BANCO = [
-  {
-    id: 1,
-    texto: 'O professor Thiago mostrou teclado, mouse, monitor e gabinete. Essas partes do computador são chamadas de:',
-    correta: 'Hardware',
-    erradas: ['Software', 'Internet', 'Aplicativos']
-  },
-  {
-    id: 2,
-    texto: 'A coordenadora Stela explicou que programas e aplicativos fazem parte da parte do computador que não podemos tocar. Essa parte é chamada de:',
-    correta: 'Software',
-    erradas: ['Hardware', 'Monitor', 'Teclado']
-  },
-  {
-    id: 3,
-    texto: 'O professor Thiago mostrou um aparelho que ajuda a proteger o computador contra problemas de energia. Qual é esse aparelho?',
-    correta: 'Estabilizador',
-    erradas: ['Mouse', 'Impressora', 'Webcam']
-  },
-  {
-    id: 4,
-    texto: 'O professor Thiago explicou que existe uma peça conhecida como o "cérebro" do computador. Qual é ela?',
-    correta: 'CPU',
-    erradas: ['Mouse', 'Monitor', 'Caixa de som']
-  },
-  {
-    id: 5,
-    texto: 'A professora Sandra comparou medidas da Matemática com as medidas do computador. Qual é a menor unidade de armazenamento?',
-    correta: 'Byte',
-    erradas: ['Megabyte', 'Gigabyte', 'Terabyte']
-  },
-  {
-    id: 6,
-    texto: 'A professora Roberta perguntou qual unidade guarda mais informações. Qual é a maior?',
-    correta: 'Terabyte',
-    erradas: ['Byte', 'Kilobyte', 'Megabyte']
-  },
-  {
-    id: 7,
-    texto: 'O professor Thiago explicou que o computador trabalha com linguagem binária. Quais números fazem parte dela?',
-    correta: '0 e 1',
-    erradas: ['1 e 2', '2 e 3', '5 e 6']
-  },
-  {
-    id: 8,
-    texto: 'A coordenadora Stela perguntou qual programa principal faz o computador funcionar corretamente. A resposta certa é:',
-    correta: 'Sistema operacional',
-    erradas: ['Teclado', 'Mouse', 'Pasta']
-  },
-  {
-    id: 9,
-    texto: 'A professora Carol ligou o computador e apareceu a primeira tela com ícones. Essa tela se chama:',
-    correta: 'Área de trabalho',
-    erradas: ['Lixeira', 'Janela', 'Pasta']
-  },
-  {
-    id: 10,
-    texto: 'A professora Cléssia mostrou os pequenos desenhos da tela que representam programas. Esses desenhos são chamados de:',
-    correta: 'Ícones',
-    erradas: ['Letras', 'Pastas', 'Cabos']
-  },
-  {
-    id: 11,
-    texto: 'Um aluno apagou um arquivo sem querer. A professora Roberta explicou que ele foi para um lugar antes de ser apagado de vez. Que lugar é esse?',
-    correta: 'Lixeira',
-    erradas: ['Internet', 'Word', 'Teclado']
-  },
-  {
-    id: 12,
-    texto: 'A professora Carol abriu a Lixeira e trouxe um arquivo de volta. O que ela fez?',
-    correta: 'Restaurou',
-    erradas: ['Excluiu', 'Imprimiu', 'Desligou']
-  },
-  {
-    id: 13,
-    texto: 'O professor Thiago clicou em um botão e a janela ficou escondida na barra de tarefas. Qual botão foi usado?',
-    correta: 'Minimizar',
-    erradas: ['Fechar', 'Maximizar', 'Excluir']
-  },
-  {
-    id: 14,
-    texto: 'A professora Sandra quis aumentar a janela para ocupar a tela toda. Qual botão ela deve usar?',
-    correta: 'Maximizar',
-    erradas: ['Minimizar', 'Fechar', 'Copiar']
-  },
-  {
-    id: 15,
-    texto: 'A professora Roberta terminou a atividade e quis encerrar o programa. Qual botão ela deve clicar?',
-    correta: 'Fechar',
-    erradas: ['Maximizar', 'Minimizar', 'Restaurar']
-  },
-  {
-    id: 16,
-    texto: 'O professor Thiago quis tirar um texto de um lugar para colocá-lo em outro. Qual atalho faz isso?',
-    correta: 'Ctrl + X',
-    erradas: ['Ctrl + C', 'Ctrl + V', 'Ctrl + A']
-  },
-  {
-    id: 17,
-    texto: 'A professora Cléssia quis fazer uma cópia de um texto sem apagar o original. Qual atalho ela deve usar?',
-    correta: 'Ctrl + C',
-    erradas: ['Ctrl + X', 'Ctrl + V', 'Ctrl + Z']
-  },
-  {
-    id: 18,
-    texto: 'A coordenadora Stela copiou um texto e quis colocá-lo em outro lugar. Qual atalho ela deve usar?',
-    correta: 'Ctrl + V',
-    erradas: ['Ctrl + A', 'Ctrl + C', 'Ctrl + S']
-  },
-  {
-    id: 19,
-    texto: 'A professora Carol quis apagar um arquivo que não seria mais usado. Qual tecla ajuda nessa ação?',
-    correta: 'Delete',
-    erradas: ['Enter', 'Shift', 'Caps Lock']
-  },
-  {
-    id: 20,
-    texto: 'O professor Thiago pediu para os alunos abrirem um programa usado para escrever textos. Qual é esse programa?',
-    correta: 'Word',
-    erradas: ['PowerPoint', 'Paint', 'Excel']
-  },
-  {
-    id: 21,
-    texto: 'A professora Roberta pediu para mudar a cor de uma palavra no Word. Antes disso, era preciso marcar a palavra. Essa ação se chama:',
-    correta: 'Selecionar',
-    erradas: ['Apagar', 'Fechar', 'Salvar']
-  },
-  {
-    id: 22,
-    texto: 'O professor Thiago ensinou um comando que cria um texto de exemplo no Word. Qual é esse comando?',
-    correta: '=rand(2,4)',
-    erradas: ['=copiar(2,4)', '=word(2,4)', '=texto(2,4)']
-  },
-  {
-    id: 23,
-    texto: 'A coordenadora Stela quis marcar todo o texto de uma vez. Qual atalho ela deve usar?',
-    correta: 'Ctrl + T',
-    erradas: ['Ctrl + V', 'Ctrl + A', 'Ctrl + X']
-  },
-  {
-    id: 24,
-    texto: 'O professor Thiago pediu para deixar o texto alinhado certinho nos parágrafos. Esse alinhamento é chamado de:',
-    correta: 'Justificado',
-    erradas: ['Centralizado', 'Direita', 'Esquerda']
-  },
-  {
-    id: 25,
-    texto: 'A professora Sandra quis colocar o título no meio da página. Qual alinhamento ela deve usar?',
-    correta: 'Centralizado',
-    erradas: ['Justificado', 'Esquerda', 'Direita']
-  },
-  {
-    id: 26,
-    texto: 'A professora Cléssia quis desfazer uma ação que havia feito no Word. Qual atalho ela deve usar?',
-    correta: 'Ctrl + Z',
-    erradas: ['Ctrl + C', 'Ctrl + S', 'Ctrl + X']
-  }
-];
+const BANCO=[{id:1,texto:'O professor Thiago mostrou teclado, mouse, monitor e gabinete. Essas partes do computador são chamadas de:',correta:'Hardware',erradas:['Software','Internet','Aplicativos']},{id:2,texto:'A coordenadora Stela explicou que programas e aplicativos fazem parte da parte do computador que não podemos tocar. Essa parte é chamada de:',correta:'Software',erradas:['Hardware','Monitor','Teclado']},{id:3,texto:'O professor Thiago mostrou um aparelho que ajuda a proteger o computador contra problemas de energia. Qual é esse aparelho?',correta:'Estabilizador',erradas:['Mouse','Impressora','Webcam']},{id:4,texto:'O professor Thiago explicou que existe uma peça conhecida como o "cérebro" do computador. Qual é ela?',correta:'CPU',erradas:['Mouse','Monitor','Caixa de som']},{id:5,texto:'A professora Sandra comparou medidas da Matemática com as medidas do computador. Qual é a menor unidade de armazenamento?',correta:'Byte',erradas:['Megabyte','Gigabyte','Terabyte']},{id:6,texto:'A professora Roberta perguntou qual unidade guarda mais informações. Qual é a maior?',correta:'Terabyte',erradas:['Byte','Kilobyte','Megabyte']},{id:7,texto:'O professor Thiago explicou que o computador trabalha com linguagem binária. Quais números fazem parte dela?',correta:'0 e 1',erradas:['1 e 2','2 e 3','5 e 6']},{id:8,texto:'A coordenadora Stela perguntou qual programa principal faz o computador funcionar corretamente. A resposta certa é:',correta:'Sistema operacional',erradas:['Teclado','Mouse','Pasta']},{id:9,texto:'A professora Carol ligou o computador e apareceu a primeira tela com ícones. Essa tela se chama:',correta:'Área de trabalho',erradas:['Lixeira','Janela','Pasta']},{id:10,texto:'A professora Cléssia mostrou os pequenos desenhos da tela que representam programas. Esses desenhos são chamados de:',correta:'Ícones',erradas:['Letras','Pastas','Cabos']},{id:11,texto:'Um aluno apagou um arquivo sem querer. A professora Roberta explicou que ele foi para um lugar antes de ser apagado de vez. Que lugar é esse?',correta:'Lixeira',erradas:['Internet','Word','Teclado']},{id:12,texto:'A professora Carol abriu a Lixeira e trouxe um arquivo de volta. O que ela fez?',correta:'Restaurou',erradas:['Excluiu','Imprimiu','Desligou']},{id:13,texto:'O professor Thiago clicou em um botão e a janela ficou escondida na barra de tarefas. Qual botão foi usado?',correta:'Minimizar',erradas:['Fechar','Maximizar','Excluir']},{id:14,texto:'A professora Sandra quis aumentar a janela para ocupar a tela toda. Qual botão ela deve usar?',correta:'Maximizar',erradas:['Minimizar','Fechar','Copiar']},{id:15,texto:'A professora Roberta terminou a atividade e quis encerrar o programa. Qual botão ela deve clicar?',correta:'Fechar',erradas:['Maximizar','Minimizar','Restaurar']},{id:16,texto:'O professor Thiago quis tirar um texto de um lugar para colocá-lo em outro. Qual atalho faz isso?',correta:'Ctrl + X',erradas:['Ctrl + C','Ctrl + V','Ctrl + A']},{id:17,texto:'A professora Cléssia quis fazer uma cópia de um texto sem apagar o original. Qual atalho ela deve usar?',correta:'Ctrl + C',erradas:['Ctrl + X','Ctrl + V','Ctrl + Z']},{id:18,texto:'A coordenadora Stela copiou um texto e quis colocá-lo em outro lugar. Qual atalho ela deve usar?',correta:'Ctrl + V',erradas:['Ctrl + A','Ctrl + C','Ctrl + S']},{id:19,texto:'A professora Carol quis apagar um arquivo que não seria mais usado. Qual tecla ajuda nessa ação?',correta:'Delete',erradas:['Enter','Shift','Caps Lock']},{id:20,texto:'O professor Thiago pediu para os alunos abrirem um programa usado para escrever textos. Qual é esse programa?',correta:'Word',erradas:['PowerPoint','Paint','Excel']},{id:21,texto:'A professora Roberta pediu para mudar a cor de uma palavra no Word. Antes disso, era preciso marcar a palavra. Essa ação se chama:',correta:'Selecionar',erradas:['Apagar','Fechar','Salvar']},{id:22,texto:'O professor Thiago ensinou um comando que cria um texto de exemplo no Word. Qual é esse comando?',correta:'=rand(2,4)',erradas:['=copiar(2,4)','=word(2,4)','=texto(2,4)']},{id:23,texto:'A coordenadora Stela quis marcar todo o texto de uma vez. Qual atalho ela deve usar?',correta:'Ctrl + T',erradas:['Ctrl + V','Ctrl + A','Ctrl + X']},{id:24,texto:'O professor Thiago pediu para deixar o texto alinhado certinho nos parágrafos. Esse alinhamento é chamado de:',correta:'Justificado',erradas:['Centralizado','Direita','Esquerda']},{id:25,texto:'A professora Sandra quis colocar o título no meio da página. Qual alinhamento ela deve usar?',correta:'Centralizado',erradas:['Justificado','Esquerda','Direita']},{id:26,texto:'A professora Cléssia quis desfazer uma ação que havia feito no Word. Qual atalho ela deve usar?',correta:'Ctrl + Z',erradas:['Ctrl + C','Ctrl + S','Ctrl + X']}];
 
-// ── CONFIG ───────────────────────────────────────────────────────────────────
-const TOTAL_Q     = 13;
-const PTS_POR_Q   = parseFloat((10 / TOTAL_Q).toFixed(4));
-const letras      = ['A', 'B', 'C', 'D'];
+const MC_TOTAL=10;
+const MC_PTS=0.7;
+const LETRAS=['A','B','C','D'];
+const answeredFixed={f1:false,f2:false,f3:false};
+const answeredMC={};
+const selectedMC={};
+let provaQs=[];
 
-// ── STATE ────────────────────────────────────────────────────────────────────
-const answered  = {};  // qIndex → { correct: bool, pts: number }
-const selected  = {};  // qIndex → optIndex
-let   provaQs   = [];  // questões sorteadas com alternativas embaralhadas
+function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
 
-// ── UTILS ────────────────────────────────────────────────────────────────────
-function shuffle(arr) {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
+const turma=(localStorage.getItem('aluno_turma')||'').toLowerCase();
+const ano=turma.startsWith('4')?'4':turma.startsWith('5')?'5':'4';
+const turnoMap={'4mat':'4º Ano – Matutino','4vesp':'4º Ano – Vespertino','5mat':'5º Ano – Matutino','5vesp':'5º Ano – Vespertino'};
+document.getElementById('anoMeta').textContent=ano+'º Ano';
+const turmaPill=document.getElementById('turmaPill');
+if(turnoMap[turma])turmaPill.textContent='Turma: '+turnoMap[turma];
+else if(turma)turmaPill.textContent='Turma: '+turma;
+else turmaPill.style.display='none';
+
+const PROVA_ID='edutech-'+ano+'ano-t1';
+const alunoToken=localStorage.getItem('token');
+const alunoNome=localStorage.getItem('aluno_nome')||'';
+if(!alunoToken)window.location.replace('login.html');
+if(alunoNome){const ni=document.getElementById('studentName');if(ni){ni.value=alunoNome;ni.readOnly=true;ni.style.background='#f8fafc';}}
+document.getElementById('studentDate').valueAsDate=new Date();
+
+function updateProgress(){
+  const fixedDone=Object.values(answeredFixed).filter(Boolean).length;
+  const mcDone=Object.keys(answeredMC).length;
+  const total=fixedDone+mcDone;
+  document.getElementById('progressBar').style.width=(total/13*100)+'%';
+  document.getElementById('progressCount').textContent=total+' / 13';
 }
 
-function pickRandom(arr, n) {
-  return shuffle(arr).slice(0, n);
+// FIXED Q1
+function confirmarFixed1(){
+  ['f1a','f1b','f1c','f1d'].forEach(id=>{const el=document.getElementById(id);if(el)el.disabled=true;});
+  document.getElementById('ar-fixed1').innerHTML='<button class="btn-edit" onclick="editarFixed1()">Editar</button>';
+  document.getElementById('fb-fixed1').style.display='block';
+  document.getElementById('qcard-fixed1').classList.add('answered');
+  answeredFixed.f1=true;updateProgress();
+}
+function editarFixed1(){
+  ['f1a','f1b','f1c','f1d'].forEach(id=>{const el=document.getElementById(id);if(el)el.disabled=false;});
+  document.getElementById('ar-fixed1').innerHTML='<button class="btn-confirm" onclick="confirmarFixed1()">Confirmar resposta</button>';
+  document.getElementById('fb-fixed1').style.display='none';
+  document.getElementById('qcard-fixed1').classList.remove('answered');
+  answeredFixed.f1=false;updateProgress();
 }
 
-// ── TURMA / ANO ──────────────────────────────────────────────────────────────
-const turma = (localStorage.getItem('aluno_turma') || '').toLowerCase();
-const ano   = turma.startsWith('4') ? '4' : turma.startsWith('5') ? '5' : '4';
-document.getElementById('anoLabel').textContent = ano + 'º Ano';
-const PROVA_ID = `edutech-${ano}ano-t1`;
+// FIXED Q2
+function confirmarFixed2(){
+  document.querySelectorAll('.vf-input').forEach(i=>i.disabled=true);
+  document.getElementById('ar-fixed2').innerHTML='<button class="btn-edit" onclick="editarFixed2()">Editar</button>';
+  document.getElementById('fb-fixed2').style.display='block';
+  document.getElementById('qcard-fixed2').classList.add('answered');
+  answeredFixed.f2=true;updateProgress();
+}
+function editarFixed2(){
+  document.querySelectorAll('.vf-input').forEach(i=>i.disabled=false);
+  document.getElementById('ar-fixed2').innerHTML='<button class="btn-confirm" onclick="confirmarFixed2()">Confirmar resposta</button>';
+  document.getElementById('fb-fixed2').style.display='none';
+  document.getElementById('qcard-fixed2').classList.remove('answered');
+  answeredFixed.f2=false;updateProgress();
+}
 
-// ── GERAR PROVA ───────────────────────────────────────────────────────────────
-function gerarProva() {
-  const sorteadas = pickRandom(BANCO, TOTAL_Q);
-  provaQs = sorteadas.map(q => {
-    const opts = shuffle([q.correta, ...q.erradas]);
-    return { ...q, opts, correctIndex: opts.indexOf(q.correta) };
+// FIXED Q3
+function confirmarFixed3(){
+  document.querySelectorAll('.icon-input').forEach(i=>i.disabled=true);
+  document.getElementById('ar-fixed3').innerHTML='<button class="btn-edit" onclick="editarFixed3()">Editar</button>';
+  document.getElementById('fb-fixed3').style.display='block';
+  document.getElementById('qcard-fixed3').classList.add('answered');
+  answeredFixed.f3=true;updateProgress();
+}
+function editarFixed3(){
+  document.querySelectorAll('.icon-input').forEach(i=>i.disabled=false);
+  document.getElementById('ar-fixed3').innerHTML='<button class="btn-confirm" onclick="confirmarFixed3()">Confirmar resposta</button>';
+  document.getElementById('fb-fixed3').style.display='none';
+  document.getElementById('qcard-fixed3').classList.remove('answered');
+  answeredFixed.f3=false;updateProgress();
+}
+
+// MC
+function gerarProva(){
+  provaQs=shuffle(BANCO).slice(0,MC_TOTAL).map(q=>{
+    const opts=shuffle([q.correta,...q.erradas]);
+    return{...q,opts,correctIndex:opts.indexOf(q.correta)};
   });
 }
 
-// ── RENDERIZAR ────────────────────────────────────────────────────────────────
-function renderProva() {
-  const container = document.getElementById('questionsContainer');
-  container.innerHTML = '';
-
-  provaQs.forEach((q, qi) => {
-    const card = document.createElement('div');
-    card.className = 'q-card';
-    card.id = `qcard-${qi}`;
-
-    const optsHtml = q.opts.map((opt, oi) => `
-      <button class="opt" id="opt-${qi}-${oi}" onclick="selectOpt(${qi},${oi})" data-qi="${qi}" data-oi="${oi}">
-        <span class="opt-letter">${letras[oi]}</span>
-        <span>${opt}</span>
-      </button>
-    `).join('');
-
-    card.innerHTML = `
-      <div class="q-header">
-        <div class="q-num">${qi + 1}</div>
-        <div class="q-text-wrap">
-          <div class="q-text">${q.texto}</div>
-          <span class="q-points">${PTS_POR_Q.toFixed(2).replace('.',',')} pt</span>
-        </div>
-      </div>
-      <div class="options-list">${optsHtml}</div>
-      <div class="confirm-row" id="confirm-row-${qi}">
-        <button class="btn-confirm" onclick="confirmOpt(${qi})">✔ Confirmar resposta</button>
-        <button class="btn-edit" onclick="editOpt(${qi})">✏️ Editar</button>
-      </div>
-      <div class="q-feedback" id="q-feedback-${qi}"></div>
-    `;
-    container.appendChild(card);
+function renderProva(){
+  const c=document.getElementById('questionsContainer');c.innerHTML='';
+  provaQs.forEach((q,qi)=>{
+    const qNum=qi+4;
+    const card=document.createElement('div');
+    card.className='q-card';card.id='qcard-mc-'+qi;
+    const optsHtml=q.opts.map((opt,oi)=>`<button class="opt" id="opt-${qi}-${oi}" onclick="selectOpt(${qi},${oi})">${'<span class="opt-letter">'+LETRAS[oi]+'</span>'}<span>${opt}</span></button>`).join('');
+    card.innerHTML=`<div class="q-header"><div class="q-num">${qNum}</div><div><div class="q-text">${q.texto}</div><div class="q-meta"><span class="q-pts">${MC_PTS.toFixed(2).replace('.',',')} pt</span></div></div></div><div class="options-list">${optsHtml}</div><div class="action-row" id="ar-mc-${qi}"><button class="btn-confirm" onclick="confirmarMC(${qi})">Confirmar</button><button class="btn-edit" onclick="editarMC(${qi})">Editar</button></div><div class="q-fb" id="fb-mc-${qi}">Resposta registrada.</div>`;
+    c.appendChild(card);
   });
 }
 
-// ── INTERAÇÃO ─────────────────────────────────────────────────────────────────
-function selectOpt(qi, oi) {
-  if (answered[qi] !== undefined) return;
-
-  // Desmarcar anterior
-  if (selected[qi] !== undefined) {
-    document.getElementById(`opt-${qi}-${selected[qi]}`).classList.remove('selected');
-  }
-  selected[qi] = oi;
-  document.getElementById(`opt-${qi}-${oi}`).classList.add('selected');
-
-  // Mostrar confirm row
-  document.getElementById(`confirm-row-${qi}`).classList.add('show');
+function selectOpt(qi,oi){
+  if(answeredMC[qi]!==undefined)return;
+  if(selectedMC[qi]!==undefined)document.getElementById('opt-'+qi+'-'+selectedMC[qi]).classList.remove('selected');
+  selectedMC[qi]=oi;
+  document.getElementById('opt-'+qi+'-'+oi).classList.add('selected');
 }
 
-function editOpt(qi) {
-  if (answered[qi] !== undefined) return;
-  // Desmarcar
-  if (selected[qi] !== undefined) {
-    document.getElementById(`opt-${qi}-${selected[qi]}`).classList.remove('selected');
-    delete selected[qi];
-  }
-  document.getElementById(`confirm-row-${qi}`).classList.remove('show');
-}
-
-function confirmOpt(qi) {
-  if (answered[qi] !== undefined) return;
-  if (selected[qi] === undefined) { showToast('⚠️ Selecione uma alternativa!'); return; }
-
-  const q        = provaQs[qi];
-  const oi       = selected[qi];
-  const isCorrect = oi === q.correctIndex;
-  const pts      = isCorrect ? PTS_POR_Q : 0;
-
-  answered[qi] = { correct: isCorrect, pts };
+function confirmarMC(qi){
+  if(answeredMC[qi]!==undefined)return;
+  if(selectedMC[qi]===undefined){showToast('Selecione uma alternativa!');return;}
+  provaQs[qi].opts.forEach((_,oi)=>{document.getElementById('opt-'+qi+'-'+oi).disabled=true;});
+  answeredMC[qi]=selectedMC[qi];
+  document.getElementById('ar-mc-'+qi).innerHTML='<button class="btn-edit" onclick="editarMC('+qi+')">Editar</button>';
+  document.getElementById('fb-mc-'+qi).style.display='block';
+  document.getElementById('qcard-mc-'+qi).classList.add('answered');
   updateProgress();
-
-  // Lock all options
-  q.opts.forEach((_, i) => {
-    const btn = document.getElementById(`opt-${qi}-${i}`);
-    btn.disabled = true;
-    if (i === oi && isCorrect)  btn.className = 'opt confirmed-correct';
-    if (i === oi && !isCorrect) btn.className = 'opt confirmed-wrong';
-    if (i === q.correctIndex && !isCorrect) btn.className = 'opt show-correct';
-  });
-
-  // Hide confirm row
-  document.getElementById(`confirm-row-${qi}`).classList.remove('show');
-
-  // Feedback
-  const fb = document.getElementById(`q-feedback-${qi}`);
-  fb.classList.add('show');
-  if (isCorrect) {
-    fb.className = 'q-feedback show correct';
-    fb.textContent = '✅ Resposta correta!';
-  } else {
-    fb.className = 'q-feedback show wrong';
-    fb.textContent = `❌ Incorreto! A resposta certa é: ${q.correta}`;
-  }
-
-  document.getElementById(`qcard-${qi}`).classList.add('answered');
 }
 
-// ── PROGRESS ──────────────────────────────────────────────────────────────────
-function updateProgress() {
-  const n = Object.keys(answered).length;
-  document.getElementById('progressBar').style.width = (n / TOTAL_Q * 100) + '%';
-  document.getElementById('progressCount').textContent = n + ' / ' + TOTAL_Q;
+function editarMC(qi){
+  if(answeredMC[qi]!==undefined){delete answeredMC[qi];}
+  provaQs[qi].opts.forEach((_,oi)=>{const b=document.getElementById('opt-'+qi+'-'+oi);b.disabled=false;b.classList.remove('selected');});
+  if(selectedMC[qi]!==undefined)delete selectedMC[qi];
+  document.getElementById('ar-mc-'+qi).innerHTML='<button class="btn-confirm" onclick="confirmarMC('+qi+')">Confirmar</button><button class="btn-edit" onclick="editarMC('+qi+')">Editar</button>';
+  document.getElementById('fb-mc-'+qi).style.display='none';
+  document.getElementById('qcard-mc-'+qi).classList.remove('answered');
+  updateProgress();
 }
 
-// ── TOAST ─────────────────────────────────────────────────────────────────────
-let toastTimer = null;
-function showToast(msg) {
-  const el = document.getElementById('toast');
-  el.innerHTML = msg; el.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => el.classList.remove('show'), 3500);
-}
+let toastTimer=null;
+function showToast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),3000);}
 
-// ── SUBMIT ────────────────────────────────────────────────────────────────────
-const API_URL    = localStorage.getItem('api_url') || 'https://escola-mundai-backend-production.up.railway.app';
-const alunoToken = localStorage.getItem('token');
-const alunoNome  = localStorage.getItem('aluno_nome') || '';
-
-if (!alunoToken) window.location.replace('login.html');
-if (alunoNome) {
-  const ni = document.getElementById('studentName');
-  if (ni) { ni.value = alunoNome; ni.readOnly = true; ni.style.background = '#f1f5f9'; }
-}
-
-async function submitProva() {
-  // Confirm any selected but not confirmed
-  provaQs.forEach((_, qi) => {
-    if (answered[qi] === undefined && selected[qi] !== undefined) confirmOpt(qi);
-  });
+async function submitProva(){
+  // Force-confirm fixas
+  if(!answeredFixed.f1)confirmarFixed1();
+  if(!answeredFixed.f2)confirmarFixed2();
+  if(!answeredFixed.f3)confirmarFixed3();
+  // Force-confirm MC selected
+  provaQs.forEach((_,qi)=>{if(answeredMC[qi]===undefined&&selectedMC[qi]!==undefined)confirmarMC(qi);});
 
   // Check missing
-  const missing = provaQs.map((_, qi) => qi).filter(qi => answered[qi] === undefined);
-  document.querySelectorAll('.q-card').forEach(c => c.classList.remove('missing'));
-  if (missing.length > 0) {
-    missing.forEach(qi => document.getElementById(`qcard-${qi}`).classList.add('missing'));
-    document.getElementById(`qcard-${missing[0]}`).scrollIntoView({ behavior: 'smooth', block: 'center' });
-    showToast('⚠️ Responda todas as questões antes de finalizar!');
-    return;
-  }
+  const missing=[];
+  if(!answeredFixed.f1)missing.push('qcard-fixed1');
+  if(!answeredFixed.f2)missing.push('qcard-fixed2');
+  if(!answeredFixed.f3)missing.push('qcard-fixed3');
+  provaQs.forEach((_,qi)=>{if(answeredMC[qi]===undefined)missing.push('qcard-mc-'+qi);});
+  document.querySelectorAll('.q-card').forEach(c=>c.classList.remove('missing'));
+  if(missing.length>0){missing.forEach(id=>document.getElementById(id)&&document.getElementById(id).classList.add('missing'));document.getElementById(missing[0]).scrollIntoView({behavior:'smooth',block:'center'});showToast('Responda todas as questões antes de finalizar!');return;}
 
-  const totalPts = parseFloat(Math.min(
-    Object.values(answered).reduce((a, b) => a + b.pts, 0), 10
-  ).toFixed(1));
-  const pct = Math.round((totalPts / 10) * 100);
+  // Calc score
+  const fixedPts=3.0;
+  const mcCorrect=provaQs.filter((_,qi)=>answeredMC[qi]!==undefined&&answeredMC[qi]===provaQs[qi].correctIndex).length;
+  const mcPts=parseFloat((mcCorrect*MC_PTS).toFixed(2));
+  const totalPts=parseFloat(Math.min(fixedPts+mcPts,10).toFixed(1));
+  const pct=Math.round((totalPts/10)*100);
 
-  const submitBtn = document.querySelector('.submit-btn');
-  if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = '📤 Enviando…'; }
+  const btn=document.querySelector('.submit-btn');if(btn){btn.disabled=true;btn.textContent='Enviando…';}
 
-  // Build respostas
-  const respostas = {};
-  provaQs.forEach((q, qi) => {
-    respostas[`q${qi + 1}_id${q.id}`] = {
-      questao: q.texto.substring(0, 60) + '…',
-      respondeu: q.opts[selected[qi]],
-      correta: q.correta,
-      acertou: answered[qi].correct
-    };
-  });
+  const respostas={
+    q1_completar:{a:document.getElementById('f1a')?.value||'',b:document.getElementById('f1b')?.value||'',c:document.getElementById('f1c')?.value||'',d:document.getElementById('f1d')?.value||''},
+    q2_vf:{vf1:document.getElementById('vf1')?.value||'',vf2:document.getElementById('vf2')?.value||'',vf3:document.getElementById('vf3')?.value||'',vf4:document.getElementById('vf4')?.value||''},
+    q3_icones:{ic1:document.getElementById('ic1')?.value||'',ic2:document.getElementById('ic2')?.value||'',ic3:document.getElementById('ic3')?.value||''},
+  };
+  provaQs.forEach((q,qi)=>{respostas['q'+(qi+4)+'_id'+q.id]={questao:q.texto.substring(0,60)+'…',respondeu:q.opts[answeredMC[qi]]||'—',correta:q.correta,acertou:answeredMC[qi]===q.correctIndex};});
 
-  try {
-    const res = await fetch(`${API_URL}/api/prova/${PROVA_ID}/enviar`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${alunoToken}` },
-      body: JSON.stringify({ respostas, nota: totalPts })
-    });
-    if (res.status === 401) { window.location.replace('login.html'); return; }
-  } catch (e) { console.warn(e); }
+  try{const res=await fetch((localStorage.getItem('api_url')||'https://escola-mundai-backend-production.up.railway.app')+'/api/prova/'+PROVA_ID+'/enviar',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+alunoToken},body:JSON.stringify({respostas,nota:totalPts})});if(res.status===401){window.location.replace('login.html');return;}}catch(e){console.warn(e);}
 
-  // Show result
-  document.querySelector('.submit-section').style.display = 'none';
-  const rs = document.getElementById('result-screen');
-  rs.style.display = 'block';
-  rs.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-  document.getElementById('result-name').textContent  = alunoNome || document.getElementById('studentName')?.value || 'Aluno(a)';
-  document.getElementById('result-score').textContent = totalPts.toFixed(1).replace('.', ',');
-  setTimeout(() => { document.getElementById('result-bar').style.width = pct + '%'; }, 300);
-
-  const correctCount = Object.values(answered).filter(a => a.correct).length;
-  let emoji, title, msg, stars;
-  if      (pct >= 90) { emoji='🏆'; title='Excelente!';         stars='⭐⭐⭐⭐⭐'; msg='Incrível! Você dominou o conteúdo! Continue assim!'; }
-  else if (pct >= 70) { emoji='🎉'; title='Muito Bem!';         stars='⭐⭐⭐⭐';  msg='Ótima pontuação! Você está aprendendo muito bem!'; }
-  else if (pct >= 50) { emoji='👍'; title='Bom trabalho!';      stars='⭐⭐⭐';   msg='Revise o conteúdo para melhorar ainda mais.'; }
-  else                { emoji='📖'; title='Continue estudando!'; stars='⭐⭐';    msg='Não desanime! Revise o material e tente de novo.'; }
-
-  document.getElementById('result-emoji').textContent = emoji;
-  document.getElementById('result-title').textContent = title;
-  document.getElementById('result-stars').textContent = stars;
-  document.getElementById('result-msg').textContent   = msg;
-  document.getElementById('result-msg').className = 'result-msg ' + (pct >= 70 ? 'detail-green' : 'detail-red');
-  document.getElementById('result-details').innerHTML = `
-    <div class="detail-pill detail-green">✅ ${correctCount} corretas</div>
-    <div class="detail-pill detail-red">❌ ${TOTAL_Q - correctCount} erradas</div>
-    <div class="detail-pill detail-green">📋 ${TOTAL_Q} respondidas</div>
-    <div style="margin-top:16px;width:100%">
-      <a href="home.html" style="display:inline-block;background:#1a5c2a;color:#fff;border-radius:12px;padding:12px 28px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;text-decoration:none;">← Voltar para início</a>
-    </div>`;
+  document.querySelector('.submit-section').style.display='none';
+  const rs=document.getElementById('result-screen');rs.style.display='block';rs.scrollIntoView({behavior:'smooth',block:'center'});
+  document.getElementById('result-name').textContent=alunoNome||document.getElementById('studentName')?.value||'Aluno(a)';
+  document.getElementById('result-score').textContent=totalPts.toFixed(1).replace('.',',');
+  setTimeout(()=>{document.getElementById('result-bar').style.width=pct+'%';},300);
+  let emoji,title,msg,stars;
+  if(pct>=90){emoji='🏆';title='Excelente!';stars='⭐⭐⭐⭐⭐';msg='Incrível! Você dominou o conteúdo!';}
+  else if(pct>=70){emoji='🎉';title='Muito Bem!';stars='⭐⭐⭐⭐';msg='Ótima pontuação! Continue assim!';}
+  else if(pct>=50){emoji='👍';title='Bom trabalho!';stars='⭐⭐⭐';msg='Revise o conteúdo para melhorar ainda mais.';}
+  else{emoji='📖';title='Continue estudando!';stars='⭐⭐';msg='Não desanime! Revise o material e tente de novo.';}
+  document.getElementById('result-emoji').textContent=emoji;
+  document.getElementById('result-title').textContent=title;
+  document.getElementById('result-stars').textContent=stars;
+  document.getElementById('result-msg').textContent=msg;
+  document.getElementById('result-msg').className='result-msg '+(pct>=70?'dg':'dr');
+  document.getElementById('result-details').innerHTML=`<div class="detail-pill dg">✅ ${mcCorrect} MC corretas</div><div class="detail-pill dr">❌ ${MC_TOTAL-mcCorrect} MC erradas</div><div style="margin-top:16px;width:100%"><a href="home.html" style="display:inline-block;background:#1a5c2a;color:#fff;border-radius:12px;padding:12px 28px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;text-decoration:none;">← Voltar para início</a></div>`;
 }
 
-// ── INIT ──────────────────────────────────────────────────────────────────────
-document.getElementById('studentDate').valueAsDate = new Date();
-gerarProva();
-renderProva();
-updateProgress();
+gerarProva();renderProva();updateProgress();
 </script>
 </body>
 </html>
