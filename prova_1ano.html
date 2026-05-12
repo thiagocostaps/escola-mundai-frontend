@@ -947,7 +947,7 @@
 const scores   = {};
 const answered = {};
 let q1Done = false, q11Done = false;
-const q6answers = {q6a: null, q6b: null, q6c: null};
+const q6answers = {q8a: null, q8b: null, q8c: null};
 
 // ---- PROGRESS ----
 const TOTAL = 12;
@@ -1127,7 +1127,7 @@ function confirmTF(qid) {
   fb.innerHTML = '✔️ Resposta registrada.';
   // Check if all 3 answered
   if (q6answers.q8a !== null && q6answers.q8b !== null && q6answers.q8c !== null && !answered['q8']) {
-    const correct3 = [q6answers.q6a === tfCorrect.q6a, q6answers.q6b === tfCorrect.q6b, q6answers.q6c === tfCorrect.q6c];
+    const correct3 = [q6answers.q8a === tfCorrect.q8a, q6answers.q8b === tfCorrect.q8b, q6answers.q8c === tfCorrect.q8c];
     const count = correct3.filter(Boolean).length;
     markAnswered('q6', parseFloat((count * 0.3).toFixed(1)));
     document.getElementById('q8').classList.add('answered');
@@ -1209,17 +1209,22 @@ function editMatch(group) {
   state.pairs = 0;
   state.correct = 0;
   state.selected = null;
+  delete answered[qCardId];
+  scores[qCardId] = 0;
 
   // Reset all match items in this group
   const leftAttr  = group === 1 ? 'left'  : 'left2';
   const rightAttr = group === 1 ? 'right' : 'right2';
   document.querySelectorAll('[data-match="' + leftAttr + '"], [data-match="' + rightAttr + '"]').forEach(el => {
     el.classList.remove('matched', 'matched-right', 'used', 'selected');
+    el.style.pointerEvents = '';
   });
 
+  document.getElementById(qCardId).classList.remove('answered');
   document.getElementById(qCardId + '-actions').innerHTML = '';
   document.getElementById(qCardId + '-feedback').className = 'feedback';
   document.getElementById(qCardId + '-feedback').innerHTML = '';
+  updateProgress();
 }
 
 // renderPairs removido (modo avaliação)
