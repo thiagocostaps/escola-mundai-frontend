@@ -778,10 +778,57 @@
   </div>
 
 
-    <!-- Q9 -->
+  <!-- Q9 - Tecnologia -->
+  <div class="q-card" id="q9">
+    <div class="q-header">
+      <div class="q-num">9</div>
+      <span class="q-text" style="margin:0">Qual destes é um exemplo de tecnologia?</span>
+      <span class="q-points">0,5 pt</span>
+    </div>
+    <div class="options-list">
+      <button class="option-btn" onclick="checkMC('q9',this,'wrong')">
+        <div class="opt-circle">A</div> Árvore
+      </button>
+      <button class="option-btn" onclick="checkMC('q9',this,'correct')">
+        <div class="opt-circle">B</div> Computador
+      </button>
+      <button class="option-btn" onclick="checkMC('q9',this,'wrong')">
+        <div class="opt-circle">C</div> Flor
+      </button>
+    </div>
+    <div class="feedback" id="q9-feedback"></div>
+  </div>
+
+  <!-- Q10 - Símbolo power -->
+  <div class="q-card" id="q10">
+    <div class="q-header">
+      <div class="q-num">10</div>
+      <span class="q-text" style="margin:0">Qual a função desse símbolo
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin:0 4px;">
+          <path d="M12 2v6"/><path d="M6.3 5.7a8 8 0 1 0 11.4 0"/>
+        </svg>
+        ?
+      </span>
+      <span class="q-points">0,5 pt</span>
+    </div>
+    <div class="options-list">
+      <button class="option-btn" onclick="checkMC('q10',this,'wrong')">
+        <div class="opt-circle">A</div> Fechar a janela
+      </button>
+      <button class="option-btn" onclick="checkMC('q10',this,'correct')">
+        <div class="opt-circle">B</div> Ligar e desligar
+      </button>
+      <button class="option-btn" onclick="checkMC('q10',this,'wrong')">
+        <div class="opt-circle">C</div> Salvar
+      </button>
+    </div>
+    <div class="feedback" id="q10-feedback"></div>
+  </div>
+
+  <!-- Q11 -->
   <div class="q-card" id="q12">
     <div class="q-header">
-      <div class="q-num">12</div>
+      <div class="q-num">11</div>
       <span class="q-text" style="margin:0">Observe a imagem. Qual é o nome desta ferramenta do Paint?</span>
       <span class="q-points">0,3 pts</span>
     </div>
@@ -805,7 +852,7 @@
   <!-- Q10 -->
   <div class="q-card" id="q13">
     <div class="q-header">
-      <div class="q-num">13</div>
+      <div class="q-num">12</div>
       <span class="q-text" style="margin:0">Observe a imagem. Qual é o nome desta ferramenta do Paint?</span>
       <span class="q-points">0,3 pts</span>
     </div>
@@ -829,7 +876,7 @@
   <!-- Q11 -->
   <div class="q-card" id="q14">
     <div class="q-header">
-      <div class="q-num">14</div>
+      <div class="q-num">13</div>
       <span class="q-text" style="margin:0">Observe a imagem. Qual é o nome desta ferramenta do Paint?</span>
       <span class="q-points">0,3 pts</span>
     </div>
@@ -853,7 +900,7 @@
   <!-- Q12 - Relacionar atalhos -->
   <div class="q-card" id="q15">
     <div class="q-header">
-      <div class="q-num">15</div>
+      <div class="q-num">14</div>
       <span class="q-text" style="margin:0">Relacione cada ação com a sua forma correta de executar</span>
       <span class="q-points">0,9 pt</span>
     </div>
@@ -1030,7 +1077,7 @@ function confirmMC(qid) {
   if (!p) return;
   const card = document.getElementById(qid);
   card.querySelectorAll('.option-btn').forEach(b => { b.disabled = true; });
-  const pts = {q1:0.2, q2:0.2, q3:0.2, q4:0.2, q5:0.9, q6:0.7, q7:0.7, q8:0.7, q9:0.9, q12:0.3, q13:0.3, q14:0.3, q16:0.7};
+  const pts = {q1:0.2, q2:0.2, q3:0.2, q4:0.2, q5:0.9, q6:0.7, q7:0.7, q8:0.7, q9:0.5, q10:0.5, q12:0.3, q13:0.3, q14:0.3};
   markAnswered(qid, p.result === 'correct' ? (pts[qid] || 0.7) : 0);
   card.classList.add('answered');
   const fb = document.getElementById(qid + '-feedback');
@@ -1188,7 +1235,7 @@ function showToast(msg) {
 }
 
 // ---- SUBMIT ----
-const ALL_QUESTIONS = ['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10','q11','q12','q13','q14','q15','q16'];
+const ALL_QUESTIONS = ['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10','q12','q13','q14','q15'];
 
 // ── API CONFIG ────────────────────────────────────────────────────────────────
 const API_URL = localStorage.getItem('api_url') || 'https://escola-mundai-backend-production.up.railway.app';
@@ -1207,7 +1254,7 @@ if (alunoNome) {
 
 async function submitProva() {
   // Force-confirm pending answers before checking missing
-  ['q1','q2','q3','q4','q5','q6','q7','q8','q9','q12','q13','q14','q16'].forEach(qid => {
+  ['q1','q2','q3','q4','q5','q6','q7','q9','q10','q12','q13','q14'].forEach(qid => {
     if (!answered[qid] && _mcPending[qid]) confirmMC(qid);
   });
   ['q8a','q8b','q8c'].forEach(qid => {
@@ -1217,11 +1264,6 @@ async function submitProva() {
   [2].forEach(group => {
     if (!answered[matchQid[group]] && matchState[group].pairs === matchTotals[group]) confirmMatch(group);
   });
-
-  if (!answered['q9']) {
-    const anyFilled = ['q9a','q9b'].some(id => document.getElementById(id).value.trim().length > 0);
-    if (anyFilled) checkQ9();
-  }
 
   // Force-check Q8 V/F
   if (!answered['q8']) {
@@ -1247,18 +1289,13 @@ async function submitProva() {
 
   // Coleta respostas para salvar
   const respostasDetalhadas = {
-    // q1_match removed (was old match q1)
-    // q2_pecas removed (now MC q1-q4)
-    q5_fechar:   _mcPending['q7'] ? _mcPending['q7'].result : (scores['q7'] > 0 ? 'correct' : 'wrong'),
-    q6_salvar:   _mcPending['q6'] ? _mcPending['q6'].result : (scores['q6'] > 0 ? 'correct' : 'wrong'),
-    q7_mouse:    _mcPending['q7'] ? _mcPending['q7'].result : (scores['q7'] > 0 ? 'correct' : 'wrong'),
-    q6_vf: { q6a: q6answers.q6a, q6b: q6answers.q6b, q6c: q6answers.q6c },
-    q9_formas: { forma1: document.getElementById('q9a')?.value || '', forma2: document.getElementById('q9b')?.value || '' },
-    q10_desktop:  _mcPending['q10'] ? _mcPending['q10'].result : (scores['q10'] > 0 ? 'correct' : 'wrong'),
-    q11_teclado:  _mcPending['q11'] ? _mcPending['q11'].result : (scores['q11'] > 0 ? 'correct' : 'wrong'),
-    // q10_tools removed (now MC q12-q14)
+    q5_fechar:      _mcPending['q5'] ? _mcPending['q5'].result : (scores['q5'] > 0 ? 'correct' : 'wrong'),
+    q6_salvar:      _mcPending['q6'] ? _mcPending['q6'].result : (scores['q6'] > 0 ? 'correct' : 'wrong'),
+    q7_mouse:       _mcPending['q7'] ? _mcPending['q7'].result : (scores['q7'] > 0 ? 'correct' : 'wrong'),
+    q8_vf: { q8a: q6answers.q8a, q8b: q6answers.q8b, q8c: q6answers.q8c },
+    q9_tecnologia:  _mcPending['q9']  ? _mcPending['q9'].result  : (scores['q9']  > 0 ? 'correct' : 'wrong'),
+    q10_power:      _mcPending['q10'] ? _mcPending['q10'].result : (scores['q10'] > 0 ? 'correct' : 'wrong'),
     q15_match: { pares: matchState[2].correct + '/' + matchTotals[2] },
-    q16_shift:   _mcPending['q16'] ? _mcPending['q16'].result : (scores['q16'] > 0 ? 'correct' : 'wrong'),
   };
 
   const totalPts = parseFloat(Math.min(Object.values(scores).reduce((a,b) => a+b, 0), 10).toFixed(1));
