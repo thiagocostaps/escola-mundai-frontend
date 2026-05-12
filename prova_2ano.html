@@ -191,7 +191,7 @@
     <div class="q-header">
       <div class="q-num">1</div>
       <span class="q-text" style="margin:0">Relacione cada botão do mouse com sua função</span>
-      <span class="q-points">0,9 pts</span>
+      <span class="q-points">1,0 pt</span>
     </div>
     <p class="q-hint">👆 Clique em um item da esquerda, depois clique no correspondente da direita.</p>
     <div class="match-container">
@@ -228,31 +228,58 @@
     <div class="feedback" id="q2-feedback"></div>
   </div>
 
-  <!-- Q3 – Funções de teclas (completar tabela, 1,0 pt) -->
+  <!-- Q3 – SHIFT (múltipla escolha) -->
   <div class="q-card" id="q3">
     <div class="q-header">
       <div class="q-num">3</div>
-      <span class="q-text" style="margin:0">Escreva a função de cada tecla</span>
-      <span class="q-points">1,0 pt</span>
+      <span class="q-text" style="margin:0">Para que serve a tecla <strong>SHIFT</strong>?</span>
+      <span class="q-points">0,8 pt</span>
     </div>
-    <table class="fill-table">
-      <thead><tr><th>Tecla</th><th>Função</th></tr></thead>
-      <tbody>
-        <tr><td><strong>SHIFT</strong></td><td><input class="text-answer" id="q3a" placeholder="Para que serve o SHIFT?"></td></tr>
-        <tr><td><strong>BACKSPACE</strong></td><td><input class="text-answer" id="q3b" placeholder="Para que serve o BACKSPACE?"></td></tr>
-        <tr><td><strong>ENTER</strong></td><td><input class="text-answer" id="q3c" placeholder="Para que serve o ENTER?"></td></tr>
-      </tbody>
-    </table>
-    <div class="action-row" id="q3-actions">
-      <button class="check-btn" onclick="previewQ3()">👁️ Pré-visualizar</button>
+    <div class="options-list">
+      <button class="option-btn" onclick="checkMC('q3',this,'wrong')"><span class="opt-circle">A</span> Apagar o caractere à esquerda do cursor.</button>
+      <button class="option-btn" onclick="checkMC('q3',this,'correct')"><span class="opt-circle">B</span> Digitar letras maiúsculas ou caracteres especiais.</button>
+      <button class="option-btn" onclick="checkMC('q3',this,'wrong')"><span class="opt-circle">C</span> Confirmar uma ação ou pular uma linha.</button>
+      <button class="option-btn" onclick="checkMC('q3',this,'wrong')"><span class="opt-circle">D</span> Mover o cursor para o início da linha.</button>
     </div>
     <div class="feedback" id="q3-feedback"></div>
+  </div>
+
+  <!-- Q3b – BACKSPACE (múltipla escolha) -->
+  <div class="q-card" id="q3b">
+    <div class="q-header">
+      <div class="q-num">4</div>
+      <span class="q-text" style="margin:0">Para que serve a tecla <strong>BACKSPACE</strong>?</span>
+      <span class="q-points">0,8 pt</span>
+    </div>
+    <div class="options-list">
+      <button class="option-btn" onclick="checkMC('q3b',this,'wrong')"><span class="opt-circle">A</span> Digitar letras maiúsculas ou caracteres especiais.</button>
+      <button class="option-btn" onclick="checkMC('q3b',this,'wrong')"><span class="opt-circle">B</span> Confirmar uma ação ou pular uma linha.</button>
+      <button class="option-btn" onclick="checkMC('q3b',this,'correct')"><span class="opt-circle">C</span> Apagar o caractere à esquerda do cursor.</button>
+      <button class="option-btn" onclick="checkMC('q3b',this,'wrong')"><span class="opt-circle">D</span> Mover o cursor para o final da linha.</button>
+    </div>
+    <div class="feedback" id="q3b-feedback"></div>
+  </div>
+
+  <!-- Q3c – ENTER (múltipla escolha) -->
+  <div class="q-card" id="q3c">
+    <div class="q-header">
+      <div class="q-num">5</div>
+      <span class="q-text" style="margin:0">Para que serve a tecla <strong>ENTER</strong>?</span>
+      <span class="q-points">0,8 pt</span>
+    </div>
+    <div class="options-list">
+      <button class="option-btn" onclick="checkMC('q3c',this,'wrong')"><span class="opt-circle">A</span> Apagar o caractere à esquerda do cursor.</button>
+      <button class="option-btn" onclick="checkMC('q3c',this,'wrong')"><span class="opt-circle">B</span> Digitar letras maiúsculas ou caracteres especiais.</button>
+      <button class="option-btn" onclick="checkMC('q3c',this,'correct')"><span class="opt-circle">C</span> Confirmar uma ação ou pular uma linha.</button>
+      <button class="option-btn" onclick="checkMC('q3c',this,'wrong')"><span class="opt-circle">D</span> Salvar o documento.</button>
+    </div>
+    <div class="feedback" id="q3c-feedback"></div>
   </div>
 
   <!-- Q4 – Área de trabalho (múltipla escolha, 0,8 pts) -->
   <div class="q-card" id="q4">
     <div class="q-header">
-      <div class="q-num">4</div>
+      <div class="q-num">6</div>
       <span class="q-text" style="margin:0">O que é a Área de Trabalho do computador?</span>
       <span class="q-points">0,8 pts</span>
     </div>
@@ -268,9 +295,9 @@
   <!-- Q5 – Relacionar elementos da Área de Trabalho (0,9 pts) -->
   <div class="q-card" id="q5">
     <div class="q-header">
-      <div class="q-num">5</div>
+      <div class="q-num">7</div>
       <span class="q-text" style="margin:0">Relacione cada elemento da Área de Trabalho com sua descrição</span>
-      <span class="q-points">0,9 pts</span>
+      <span class="q-points">1,0 pt</span>
     </div>
     <p class="q-hint">👆 Clique em um item da esquerda, depois clique no correspondente da direita.</p>
     <div class="match-container">
@@ -294,9 +321,9 @@
   <!-- Q6 – Verdadeiro ou Falso (0,9 pts) -->
   <div class="q-card" id="q6">
     <div class="q-header">
-      <div class="q-num">6</div>
+      <div class="q-num">8</div>
       <span class="q-text" style="margin:0">Marque Verdadeiro (V) ou Falso (F)</span>
-      <span class="q-points">0,9 pts</span>
+      <span class="q-points">0,8 pts</span>
     </div>
     <div class="tf-list">
       <div class="tf-item">
@@ -327,7 +354,7 @@
   <!-- Q7 – Botões da janela (múltipla escolha, 0,8 pts) -->
   <div class="q-card" id="q7">
     <div class="q-header">
-      <div class="q-num">7</div>
+      <div class="q-num">9</div>
       <span class="q-text" style="margin:0">O que faz o botão MAXIMIZAR de uma janela?</span>
       <span class="q-points">0,8 pts</span>
     </div>
@@ -340,27 +367,18 @@
     <div class="feedback" id="q7-feedback"></div>
   </div>
 
-  <!-- Q8 – Completar com palavras (MINIMIZAR, MAXIMIZAR, RESTAURAR, 0,9 pts) -->
+  <!-- Q8 – Botões janela completar → MC -->
   <div class="q-card" id="q8">
     <div class="q-header">
-      <div class="q-num">8</div>
-      <span class="q-text" style="margin:0">Complete com a palavra correta: MINIMIZAR • MAXIMIZAR • RESTAURAR</span>
-      <span class="q-points">0,9 pts</span>
+      <div class="q-num">10</div>
+      <span class="q-text" style="margin:0">Qual botão usamos para fazer a janela ocupar toda a tela?</span>
+      <span class="q-points">0,8 pt</span>
     </div>
-    <p class="q-hint">💡 Use as palavras do quadro acima para preencher os espaços.</p>
-    <div style="display:flex;flex-direction:column;gap:12px;">
-      <div style="background:var(--bg);border:2px solid var(--border);border-radius:10px;padding:12px 16px;font-size:15px;font-weight:600;">
-        a) Para fazer a janela ocupar toda a tela usamos: <input class="text-answer" id="q8a" style="min-height:unset;height:36px;width:180px;display:inline-block;vertical-align:middle;margin-left:6px;" placeholder="…">
-      </div>
-      <div style="background:var(--bg);border:2px solid var(--border);border-radius:10px;padding:12px 16px;font-size:15px;font-weight:600;">
-        b) Para deixar a janela bem pequena usamos: <input class="text-answer" id="q8b" style="min-height:unset;height:36px;width:180px;display:inline-block;vertical-align:middle;margin-left:6px;" placeholder="…">
-      </div>
-      <div style="background:var(--bg);border:2px solid var(--border);border-radius:10px;padding:12px 16px;font-size:15px;font-weight:600;">
-        c) Para voltar a janela ao tamanho anterior usamos: <input class="text-answer" id="q8c" style="min-height:unset;height:36px;width:180px;display:inline-block;vertical-align:middle;margin-left:6px;" placeholder="…">
-      </div>
-    </div>
-    <div class="action-row" id="q8-actions">
-      <button class="check-btn" onclick="previewQ8()">👁️ Pré-visualizar</button>
+    <div class="options-list">
+      <button class="option-btn" onclick="checkMC('q8',this,'wrong')"><span class="opt-circle">A</span> MINIMIZAR</button>
+      <button class="option-btn" onclick="checkMC('q8',this,'correct')"><span class="opt-circle">B</span> MAXIMIZAR</button>
+      <button class="option-btn" onclick="checkMC('q8',this,'wrong')"><span class="opt-circle">C</span> RESTAURAR</button>
+      <button class="option-btn" onclick="checkMC('q8',this,'wrong')"><span class="opt-circle">D</span> FECHAR</button>
     </div>
     <div class="feedback" id="q8-feedback"></div>
   </div>
@@ -368,7 +386,7 @@
   <!-- Q9 – Múltipla escolha Barra de Tarefas (0,8 pts) -->
   <div class="q-card" id="q9">
     <div class="q-header">
-      <div class="q-num">9</div>
+      <div class="q-num">11</div>
       <span class="q-text" style="margin:0">Onde fica a Barra de Tarefas na Área de Trabalho?</span>
       <span class="q-points">0,8 pts</span>
     </div>
@@ -384,9 +402,9 @@
   <!-- Q10 – Verdadeiro ou Falso sobre teclado (0,9 pts) -->
   <div class="q-card" id="q10">
     <div class="q-header">
-      <div class="q-num">10</div>
+      <div class="q-num">12</div>
       <span class="q-text" style="margin:0">Marque Verdadeiro (V) ou Falso (F) sobre o teclado</span>
-      <span class="q-points">0,9 pts</span>
+      <span class="q-points">0,8 pts</span>
     </div>
     <div class="tf-list">
       <div class="tf-item">
@@ -412,22 +430,6 @@
       </div>
     </div>
     <div class="feedback" id="q10-feedback"></div>
-  </div>
-
-  <!-- Q11 – Múltipla escolha RESTAURAR (0,8 pts) -->
-  <div class="q-card" id="q11">
-    <div class="q-header">
-      <div class="q-num">11</div>
-      <span class="q-text" style="margin:0">O que acontece quando clicamos com o botão DIREITO do mouse sobre um arquivo?</span>
-      <span class="q-points">0,8 pts</span>
-    </div>
-    <div class="options-list">
-      <button class="option-btn" onclick="checkMC('q11',this,'wrong')"><span class="opt-circle">A</span> O arquivo é aberto imediatamente.</button>
-      <button class="option-btn" onclick="checkMC('q11',this,'wrong')"><span class="opt-circle">B</span> O arquivo é enviado para a lixeira.</button>
-      <button class="option-btn" onclick="checkMC('q11',this,'correct')"><span class="opt-circle">C</span> Aparece um menu com opções como abrir, copiar, renomear e excluir.</button>
-      <button class="option-btn" onclick="checkMC('q11',this,'wrong')"><span class="opt-circle">D</span> O computador é reiniciado.</button>
-    </div>
-    <div class="feedback" id="q11-feedback"></div>
   </div>
 
   <!-- Submit -->
@@ -456,7 +458,7 @@
 // ── STATE ──────────────────────────────────────────────────────────────────────
 const answered = {};
 const scores   = {};
-const TOTAL_Q  = 11;
+const TOTAL_Q  = 12;
 
 function markAnswered(qid, pts) {
   answered[qid] = true;
@@ -545,7 +547,7 @@ function checkQ8() {
 
 // ── MC ──────────────────────────────────────────────────────────────────────
 const _mcPending = {};
-const mcPts = { q2: 0.8, q4: 0.8, q7: 0.8, q9: 0.8, q11: 0.8 };
+const mcPts = { q2: 0.8, q3: 0.8, q3b: 0.8, q3c: 0.8, q4: 0.8, q7: 0.8, q8: 0.8, q9: 0.8 };
 function checkMC(qid, btn, result) {
   if (answered[qid]) return;
   if (_mcPending[qid]) _mcPending[qid].btn.classList.remove('selected-answer');
@@ -708,29 +710,20 @@ if (alunoNome) {
   if (nomeInput) { nomeInput.value = alunoNome; nomeInput.readOnly = true; nomeInput.style.background = '#f1f5f9'; }
 }
 
-const ALL_QUESTIONS = ['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10','q11'];
+const ALL_QUESTIONS = ['q1','q2','q3','q3b','q3c','q4','q5','q6','q7','q8','q9','q10'];
 
 async function submitProva() {
   // Force-confirm pending MC
-  ['q2','q4','q7','q9','q11'].forEach(qid => {
+  ['q2','q3','q3b','q3c','q4','q7','q8','q9'].forEach(qid => {
     if (!answered[qid] && _mcPending[qid]) confirmMC(qid);
   });
-  // Force-confirm text answers
-  if (!answered['q3']) {
-    const any = ['q3a','q3b','q3c'].some(id => document.getElementById(id).value.trim().length > 0);
-    if (any) checkQ3();
-  }
-  if (!answered['q8']) {
-    const any = ['q8a','q8b','q8c'].some(id => document.getElementById(id).value.trim().length > 0);
-    if (any) checkQ8();
-  }
   // Force-confirm TF
   if (!answered['q6']) {
     const any6 = q6answers.q6a !== null || q6answers.q6b !== null || q6answers.q6c !== null;
     if (any6) {
       const keys = Object.keys(q6answers);
       const correct = keys.filter(k => q6answers[k] === tfCorrect6[k]).length;
-      markAnswered('q6', parseFloat((correct * 0.3).toFixed(1)));
+      markAnswered('q6', parseFloat((correct * (0.8/3)).toFixed(2)));
     }
   }
   if (!answered['q10']) {
@@ -738,7 +731,7 @@ async function submitProva() {
     if (any10) {
       const keys = Object.keys(q10answers);
       const correct = keys.filter(k => q10answers[k] === tfCorrect10[k]).length;
-      markAnswered('q10', parseFloat((correct * 0.3).toFixed(1)));
+      markAnswered('q10', parseFloat((correct * (0.8/3)).toFixed(2)));
     }
   }
   // Force-confirm matches
