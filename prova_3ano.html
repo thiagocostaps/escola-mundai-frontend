@@ -179,7 +179,7 @@
     <div class="q-header">
       <div class="q-num">1</div>
       <span class="q-text" style="margin:0">O que é Software?</span>
-      <span class="q-points">0,8 pt</span>
+      <span class="q-points">1,0 pt</span>
     </div>
     <div class="options-list">
       <button class="option-btn" onclick="checkMC('q1',this,'wrong')"><span class="opt-circle">A</span> São as peças físicas do computador, como teclado e monitor.</button>
@@ -194,7 +194,7 @@
     <div class="q-header">
       <div class="q-num">2</div>
       <span class="q-text" style="margin:0">O que é Hardware?</span>
-      <span class="q-points">0,8 pt</span>
+      <span class="q-points">1,0 pt</span>
     </div>
     <div class="options-list">
       <button class="option-btn" onclick="checkMC('q2',this,'wrong')"><span class="opt-circle">A</span> São os programas instalados no computador, como o Word e o Paint.</button>
@@ -246,7 +246,7 @@
     <div class="q-header">
       <div class="q-num">5</div>
       <span class="q-text" style="margin:0">Quais são os nomes dos três principais botões do mouse?</span>
-      <span class="q-points">0,9 pt</span>
+      <span class="q-points">1,0 pt</span>
     </div>
     <div class="options-list">
       <button class="option-btn" onclick="checkMC('q5',this,'wrong')"><span class="opt-circle">A</span> Esquerdo, Direito e Central</button>
@@ -329,34 +329,49 @@
     <div class="feedback" id="q9-feedback"></div>
   </div>
 
-  <!-- Q10 — Atalho Explorador de Arquivos (múltipla escolha, 0,8) -->
+  <!-- Q10 — SHIFT -->
   <div class="q-card" id="q10">
     <div class="q-header">
       <div class="q-num">10</div>
-      <span class="q-text" style="margin:0">Qual é a tecla de atalho para abrir o Explorador de Arquivos?</span>
-      <span class="q-points">0,8 pt</span>
+      <span class="q-text" style="margin:0">Para que serve a tecla <strong>SHIFT</strong>?</span>
+      <span class="q-points">0,5 pt</span>
     </div>
     <div class="options-list">
-      <button class="option-btn" onclick="checkMC('q10',this,'correct')"><span class="opt-circle">A</span> Windows + E</button>
-      <button class="option-btn" onclick="checkMC('q10',this,'wrong')"><span class="opt-circle">B</span> Ctrl + E</button>
-      <button class="option-btn" onclick="checkMC('q10',this,'wrong')"><span class="opt-circle">C</span> Alt + E</button>
+      <button class="option-btn" onclick="checkMC('q10',this,'wrong')"><span class="opt-circle">A</span> Apagar o caractere à esquerda do cursor</button>
+      <button class="option-btn" onclick="checkMC('q10',this,'correct')"><span class="opt-circle">B</span> Digitar letras maiúsculas ou caracteres especiais</button>
+      <button class="option-btn" onclick="checkMC('q10',this,'wrong')"><span class="opt-circle">C</span> Confirmar uma ação ou pular uma linha</button>
     </div>
     <div class="feedback" id="q10-feedback"></div>
   </div>
 
-  <!-- Q11 — Shift+Delete (múltipla escolha, 0,8) -->
+  <!-- Q11 — BACKSPACE -->
   <div class="q-card" id="q11">
     <div class="q-header">
       <div class="q-num">11</div>
-      <span class="q-text" style="margin:0">O que faz a tecla de atalho Shift + Delete em um arquivo?</span>
-      <span class="q-points">0,8 pt</span>
+      <span class="q-text" style="margin:0">Para que serve a tecla <strong>BACKSPACE</strong>?</span>
+      <span class="q-points">0,5 pt</span>
     </div>
     <div class="options-list">
-      <button class="option-btn" onclick="checkMC('q11',this,'wrong')"><span class="opt-circle">A</span> O arquivo é enviado para a Lixeira.</button>
-      <button class="option-btn" onclick="checkMC('q11',this,'correct')"><span class="opt-circle">B</span> O arquivo é excluído definitivamente sem passar pela Lixeira.</button>
-      <button class="option-btn" onclick="checkMC('q11',this,'wrong')"><span class="opt-circle">C</span> O arquivo é renomeado.</button>
+      <button class="option-btn" onclick="checkMC('q11',this,'wrong')"><span class="opt-circle">A</span> Digitar letras maiúsculas ou caracteres especiais</button>
+      <button class="option-btn" onclick="checkMC('q11',this,'wrong')"><span class="opt-circle">B</span> Confirmar uma ação ou pular uma linha</button>
+      <button class="option-btn" onclick="checkMC('q11',this,'correct')"><span class="opt-circle">C</span> Apagar o caractere à esquerda do cursor</button>
     </div>
     <div class="feedback" id="q11-feedback"></div>
+  </div>
+
+  <!-- Q12 — ENTER -->
+  <div class="q-card" id="q12">
+    <div class="q-header">
+      <div class="q-num">12</div>
+      <span class="q-text" style="margin:0">Para que serve a tecla <strong>ENTER</strong>?</span>
+      <span class="q-points">0,5 pt</span>
+    </div>
+    <div class="options-list">
+      <button class="option-btn" onclick="checkMC('q12',this,'wrong')"><span class="opt-circle">A</span> Apagar o caractere à esquerda do cursor</button>
+      <button class="option-btn" onclick="checkMC('q12',this,'correct')"><span class="opt-circle">B</span> Confirmar uma ação ou pular uma linha</button>
+      <button class="option-btn" onclick="checkMC('q12',this,'wrong')"><span class="opt-circle">C</span> Digitar letras maiúsculas ou caracteres especiais</button>
+    </div>
+    <div class="feedback" id="q12-feedback"></div>
   </div>
 
   <!-- Submit -->
@@ -385,8 +400,8 @@
 // ── STATE ──────────────────────────────────────────────────────────────────
 const answered = {};
 const scores   = {};
-const TOTAL_Q  = 11;
-const mcPts    = { q7: 0.8, q10: 0.8, q11: 0.8 };
+const TOTAL_Q  = 12;
+const mcPts    = { q7: 0.8, q10: 0.5, q11: 0.5, q12: 0.5 };
 const _mcPending = {};
 
 function markAnswered(qid, pts) {
@@ -417,7 +432,7 @@ function previewText(qid, ids) {
 function confirmText(qid, ids) {
   if (answered[qid]) return;
   ids.forEach(id => { const el = document.getElementById(id); if(el) el.disabled = true; });
-  const pts = { q1:0.8, q2:0.8, q4:1.0, q5:0.9, q6:1.0, q7:0.8, q8:0.8, q10:0.8, q11:0.8 };
+  const pts = { q1:1.0, q2:1.0, q4:1.0, q5:1.0, q6:1.0, q7:0.8, q8:0.8, q10:0.5, q11:0.5, q12:0.5 };
   markAnswered(qid, pts[qid] || 0.8);
   document.getElementById(qid).classList.add('answered');
   document.getElementById(qid + '-actions').innerHTML = '';
@@ -572,11 +587,11 @@ if (alunoNome) {
   if (ni) { ni.value = alunoNome; ni.readOnly = true; ni.style.background = '#f1f5f9'; }
 }
 
-const ALL_Q = ['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10','q11'];
+const ALL_Q = ['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10','q11','q12'];
 
 async function submitProva() {
   // Force-confirm pending
-  ['q1','q2','q4','q5','q6','q7','q8','q10','q11'].forEach(qid => { if (!answered[qid] && _mcPending[qid]) confirmMC(qid); });
+  ['q1','q2','q4','q5','q6','q7','q8','q10','q11','q12'].forEach(qid => { if (!answered[qid] && _mcPending[qid]) confirmMC(qid); });
   if (!answered['q3'] && Object.keys(shAnswers).length === shTotal) confirmSH();
   if (!answered['q9'] && matchState9.pairs === matchTotal9) confirmMatch9();
 
@@ -605,8 +620,9 @@ async function submitProva() {
     q7_simbolo:      _mcPending['q7']  ? _mcPending['q7'].result  : (scores['q7']  > 0 ? 'correct' : 'wrong'),
     q8_so:           _mcPending['q8']  ? _mcPending['q8'].result  : (scores['q8']  > 0 ? 'correct' : 'wrong'),
     q9_match_area:   { pares: matchState9.correct + '/' + matchTotal9 },
-    q10_atalho:      _mcPending['q10'] ? _mcPending['q10'].result : (scores['q10'] > 0 ? 'correct' : 'wrong'),
-    q11_shift_del:   _mcPending['q11'] ? _mcPending['q11'].result : (scores['q11'] > 0 ? 'correct' : 'wrong'),
+    q10_shift:       _mcPending['q10'] ? _mcPending['q10'].result : (scores['q10'] > 0 ? 'correct' : 'wrong'),
+    q11_backspace:   _mcPending['q11'] ? _mcPending['q11'].result : (scores['q11'] > 0 ? 'correct' : 'wrong'),
+    q12_enter:       _mcPending['q12'] ? _mcPending['q12'].result : (scores['q12'] > 0 ? 'correct' : 'wrong'),
   };
 
   try {
