@@ -181,9 +181,10 @@
       <span class="q-text" style="margin:0">O que é Software?</span>
       <span class="q-points">0,8 pt</span>
     </div>
-    <textarea class="text-answer" id="q1a" placeholder="Escreva sua resposta…"></textarea>
-    <div class="action-row" id="q1-actions">
-      <button class="check-btn" onclick="previewText('q1',['q1a'])">👁️ Pré-visualizar</button>
+    <div class="options-list">
+      <button class="option-btn" onclick="checkMC('q1',this,'wrong')"><span class="opt-circle">A</span> São as peças físicas do computador, como teclado e monitor.</button>
+      <button class="option-btn" onclick="checkMC('q1',this,'correct')"><span class="opt-circle">B</span> São os programas e aplicativos que fazem o computador funcionar.</button>
+      <button class="option-btn" onclick="checkMC('q1',this,'wrong')"><span class="opt-circle">C</span> É o cabo que conecta o computador à energia elétrica.</button>
     </div>
     <div class="feedback" id="q1-feedback"></div>
   </div>
@@ -195,9 +196,10 @@
       <span class="q-text" style="margin:0">O que é Hardware?</span>
       <span class="q-points">0,8 pt</span>
     </div>
-    <textarea class="text-answer" id="q2a" placeholder="Escreva sua resposta…"></textarea>
-    <div class="action-row" id="q2-actions">
-      <button class="check-btn" onclick="previewText('q2',['q2a'])">👁️ Pré-visualizar</button>
+    <div class="options-list">
+      <button class="option-btn" onclick="checkMC('q2',this,'wrong')"><span class="opt-circle">A</span> São os programas instalados no computador, como o Word e o Paint.</button>
+      <button class="option-btn" onclick="checkMC('q2',this,'wrong')"><span class="opt-circle">B</span> É o sistema que organiza os arquivos na internet.</button>
+      <button class="option-btn" onclick="checkMC('q2',this,'correct')"><span class="opt-circle">C</span> São as partes físicas do computador, como monitor, teclado e mouse.</button>
     </div>
     <div class="feedback" id="q2-feedback"></div>
   </div>
@@ -229,50 +231,41 @@
   <div class="q-card" id="q4">
     <div class="q-header">
       <div class="q-num">4</div>
-      <span class="q-text" style="margin:0">Informe o nome de cada equipamento conforme a sua função</span>
+      <span class="q-text" style="margin:0">Qual equipamento é a tela onde vemos as informações do computador?</span>
       <span class="q-points">1,0 pt</span>
     </div>
-    <div class="fill-row">
-      <div class="fill-item"><span>a) Tela onde vemos as informações do computador:</span><input class="text-answer text-answer-sm" id="q4a" placeholder="…" style="flex:1;min-width:120px;"></div>
-      <div class="fill-item"><span>b) Peça principal que realiza as tarefas do computador:</span><input class="text-answer text-answer-sm" id="q4b" placeholder="…" style="flex:1;min-width:120px;"></div>
-      <div class="fill-item"><span>c) Protege o computador das altas cargas de energia:</span><input class="text-answer text-answer-sm" id="q4c" placeholder="…" style="flex:1;min-width:120px;"></div>
-      <div class="fill-item"><span>d) Usada para escrever palavras e números:</span><input class="text-answer text-answer-sm" id="q4d" placeholder="…" style="flex:1;min-width:120px;"></div>
-      <div class="fill-item"><span>e) Usada para mover o ponteiro na tela:</span><input class="text-answer text-answer-sm" id="q4e" placeholder="…" style="flex:1;min-width:120px;"></div>
-    </div>
-    <div class="action-row" id="q4-actions">
-      <button class="check-btn" onclick="previewText('q4',['q4a','q4b','q4c','q4d','q4e'])">👁️ Pré-visualizar</button>
+    <div class="options-list">
+      <button class="option-btn" onclick="checkMC('q4',this,'wrong')"><span class="opt-circle">A</span> Teclado</button>
+      <button class="option-btn" onclick="checkMC('q4',this,'correct')"><span class="opt-circle">B</span> Monitor</button>
+      <button class="option-btn" onclick="checkMC('q4',this,'wrong')"><span class="opt-circle">C</span> Mouse</button>
     </div>
     <div class="feedback" id="q4-feedback"></div>
   </div>
 
-  <!-- Q5 — Três botões do mouse (texto, 0,9) -->
   <div class="q-card" id="q5">
     <div class="q-header">
       <div class="q-num">5</div>
       <span class="q-text" style="margin:0">Quais são os nomes dos três principais botões do mouse?</span>
       <span class="q-points">0,9 pt</span>
     </div>
-    <textarea class="text-answer" id="q5a" placeholder="Escreva os três botões…"></textarea>
-    <div class="action-row" id="q5-actions">
-      <button class="check-btn" onclick="previewText('q5',['q5a'])">👁️ Pré-visualizar</button>
+    <div class="options-list">
+      <button class="option-btn" onclick="checkMC('q5',this,'wrong')"><span class="opt-circle">A</span> Esquerdo, Direito e Central</button>
+      <button class="option-btn" onclick="checkMC('q5',this,'correct')"><span class="opt-circle">B</span> Botão esquerdo, botão direito e scroll (roda)</button>
+      <button class="option-btn" onclick="checkMC('q5',this,'wrong')"><span class="opt-circle">C</span> Primário, Secundário e Auxiliar</button>
     </div>
     <div class="feedback" id="q5-feedback"></div>
   </div>
 
-  <!-- Q6 — Funções das teclas (1,0) -->
   <div class="q-card" id="q6">
     <div class="q-header">
       <div class="q-num">6</div>
-      <span class="q-text" style="margin:0">Para que serve cada tecla? Escreva ao lado de cada uma</span>
+      <span class="q-text" style="margin:0">Qual é a função da tecla BACKSPACE?</span>
       <span class="q-points">1,0 pt</span>
     </div>
-    <div class="fill-row">
-      <div class="fill-item"><span style="font-weight:800;min-width:120px">SHIFT:</span><input class="text-answer text-answer-sm" id="q6a" placeholder="Para que serve?" style="flex:1;"></div>
-      <div class="fill-item"><span style="font-weight:800;min-width:120px">BACKSPACE:</span><input class="text-answer text-answer-sm" id="q6b" placeholder="Para que serve?" style="flex:1;"></div>
-      <div class="fill-item"><span style="font-weight:800;min-width:120px">ENTER:</span><input class="text-answer text-answer-sm" id="q6c" placeholder="Para que serve?" style="flex:1;"></div>
-    </div>
-    <div class="action-row" id="q6-actions">
-      <button class="check-btn" onclick="previewText('q6',['q6a','q6b','q6c'])">👁️ Pré-visualizar</button>
+    <div class="options-list">
+      <button class="option-btn" onclick="checkMC('q6',this,'wrong')"><span class="opt-circle">A</span> Confirmar uma ação ou pular uma linha</button>
+      <button class="option-btn" onclick="checkMC('q6',this,'wrong')"><span class="opt-circle">B</span> Digitar letras maiúsculas ou caracteres especiais</button>
+      <button class="option-btn" onclick="checkMC('q6',this,'correct')"><span class="opt-circle">C</span> Apagar o caractere à esquerda do cursor</button>
     </div>
     <div class="feedback" id="q6-feedback"></div>
   </div>
@@ -292,16 +285,16 @@
     <div class="feedback" id="q7-feedback"></div>
   </div>
 
-  <!-- Q8 — O que é sistema operacional? (texto, 0,8) -->
   <div class="q-card" id="q8">
     <div class="q-header">
       <div class="q-num">8</div>
       <span class="q-text" style="margin:0">O que é um sistema operacional? E qual estamos utilizando?</span>
       <span class="q-points">0,8 pt</span>
     </div>
-    <textarea class="text-answer" id="q8a" placeholder="Escreva sua resposta…"></textarea>
-    <div class="action-row" id="q8-actions">
-      <button class="check-btn" onclick="previewText('q8',['q8a'])">👁️ Pré-visualizar</button>
+    <div class="options-list">
+      <button class="option-btn" onclick="checkMC('q8',this,'wrong')"><span class="opt-circle">A</span> É um programa de jogos. Estamos usando o Linux.</button>
+      <button class="option-btn" onclick="checkMC('q8',this,'correct')"><span class="opt-circle">B</span> É o programa principal que gerencia o computador. Estamos usando o Windows.</button>
+      <button class="option-btn" onclick="checkMC('q8',this,'wrong')"><span class="opt-circle">C</span> É um antivírus que protege o computador. Estamos usando o MacOS.</button>
     </div>
     <div class="feedback" id="q8-feedback"></div>
   </div>
@@ -424,7 +417,7 @@ function previewText(qid, ids) {
 function confirmText(qid, ids) {
   if (answered[qid]) return;
   ids.forEach(id => { const el = document.getElementById(id); if(el) el.disabled = true; });
-  const pts = { q1:0.8, q2:0.8, q4:1.0, q5:0.9, q6:1.0, q8:0.8 };
+  const pts = { q1:0.8, q2:0.8, q4:1.0, q5:0.9, q6:1.0, q7:0.8, q8:0.8, q10:0.8, q11:0.8 };
   markAnswered(qid, pts[qid] || 0.8);
   document.getElementById(qid).classList.add('answered');
   document.getElementById(qid + '-actions').innerHTML = '';
@@ -583,14 +576,7 @@ const ALL_Q = ['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10','q11'];
 
 async function submitProva() {
   // Force-confirm pending
-  ['q7','q10','q11'].forEach(qid => { if (!answered[qid] && _mcPending[qid]) confirmMC(qid); });
-  ['q1','q2','q4','q5','q6','q8'].forEach(qid => {
-    if (!answered[qid]) {
-      const ids = { q1:['q1a'], q2:['q2a'], q4:['q4a','q4b','q4c','q4d','q4e'], q5:['q5a'], q6:['q6a','q6b','q6c'], q8:['q8a'] }[qid] || [];
-      const any = ids.some(id => (document.getElementById(id)?.value||'').trim().length > 0);
-      if (any) confirmText(qid, ids);
-    }
-  });
+  ['q1','q2','q4','q5','q6','q7','q8','q10','q11'].forEach(qid => { if (!answered[qid] && _mcPending[qid]) confirmMC(qid); });
   if (!answered['q3'] && Object.keys(shAnswers).length === shTotal) confirmSH();
   if (!answered['q9'] && matchState9.pairs === matchTotal9) confirmMatch9();
 
@@ -610,14 +596,14 @@ async function submitProva() {
   if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = '📤 Enviando…'; }
 
   const respostasDetalhadas = {
-    q1_software:     document.getElementById('q1a')?.value || '',
-    q2_hardware:     document.getElementById('q2a')?.value || '',
+    q1_software:     _mcPending['q1']  ? _mcPending['q1'].result  : (scores['q1']  > 0 ? 'correct' : 'wrong'),
+    q2_hardware:     _mcPending['q2']  ? _mcPending['q2'].result  : (scores['q2']  > 0 ? 'correct' : 'wrong'),
     q3_sh:           { ...shAnswers },
-    q4_equipamentos: { monitor: document.getElementById('q4a')?.value||'', cpu: document.getElementById('q4b')?.value||'', estabilizador: document.getElementById('q4c')?.value||'', teclado: document.getElementById('q4d')?.value||'', mouse: document.getElementById('q4e')?.value||'' },
-    q5_botoes_mouse: document.getElementById('q5a')?.value || '',
-    q6_teclas:       { shift: document.getElementById('q6a')?.value||'', backspace: document.getElementById('q6b')?.value||'', enter: document.getElementById('q6c')?.value||'' },
-    q7_simbolo:      _mcPending['q7'] ? _mcPending['q7'].result : (scores['q7'] > 0 ? 'correct' : 'wrong'),
-    q8_so:           document.getElementById('q8a')?.value || '',
+    q4_equipamentos: _mcPending['q4']  ? _mcPending['q4'].result  : (scores['q4']  > 0 ? 'correct' : 'wrong'),
+    q5_botoes_mouse: _mcPending['q5']  ? _mcPending['q5'].result  : (scores['q5']  > 0 ? 'correct' : 'wrong'),
+    q6_teclas:       _mcPending['q6']  ? _mcPending['q6'].result  : (scores['q6']  > 0 ? 'correct' : 'wrong'),
+    q7_simbolo:      _mcPending['q7']  ? _mcPending['q7'].result  : (scores['q7']  > 0 ? 'correct' : 'wrong'),
+    q8_so:           _mcPending['q8']  ? _mcPending['q8'].result  : (scores['q8']  > 0 ? 'correct' : 'wrong'),
     q9_match_area:   { pares: matchState9.correct + '/' + matchTotal9 },
     q10_atalho:      _mcPending['q10'] ? _mcPending['q10'].result : (scores['q10'] > 0 ? 'correct' : 'wrong'),
     q11_shift_del:   _mcPending['q11'] ? _mcPending['q11'].result : (scores['q11'] > 0 ? 'correct' : 'wrong'),
